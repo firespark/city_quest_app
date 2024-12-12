@@ -21,3 +21,6 @@ Android version only.
 
 ### 2.0
 * Released: July 22, 2023
+
+### 3.0
+* Released: December 12, 2024
