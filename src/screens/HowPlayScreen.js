@@ -43,7 +43,7 @@ export const HowPlayScreen = () => {
 
         try {
             
-            const output = await Http.get(`https://test2.gagara-web.ru/api/pages/howPlay`)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/pages/howPlay`)
 
             if (output.success == 1) {
                 setData(output.data)

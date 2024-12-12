@@ -91,7 +91,7 @@ export const ContactsForm = () => {
                 const postdata = {name, email, message}
 
                 try {
-                    const output = await Http.post(`https://test2.gagara-web.ru/api/contacts/send`, postdata)
+                    const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/contacts/send`, postdata)
 
                     if (output.success == 1) {
                         setSent(output.data.message)

@@ -11,6 +11,7 @@ import { ModalImage } from '../modal/ModalImage'
 import { ModalHintAlert } from '../modal/ModalHintAlert'
 import { ModalSkipAlert } from '../modal/ModalSkipAlert'
 import { ModalBackAlert } from '../modal/ModalBackAlert'
+import { ModalProgress } from '../modal/ModalProgress'
 
 import { gStyle, gStyleHeader } from '../../../styles/style'
 
@@ -88,6 +89,15 @@ export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
         case 'back': 
             content = 
             <ModalBackAlert
+                setModal={setModal}
+            />
+            break
+        
+        case 'progress': 
+            content = 
+            <ModalProgress
+                game={game}
+                setGame={setGame}
                 setModal={setModal}
             />
             break

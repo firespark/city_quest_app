@@ -1,5 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react'
-import { View } from 'react-native'
+import { View, BackHandler, Alert } from 'react-native'
 
 import { GameTemplate } from '../components/game/template/GameTemplate'
 import { ModalTemplate } from '../components/game/template/ModalTemplate'
@@ -16,7 +16,6 @@ import { Http } from '../scripts/http'
 
 
 export const GameScreen = () => {
-
     const [loader, setLoader] = useState(true)
     const [error, setError] = useState(null)
 
@@ -26,6 +25,19 @@ export const GameScreen = () => {
 
     const [game, setGame] = useState([])
 
+    const backAction = () => {
+        if (modal) { setModal(null) }
+        else setModal('back')
+
+        //previousScreen();
+        return true;
+      };
+
+    const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
+
     const fetchData = async () => {
 
         setError(null)
@@ -33,7 +45,7 @@ export const GameScreen = () => {
 
         try {
             
-            const output = await Http.get(`https://test2.gagara-web.ru/api/games/get/${questId}`, token)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/games/get/${questId}`, token)
 
             if (output.success == 1) {
                 setGame(output.data)
@@ -74,11 +86,11 @@ export const GameScreen = () => {
     	if(game.is_level){
     		let level = game.step
     		level++
-    		method = `https://test2.gagara-web.ru/api/games/getLevel/${questId}/${level}`
+    		method = `${process.env.EXPO_PUBLIC_API_URL}/games/getLevel/${questId}/${level}`
     	}
     	else {
     		
-    		method = `https://test2.gagara-web.ru/api/games/next/${questId}`
+    		method = `${process.env.EXPO_PUBLIC_API_URL}/games/next/${questId}`
     	}  
     	
     	try {

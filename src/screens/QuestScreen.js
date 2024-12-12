@@ -38,7 +38,7 @@ export const QuestScreen = () => {
         setLoader(true)
 
         try {
-            const output = await Http.get(`https://test2.gagara-web.ru/api/quests/get/${questId}`)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/get/${questId}`)
 
             if (output.success == 1) {
                 setData(output.data)

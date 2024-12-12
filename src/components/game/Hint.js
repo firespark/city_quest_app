@@ -1,9 +1,21 @@
 import React from 'react'
-import { View, Text, Image } from 'react-native'
-
+import { View, Text, Image,StyleSheet,  Dimensions } from "react-native";
+import FullWidthImage from '../common/FullWidthImage';
+const windowWidth = Dimensions.get("window").width;
 import { gStyle, gStyleGame } from '../../styles/style'
 
-
+const styles = StyleSheet.create({
+	container: {
+	  flex: 1,
+	  justifyContent: "center",
+	  alignItems: "center",
+	},
+	image: {
+		width: windowWidth * 0.8, // Adjust the percentage as needed
+    	aspectRatio: 1
+	},
+  });
+  
 
 export const Hint = ({ text, image }) => {
 
@@ -16,10 +28,7 @@ export const Hint = ({ text, image }) => {
 	    	{
 	    		(image)
 	    		?
-	    		<Image 
-				    source={{ uri: image }}
-				    style={[gStyle.image300, gStyleGame.taskImageFull, gStyle.mt20]}
-				/>
+					<FullWidthImage source={{ uri: image }} />
 				:
 				null
 	    	}
@@ -30,4 +39,3 @@ export const Hint = ({ text, image }) => {
 
     )
 }
-

@@ -30,7 +30,7 @@ export const ModeTemplate = ({ game, setGame }) => {
         setLoader(true)
 
         try {
-            const output = await Http.get(`https://test2.gagara-web.ru/api/modes`)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/modes`)
 
             if (output.success == 1) {
                 setModes(output.data)
@@ -68,7 +68,7 @@ export const ModeTemplate = ({ game, setGame }) => {
         try {
             const postdata = {mode_id: selectedId}
 
-            const output = await Http.post(`https://test2.gagara-web.ru/api/games/setMode/${questId}`, postdata, token)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/setMode/${questId}`, postdata, token)
 
             if (output.success == 1) {
                 setGame(output.data)

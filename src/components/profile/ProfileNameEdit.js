@@ -28,7 +28,7 @@ export const ProfileNameEdit = ({ user, setUser, setTemplate, setSuccess }) => {
         setLoader(true)
 
     	try {
-            const output = await Http.post(`https://test2.gagara-web.ru/api/users/saveName`, postdata, token)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/users/saveName`, postdata, token)
 
             if (output.success == 1) {
                 setUser({

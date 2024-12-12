@@ -35,7 +35,7 @@ export const AboutScreen = () => {
 
         try {
             
-            const output = await Http.get(`https://test2.gagara-web.ru/api/pages/about`)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/pages/about`)
 
             if (output.success == 1) {
                 setData(output.data)

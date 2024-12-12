@@ -23,7 +23,7 @@ export const Quests = ({cityId}) => {
         setLoader(true)
 
         try {
-            const output = await Http.get(`https://test2.gagara-web.ru/api/quests/all/${cityId}`)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/all/${cityId}`)
 
             if (output.success == 1) {
                 setData(output.data)

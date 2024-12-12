@@ -28,7 +28,7 @@ export const ModalSkipAlert = ({ setModal, game, setGame }) => {
         const postdata = {reason_id: reason, comment: comment}
     
         try {
-            const output = await Http.post(`https://test2.gagara-web.ru/api/games/getSkip/${questId}`, postdata, token)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/getSkip/${questId}`, postdata, token)
 
             if (output.success == 1) {
                 setGame(output.data)

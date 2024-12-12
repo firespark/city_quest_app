@@ -29,7 +29,7 @@ export const ProfilePasswordEdit = ({ user, setUser, setTemplate, setSuccess }) 
     	const postdata = {password: input}
 
     	try {
-            const output = await Http.post(`https://test2.gagara-web.ru/api/users/savePassword`, postdata, token)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/users/savePassword`, postdata, token)
 
             if (output.success == 1) {
                 setSuccess('Изменения сохранены')

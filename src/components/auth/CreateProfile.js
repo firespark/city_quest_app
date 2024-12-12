@@ -16,7 +16,7 @@ export const CreateProfile = ({ email, setTemplate, setError, setLoader }) => {
 
         try {
                     
-            const output = await Http.post(`https://test2.gagara-web.ru/api/auth/sendCode`, postdata)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/sendCode`, postdata)
 
             if (output.success == 1) {
                 setTemplate('code')

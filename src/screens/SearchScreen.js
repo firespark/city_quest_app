@@ -41,7 +41,7 @@ export const SearchScreen = () => {
             
             const postdata = {str: str}
 
-            const output = await Http.post(`https://test2.gagara-web.ru/api/cities/search`, postdata)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/cities/search`, postdata)
 
             if (output.success == 1) {
                 setData(output.data)

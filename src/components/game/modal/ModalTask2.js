@@ -16,7 +16,6 @@ export const ModalTask2 = ({ game, setModal, setGame }) => {
 	
     return (
     	<View>
-	        <Text selectable style={[gStyle.titleBold, gStyle.mt20]}>{game.answer2}</Text>
 
 	        {
 	        	(task.template == 2)
@@ -24,7 +23,8 @@ export const ModalTask2 = ({ game, setModal, setGame }) => {
 	    		<Template2
 	    			game={game}
 	    			setModal={setModal}
-	    			setGame={setGame}
+						setGame={setGame}
+						taskNumber={2}
 	    		/>
 	    		:
 	    		<Template1
@@ -42,6 +42,7 @@ export const ModalTask2 = ({ game, setModal, setGame }) => {
 	    		:
 	    		null
 	        }
+	        <Text selectable style={[gStyle.titleBold, gStyle.mt20]}>{game.answer2}</Text>
 
 		    
 	    </View>

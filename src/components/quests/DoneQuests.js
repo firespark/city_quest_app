@@ -28,7 +28,7 @@ export const DoneQuests = () => {
         try {
             //const token = await AsyncStorage.getItem('APP_TOKEN')
             
-            const output = await Http.get(`https://test2.gagara-web.ru/api/quests/done`, token)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/done`, token)
 
             if (output.success == 1) {
                 setData(output.data)

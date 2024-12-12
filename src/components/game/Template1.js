@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image } from 'react-native'
-
+import FullWidthImage from '../common/FullWidthImage';
 import { gStyle, gStyleGame } from '../../styles/style'
 
 
@@ -15,10 +15,7 @@ export const Template1 = ({ tasks }) => {
 	    <View style={gStyle.mt20}>
 	    	{
 	    		(task.image) ?
-	    		<Image 
-				    source={{ uri: task.image }}
-				    style={[gStyle.image300, gStyleGame.taskImageFull]}
-				/>
+	    		<FullWidthImage source={{ uri: task.image }} />
 				:
 				null
 	    	}

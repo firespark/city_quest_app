@@ -38,9 +38,10 @@ export const Task2 = ({ game, setGame, setModal }) => {
         inputs.push(
         	<View key={i}>
         		<TextInput 
-		            placeholder={`Слово ${i}`}
+		            placeholder={`Слово ${i+1}`}
 		            style={[gStyle.input, gStyle.mb20, style]}
-		            placeholderTextColor={'#C4C4C4'}
+					placeholderTextColor={'#C4C4C4'}
+					value={answers[i]}
 		            onChangeText={(value) => answersHandler(i, value)}
 		        />
 	        </View>
@@ -48,7 +49,8 @@ export const Task2 = ({ game, setGame, setModal }) => {
         )
     }
 
-    const answersHandler = (key, value) => {
+	const answersHandler = (key, value) => {
+		value = value.replace(/\s/g, ""); 
         setAnswers({...answers, [key]: value})
     }
 
@@ -61,7 +63,7 @@ export const Task2 = ({ game, setGame, setModal }) => {
 
             const postdata = {quest_answer: answers, answer_number: 2}
 
-            const output = await Http.post(`https://test2.gagara-web.ru/api/games/checkAnswer/${questId}`, postdata, token)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/checkAnswer/${questId}`, postdata, token)
 
             if (output.success == 1) {
             	setInputResults(output.data.inputResults)

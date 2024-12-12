@@ -23,7 +23,7 @@ export const PopularCities = () => {
         setLoader(true)
 
         try {
-            const output = await Http.get('https://test2.gagara-web.ru/api/cities/featured')
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/cities/featured`)
 
             if (output.success == 1) {
                 setData(output.data)

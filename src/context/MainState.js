@@ -1,4 +1,6 @@
 import React, { useReducer, useState, useEffect } from 'react'
+import { BackHandler } from 'react-native'
+import { Alert } from 'react-native'
 import { MainContext } from './mainContext'
 import { mainReducer } from './mainReducer'
 import { 
@@ -24,7 +26,6 @@ export const MainState = ({ children }) => {
         //loader: false,
         //error: null
     }
-    // For test
     /*const initialState = {
         token: 'gobfJUP0jA0LHV1GeFrLe91aeBvSR1cp9eTn2ECmhsm7s8WDdAhLxHKCwTzwi6zPvGXwZ05o5u51n1629285723',
         screens: [GAME_SCREEN],
@@ -46,7 +47,24 @@ export const MainState = ({ children }) => {
 
     const [token, setToken] = useState();
 
-  
+    const backAction = () => {
+        /* Alert.alert('MainState backAction', 'Are you sure you want to go back?', [
+          {
+            text: 'Cancel',
+            onPress: () => null,
+            style: 'cancel',
+          },
+          {text: 'YES', onPress: () => BackHandler.exitApp()},
+        ]);
+        // */
+        previousScreen();
+        return true;
+      };
+
+    const backHandler = BackHandler.addEventListener(
+        'hardwareBackPress',
+        backAction,
+      );
 
     const getToken = async () => {
 

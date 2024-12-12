@@ -42,15 +42,17 @@ export const Task1 = ({ game, setGame, setModal }) => {
         		<TextInput 
 		            placeholder={`Слово ${i+1}`}
 		            style={[gStyle.input, gStyle.mb20, style]}
-		            placeholderTextColor={'#C4C4C4'}
-		            onChangeText={(value) => answersHandler(i, value)}
+					placeholderTextColor={'#C4C4C4'}
+					value={answers[i]}
+					onChangeText={(value) => answersHandler(i, value)}
 		        />
 	        </View>
 	        
         )
     }
 
-    const answersHandler = (key, value) => {
+	const answersHandler = (key, value) => {
+		value = value.replace(/\s/g, ""); 
         setAnswers({...answers, [key]: value})
     }
 

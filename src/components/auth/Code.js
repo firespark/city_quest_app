@@ -24,7 +24,7 @@ export const Code = ({ email, setTemplate, setError, setCode, setLoader }) => {
 
             try {
                     
-                const output = await Http.post(`https://test2.gagara-web.ru/api/auth/checkCode`, postdata)
+                const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/checkCode`, postdata)
 
                 if (output.success == 1) {
                     setCode(input)

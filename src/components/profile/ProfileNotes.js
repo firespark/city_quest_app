@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, Text, TouchableOpacity, Image } from 'react-native'
 
 import {Loader} from '../common/Loader'
@@ -26,7 +26,7 @@ export const ProfileNotes = ({ user, setUser }) => {
         setLoader(true)
 
     	try {
-            const output = await Http.post(`https://test2.gagara-web.ru/api/users/saveNotes`, postdata, token)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/users/saveNotes`, postdata, token)
 
             if (output.success == 1) {
                 setUser({

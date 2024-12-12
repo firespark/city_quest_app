@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 
 import {Loader} from '../../common/Loader'
@@ -12,7 +12,7 @@ import { Http } from '../../../scripts/http'
 
 export const ModalHintAlert = ({ setModal, game, setGame }) => {
 
-    const { questId, token } = useContext(MainContext)
+    const { questId, token, scrollViewRef } = useContext(MainContext)
 
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
@@ -23,7 +23,7 @@ export const ModalHintAlert = ({ setModal, game, setGame }) => {
         setLoader(true)
     
         try {
-            const output = await Http.get(`https://test2.gagara-web.ru/api/games/getHint/${questId}`, token)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/games/getHint/${questId}`, token)
 
             if (output.success == 1) {
                 setGame(output.data)
@@ -64,6 +64,8 @@ export const ModalHintAlert = ({ setModal, game, setGame }) => {
                     onPress={() => {
                         getHint()
                         setModal(null)
+                        console.log(scrollViewRef)
+                        scrollViewRef.current?.scrollToEnd({animated: true})
                     }}
                 >
                     <Text style={gStyle.buttonText}>Подсказка</Text>

@@ -67,8 +67,8 @@ export const gStyle = StyleSheet.create({
     },
     p: {
         marginBottom: 5,
-        fontSize: 14,
-        lineHeight: 16,
+        fontSize: 18,
+        lineHeight: 18,
         color: '#202020',
         fontWeight: '300',
     },
@@ -391,49 +391,54 @@ export const gStyleQuests = StyleSheet.create({
 		marginBottom: 12,
 	},
 	questCaption: {
-    	position: 'absolute',
-    	bottom: 0,
-    	textAlign: 'center',
-    	width: '100%',
-    	backgroundColor: 'rgba(255, 255, 255, 0.7)',
-    	padding: 10,
-    	borderTopLeftRadius: 10,
+		position: 'absolute',
+		bottom: 0,
+		textAlign: 'center',
+		width: '100%',
+		backgroundColor: 'rgba(255, 255, 255, 0.7)',
+		padding: 10,
+		borderTopLeftRadius: 10,
 		borderTopRightRadius: 10,
-    },
+	},
 
-    questsTitleBold: {
-    	fontWeight: 'bold',
+	questsTitleBold: {
+		fontWeight: 'bold',
 		fontSize: 18,
 		lineHeight: 21,
 		textAlign: 'center',
 		color: '#202020',
-    },
-    questsTitle: {
+	},
+	questsTitle: {
 		fontSize: 18,
 		lineHeight: 21,
 		textAlign: 'center',
 		color: '#202020',
-    },
-    questsTitleBlock: {
-    	marginTop: 13,
-    	marginBottom: 20,
-    },
-    questsContent: {
-    	marginTop: -30,
-    	marginLeft: 10,
-    	marginRight: 10,
-    	marginBottom: 5,
-    	padding: 11,
-    	borderTopRightRadius: 10,
-    	borderTopLeftRadius: 10,
-    	backgroundColor: '#ffffff',
-    },
+	},
+	questsTitleBlock: {
+		marginTop: 13,
+		marginBottom: 20,
+	},
+	questsContent: {
+		marginTop: -30,
+		marginLeft: 10,
+		marginRight: 10,
+		marginBottom: 5,
+		padding: 11,
+		borderTopRightRadius: 10,
+		borderTopLeftRadius: 10,
+		backgroundColor: '#ffffff',
+	},
+	questOpenBlock: {
+		marginLeft: 15,
+		flex: 1,
+		maxWidth: '70%'
+	},
     questOpenImage: {
     	width: 100,
     	height: 100,
     	borderRadius: 10,
     },
-    questOpenTitle: {
+	questOpenTitle: {
 		color: '#202020',
 		fontSize: 16,
 		lineHeight: 19,
@@ -599,7 +604,15 @@ export const gStyleProgress = StyleSheet.create({
         margin: 1,
         borderRadius: 5,
     },
-
+	progressInProgress: {
+		backgroundColor: '#77a83b',
+	},
+	progressFinish: {
+		backgroundColor: '#a69851',
+	},
+	progressFinishDone: {
+		backgroundColor: '#e3c117',
+	},
     progressDisabled: {
         backgroundColor: '#C4C4C4',
     },

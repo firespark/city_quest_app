@@ -28,6 +28,7 @@ export const PlayTemplate = ({ game, setGame, setModal, nextGame }) => {
                 <ProgressBar
                     game={game}
                     setGame={setGame}
+                    setModal={setModal}
                 />
             </View>
                         

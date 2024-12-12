@@ -34,7 +34,7 @@ export const Email = ({ setEmail, setTemplate, setError, setLoader }) => {
 
                 try {
                     
-                    const output = await Http.post(`https://test2.gagara-web.ru/api/auth/checkEmail`, postdata)
+                    const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/checkEmail`, postdata)
 
                     if (output.success == 1) {
                         setEmail(input)

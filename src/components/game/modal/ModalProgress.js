@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 
 import {Loader} from '../../common/Loader'
@@ -11,7 +11,8 @@ import { Http } from '../../../scripts/http'
 
 
 
-export const LevelsTemplate = ({ game, setGame }) => {
+
+export const ModalProgress = ({ game, setGame, setModal }) => {
 
     const { questId, token } = useContext(MainContext)
 
@@ -24,20 +25,24 @@ export const LevelsTemplate = ({ game, setGame }) => {
     for (let i = 1; i <= game.levels; i++) {
         let st = gStyleProgress.progressDisabled
         if(i < game.step_total) st = gStyleProgress.progressDone
-        if(i == game.step) st = gStyleProgress.progressCurrentBig
+        if (i == game.levels) st = gStyleProgress.progressFinish
+        if (i == game.step_total) st = gStyleProgress.progressInProgress
+        if (i == game.levels && i == game.step_total) st = gStyleProgress.progressFinishDone
+        if (i == game.step) st = gStyleProgress.progressCurrentBig
+        if (i == game.step && i == game.levels) st = [gStyleProgress.progressCurrentBig, gStyleProgress.progressFinishDone]
 
-        if(i <= game.step_total) {
+        if (i <= game.step_total) {
 
             content.push(
                 <TouchableOpacity
-                    key={i} 
+                    key={i}
                     style={[gStyleProgress.progressPointBig, st]}
                     activeOpacity={0.7}
                     onPress={() => {
                         setLevel(i)
                     }}
                 >
-                    <Text style={gStyleProgress.progressCounter}>{i}</Text>
+                    <Text style={gStyleProgress.progressCounter}>{(i == game.levels) ? '🏆' : i}</Text>
                 </TouchableOpacity>
             )
         }
@@ -47,7 +52,7 @@ export const LevelsTemplate = ({ game, setGame }) => {
                     key={i} 
                     style={[gStyleProgress.progressPointBig, st]}
                 >
-                    <Text style={gStyleProgress.progressCounter}>{i}</Text>
+                    <Text style={gStyleProgress.progressCounter}>{(i == game.levels) ? '🏆' : i}</Text>
                 </View>
             )
         }
@@ -57,10 +62,11 @@ export const LevelsTemplate = ({ game, setGame }) => {
         setError(null)
         setLoader(true)
         try {
-            const output = await Http.get(`https://test2.gagara-web.ru/api/games/getLevel/${questId}/${value}`, token)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/games/getLevel/${questId}/${value}`, token)
 
             if (output.success == 1) {
                 setGame(output.data)
+                setModal(null)
             }
             else {
                 if(output.error) {

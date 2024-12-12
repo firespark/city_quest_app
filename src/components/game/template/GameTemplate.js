@@ -6,7 +6,7 @@ import { Skips } from '../Skips'
 import { Hints } from '../Hints'
 
 import { FinishTemplate } from './FinishTemplate'
-import { LevelsTemplate } from './LevelsTemplate'
+//import { LevelsTemplate } from './LevelsTemplate'
 import { ModeTemplate } from './ModeTemplate'
 import { PlayTemplate } from './PlayTemplate'
 
@@ -23,19 +23,22 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
                         nextGame={nextGame}
                     />
 
-    if(game.finish){
+    if(game.finish && game.step == game.step_total){
         template = <FinishTemplate 
                         title={game.quest_title}
                         content={game.finish_content}
+                        game={game}
+                        setGame={setGame}
+                        setModal={setModal}
                     />
     }
 
-    if(game.levels_template){
+/*     if(game.levels_template){
         template = <LevelsTemplate 
                         game={game}
                         setGame={setGame}
                     />
-    }
+    } */
 
     if(game.step == 0){
         template = <ModeTemplate 

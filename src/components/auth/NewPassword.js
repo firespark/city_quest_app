@@ -28,7 +28,7 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader }) 
 
             try {
                     
-                const output = await Http.post(`https://test2.gagara-web.ru/api/auth/changePassword`, postdata)
+                const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/changePassword`, postdata)
 
                 if (output.success == 1) {
                     changeScreen(PROFILE_SCREEN)
@@ -71,6 +71,7 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader }) 
                 style={[gStyle.input, gStyle.mt15, gStyle.mb10, style]}
                 placeholderTextColor={'#C4C4C4'}
                 onChangeText={(value) => setInput(value)}
+                autoCapitalize="none"
             />
 
             <TouchableOpacity
