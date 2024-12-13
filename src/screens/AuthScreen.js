@@ -22,6 +22,7 @@ import { gStyle, gStyleHeader } from '../styles/style'
 
 import { PROFILE_SCREEN } from '../context/types'
 import { MainContext } from '../context/mainContext'
+import { AuthGoogle } from '../components/auth/AuthGoogle'
 
 
 export const AuthScreen = () => {
@@ -87,9 +88,9 @@ export const AuthScreen = () => {
         default: 
             content = 
             <View>
-                {/*<Social
+                {<AuthGoogle
                     text="Войти с помощью:"
-                />*/}
+                />}
                 <Email
                     setEmail={setEmail}
                     setTemplate={setTemplate}
