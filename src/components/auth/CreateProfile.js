@@ -17,7 +17,7 @@ export const CreateProfile = ({ email, setTemplate, setError, setLoader }) => {
         try {
                     
             const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/sendCode`, postdata)
-
+            console.log(output)
             if (output.success == 1) {
                 setTemplate('code')
                         

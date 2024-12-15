@@ -83,9 +83,19 @@ export const MainState = ({ children }) => {
         catch(e) {
             console.log('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
-
-       
     }
+
+    const resetToken = async () => {
+        try {
+            const newToken = createToken(77) + Date.now()
+            saveToken(newToken)
+            setToken(newToken);
+        }
+        catch(e) {
+            console.log('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
+        }
+    }
+
 
     const saveToken = async (value) => {
 
@@ -126,6 +136,7 @@ export const MainState = ({ children }) => {
                 setQuestId,
                 cityData: state.cityData,
                 setCityData,
+                resetToken,
                 //setToken,
                 //loader: state.loader,
                 //error: state.error,

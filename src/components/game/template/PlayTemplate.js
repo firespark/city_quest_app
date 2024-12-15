@@ -49,11 +49,18 @@ export const PlayTemplate = ({ game, setGame, setModal, nextGame }) => {
                 (game.status == 1)
                 ? 
                 <View>
-                    <Sight
-                        setModal={setModal}
-                        title={game.sight_title}
-                        image={game.sight_image}
-                    />
+                    {
+                        (game.sight_image)
+                        ?
+                        <Sight
+                            setModal={setModal}
+                            title={game.sight_title}
+                            image={game.sight_image}
+                        />  
+                        :
+                        null        
+                    }
+                    
                     <View style={gStyle.panelRowLeft}>
                         <TaskSign
                             number="1"

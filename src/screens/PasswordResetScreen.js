@@ -9,6 +9,7 @@ import { EmailReset } from '../components/auth/EmailReset'
 import { Code } from '../components/auth/Code'
 import { NewPassword } from '../components/auth/NewPassword'
 
+import {Loader} from '../components/common/Loader'
 import { Footer } from '../components/common/Footer'
 import { Error } from '../components/common/Error'
 
@@ -27,6 +28,7 @@ export const PasswordResetScreen = () => {
     const [email, setEmail] = useState(null)
     const [code, setCode] = useState(null)
     const [error, setError] = useState(null)
+    const [loader, setLoader] = useState(false)
 
     let content = null
 
@@ -39,6 +41,8 @@ export const PasswordResetScreen = () => {
                 setTemplate={setTemplate}
                 setError={setError}
                 setCode={setCode}
+                setLoader={setLoader}
+                
             />
             break
 
@@ -48,6 +52,9 @@ export const PasswordResetScreen = () => {
                 email={email}
                 code={code}
                 setError={setError}
+                setLoader={setLoader}
+                changeScreen={changeScreen}
+                token={token}
             />
             break
 
@@ -57,10 +64,15 @@ export const PasswordResetScreen = () => {
                 setEmail={setEmail}
                 setTemplate={setTemplate}
                 setError={setError}
+                setLoader={setLoader}
             />
 
             break
 
+    }
+
+    if (loader) {
+        return <Loader />
     }
 
     return (

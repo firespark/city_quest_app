@@ -49,6 +49,7 @@ export const ProfileScreen = () => {
 
             if (output.success == 1) {
                 setUser(output.data)
+                console.log(`output ${output}`)
             }
             else {
                 if(output.error) {
@@ -67,6 +68,8 @@ export const ProfileScreen = () => {
         }
         finally {
             setLoader(false)
+            console.log(token)
+            console.log(user)
         }
        
     }
@@ -96,7 +99,9 @@ export const ProfileScreen = () => {
                 keyboardDismissMode="interactive"
             >
                 <View style={gStyle.container}>
-        			<Status />
+                    <Status
+                        token={token}
+                    />
                     {
                         (!user.email) ?
                         <ProfileRegister />

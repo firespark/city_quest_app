@@ -65,7 +65,8 @@ export const ModalHintAlert = ({ setModal, game, setGame }) => {
                         getHint()
                         setModal(null)
                         console.log(scrollViewRef)
-                        scrollViewRef.current?.scrollToEnd({animated: true})
+                        if (scrollViewRef)
+                            scrollViewRef.current?.scrollToEnd({animated: true})
                     }}
                 >
                     <Text style={gStyle.buttonText}>Подсказка</Text>

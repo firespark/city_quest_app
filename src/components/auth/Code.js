@@ -5,7 +5,7 @@ import { gStyle } from '../../styles/style'
 
 import { Http } from '../../scripts/http'
 
-export const Code = ({ email, setTemplate, setError, setCode, setLoader }) => {
+export const Code = ({ email, setTemplate, setError, setCode, setLoader, token }) => {
 
     const [input, setInput] = useState(null)
     const [style, setStyle] = useState(null)
@@ -24,7 +24,7 @@ export const Code = ({ email, setTemplate, setError, setCode, setLoader }) => {
 
             try {
                     
-                const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/checkCode`, postdata)
+                const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/checkCode`, postdata, token)
 
                 if (output.success == 1) {
                     setCode(input)

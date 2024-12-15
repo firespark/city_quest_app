@@ -1,78 +1,66 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, Linking } from 'react-native';
-
-import { Loader } from '../common/Loader';
-import { Error } from '../common/Error';
+import { Http } from '../../scripts/http';
 
 import { gStyle, gStyleAuth } from '../../styles/style';
 
-import {
-	GoogleSignin,
-	statusCodes,
-  } from '@react-native-google-signin/google-signin';
+import { GoogleSignin, statusCodes } from '@react-native-google-signin/google-signin';
 
-export const AuthGoogle = ({ text }) => {
-	
-	const [loader, setLoader] = useState(true);
-	const [error, setError] = useState(null);
+export const AuthGoogle = ({ token, changeScreen, screen, setError, setLoader }) => {
 
 	GoogleSignin.configure({
-		webClientId: process.env.EXPO_PUBLIC_WEBCLIENT_ID, // Replace with your actual Web Client ID
-		offlineAccess: true, // This enables the `serverAuthCode` if needed
-	  });
+		webClientId: process.env.EXPO_PUBLIC_WEBCLIENT_ID,
+		offlineAccess: true,
+	});
 
 	const signIn = async () => {
-		//console.log('google trying')
+		setLoader(true);
+		setError(null);
 		try {
-			
-		  await GoogleSignin.hasPlayServices();
+			await GoogleSignin.hasPlayServices();
 			const response = await GoogleSignin.signIn();
 			console.log(response);
-		  if (response.type === "success") {
-			  console.log(response.data);
-			  //setState({ userInfo: response.data });
-		  } else {
-			// sign in was cancelled by user
-		  }
-		} catch (e) {
-			console.log(e)
-			if (isErrorWithCode(e)) {
-			  
-			switch (e.code) {
-			  case statusCodes.IN_PROGRESS:
-				// operation (eg. sign in) already in progress
-				break;
-			  case statusCodes.PLAY_SERVICES_NOT_AVAILABLE:
-				// Android only, play services not available or outdated
-				break;
-			  default:
-			  // some other error happened
+			if (response.type === 'success') {
+				//console.log(response.data.idToken);
+				//setState({ userInfo: response.data });
+
+				const postdata = { idToken: response.data.idToken };
+				try {
+					const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/loginGoogle`, postdata, token);
+					console.log(output);
+					if (output.success == 1) {
+						changeScreen(screen);
+					} else {
+						if (output.error) {
+							setError(output.error);
+						} else {
+							setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом');
+						}
+					}
+				} catch (e) {
+					console.log(e);
+					setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом');
+				} 
+			} else {
+				// sign in was cancelled by user
 			}
-		  } else {
-			// an error that's not related to google sign in occurred
-		  }
+		} catch (e) {
+			console.log(e);
+			setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом');
+			
 		}
+		setLoader(false);
 	};
-
-
 
 	return (
 		<View>
-			{text ? (
-				<View>
-					<Text selectable style={[gStyle.title, gStyle.mb8]}>
-						{text}
-					</Text>
-				</View>
-			) : null}
+			<View>
+				<Text selectable style={[gStyle.title, gStyle.mb8]}>
+					Войти с помощью:
+				</Text>
+			</View>
 
 			<View style={gStyle.panelRowCenter}>
-                {
-                    error ?
-                    <Error text={error} />
-                    :
-                    null
-                }
 				<TouchableOpacity activeOpacity={0.7} onPress={() => signIn()}>
 					<Image source={require('../../../assets/img/google.png')} style={gStyleAuth.authIcon} />
 				</TouchableOpacity>

@@ -8,11 +8,10 @@ import { PROFILE_SCREEN } from '../../context/types'
 import { Http } from '../../scripts/http'
 
 
-export const NewPassword = ({ email, code, setError, changeScreen, setLoader }) => {
+export const NewPassword = ({ email, code, setError, changeScreen, setLoader, token }) => {
 
     const [input, setInput] = useState(null)
     const [style, setStyle] = useState(null)
-
 
     const changePassword = async () => {
 
@@ -29,9 +28,13 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader }) 
             try {
                     
                 const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/changePassword`, postdata)
-
+                
                 if (output.success == 1) {
-                    changeScreen(PROFILE_SCREEN)
+                    const login = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/login`, postdata, token)
+                    console.log(login)
+                    if (login.success == 1) {
+                        changeScreen(PROFILE_SCREEN)       
+                    }
                             
                 }
                 else {
@@ -61,7 +64,7 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader }) 
         
 
     }
-	
+
     return (
         <View style={gStyle.center}>
             <Text style={gStyle.title}>А теперь задай пароль (минимум 8 символов)</Text>

@@ -71,6 +71,7 @@ export const AuthScreen = () => {
                 setError={setError}
                 setCode={setCode}
                 setLoader={setLoader}
+                token={token}
             />
             break
 
@@ -82,15 +83,20 @@ export const AuthScreen = () => {
                 setError={setError}
                 changeScreen={changeScreen}
                 setLoader={setLoader}
+                token={token}
             />
             break
 
         default: 
             content = 
             <View>
-                {<AuthGoogle
-                    text="Войти с помощью:"
-                />}
+                <AuthGoogle
+                    token={token}
+                    screen={PROFILE_SCREEN}
+                    changeScreen={changeScreen}
+                    setError={setError}
+                    setLoader={setLoader}
+                />
                 <Email
                     setEmail={setEmail}
                     setTemplate={setTemplate}

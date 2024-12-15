@@ -26,28 +26,54 @@ export const ModalAnswer1 = ({ title, image, address, location, description, set
 
     return (
     	<View style={gStyle.mt10}>
-    		<Text style={gStyleGame.answerCorrect}>Верно!</Text>
-    		<Text selectable style={[gStyle.titleBold, gStyle.mt20]}>{title}</Text>
-    		<Image 
-	            source={{ uri: image }} 
-	            style={[gStyle.mt20, gStyle.image300]}
-	        />
+			<Text style={gStyleGame.answerCorrect}>Верно!</Text>
+			{
+				(title)
+				? 
+				<Text selectable style={[gStyle.titleBold, gStyle.mt20]}>{title}</Text>
+				:
+				null
+			}
+			
+			 {
+				(image)
+				? 
+				<Image 
+					source={{ uri: image }} 
+					style={[gStyle.mt20, gStyle.image300]}
+	        	/>
+				:
+				null
+			}
 	        
 	        <View style={gStyle.container}>
-	        	<View>
-		        	<View style={gStyle.panelRowLeft}>
-	    				<Text style={gStyle.textThin}>Адрес: </Text>
-	    				<Text selectable style={gStyle.text}>{address}</Text>
-	    			</View>
-	    			<View style={gStyle.panelRowLeft}>
-	    				<Text style={gStyle.textThin}>Координаты: </Text>
-	    				<TouchableOpacity
-		                    activeOpacity={0.7}
-		                    onPress={() => Linking.openURL(`geo:0,0?q=${location}`)}
-		                >
-	    					<Text selectable style={[gStyle.text, gStyle.link]}>{location}</Text>
-	    				</TouchableOpacity>
-	    			</View>
+				<View>
+					{
+						(address)
+						? 
+						<View style={gStyle.panelRowLeft}>
+	    					<Text style={gStyle.textThin}>Адрес: </Text>
+	    					<Text selectable style={gStyle.text}>{address}</Text>
+	    				</View>
+						:
+						null
+					}
+					{
+						(address)
+						? 
+						<View style={gStyle.panelRowLeft}>
+	    					<Text style={gStyle.textThin}>Координаты: </Text>
+	    					<TouchableOpacity
+		                    	activeOpacity={0.7}
+		                    	onPress={() => Linking.openURL(`geo:0,0?q=${location}`)}
+		               		>
+	    						<Text selectable style={[gStyle.text, gStyle.link]}>{location}</Text>
+	    					</TouchableOpacity>
+	    				</View>
+						:
+						null
+					}
+	    			
 		        </View>
 		        <View style={gStyle.mt10}>
 		            {ps}
