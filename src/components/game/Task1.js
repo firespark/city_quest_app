@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native'
 
 import { Template1 } from './Template1'
 import { Template2 } from './Template2'
@@ -9,6 +9,7 @@ import {Loader} from '../common/Loader'
 import {Error} from '../common/Error'
 
 import { gStyle } from '../../styles/style'
+import { gStyleGame } from '../../styles/style'
 
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
@@ -123,15 +124,23 @@ export const Task1 = ({ game, setGame, setModal }) => {
 			{
 	        	(game.sight_hint1)
 	        	? 
-	        	<Hint
-	        		text={game.sight_hint1.text}
-	        		image={game.sight_hint1.image}
-	        	/>
+				<View style={[gStyle.center, gStyle.mt20]}>
+
+					<TouchableOpacity
+						activeOpacity={0.7}
+						onPress={() => setModal('hint1')}
+					>
+						<View style={gStyleGame.hintBlockRow}>
+							<Image source={require('../../../assets/img/hint.png')} style={gStyleGame.hintImageButton} />
+							<Text style={gStyleGame.hintTextButton}>Подсказка</Text>
+						</View>
+					</TouchableOpacity>
+				</View>
 	        	:
 	        	null
 	        }
 	        
-		    <View style={[gStyle.center, gStyle.mt20]}>
+		    <View style={[gStyle.center, gStyle.mt30]}>
 		    	{inputs}
 		        
 		    </View>

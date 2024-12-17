@@ -65,6 +65,18 @@ export const gStyle = StyleSheet.create({
     mb20: {
         marginBottom: 20,
     },
+    mt30: {
+		marginTop: 30,
+	},
+	ml30: {
+        marginLeft: 30,
+    },
+    mr30: {
+        marginRight: 30,
+    },
+    mb30: {
+        marginBottom: 30,
+    },
     p: {
         marginBottom: 5,
         fontSize: 18,
@@ -133,6 +145,13 @@ export const gStyle = StyleSheet.create({
 		/*fontWeight: '300',*/
 		textAlign: 'center',
 	},
+    titleSights: {
+		color: '#202020',
+		fontSize: 14,
+		lineHeight: 18,
+		/*fontWeight: '300',*/
+		textAlign: 'center',
+	},
 	titleWhite: {
 		color: '#ffffff',
 		fontSize: 18,
@@ -155,32 +174,52 @@ export const gStyle = StyleSheet.create({
 		color: '#ffffff',
     },
     text: {
-		fontSize: 13,
-		lineHeight: 15,
+		fontSize: 18,
+		lineHeight: 21,
 		color: '#202020',
+
+    },
+    textRed: {
+		fontSize: 18,
+		lineHeight: 21,
+		color: '#FF0000',
 
     },
     textThin: {
     	fontWeight: '300',
-		fontSize: 13,
-		lineHeight: 15,
+		fontSize: 18,
+		lineHeight: 21,
 		color: '#202020',
     },
     textThin2: {
     	fontWeight: '300',
-		fontSize: 16,
-		lineHeight: 19,
+		fontSize: 18,
+		lineHeight: 21,
 		color: '#202020',
 
     },
     text2: {
-		fontSize: 16,
-		lineHeight: 19,
+		fontSize: 18,
+		lineHeight: 21,
 		color: '#202020',
 
     },
 
 	button: {
+        width: 181,
+        backgroundColor:'#17A2B8',
+        height: 42,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+	buttonCity: {
+        width: 181,
+        backgroundColor:'#17A2B8',
+        height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+	buttonHint: {
         width: 181,
         backgroundColor:'#17A2B8',
         height: 42,
@@ -193,16 +232,24 @@ export const gStyle = StyleSheet.create({
         fontSize: 18,
         lineHeight: 21,
         textTransform: 'uppercase',
+	},
+	buttonTextSmall: {
+        color: '#ffffff',
+        fontWeight: '500',
+        fontSize: 12,
+        lineHeight: 16,
+		textTransform: 'uppercase',
+		textAlign: 'center',
     },
     input: {
     	width: 319,
     	height: 29,
     	borderColor: '#C4C4C4',
     	borderWidth: 1,
-    	fontSize: 14,
-    	lineHeight: 16,
+		fontSize: 18,
+		lineHeight: 21,
     	fontWeight: '300',
-    	padding: 5,
+    	padding: 3,
     },
     inputError: {
     	borderColor: '#B81717',
@@ -222,10 +269,10 @@ export const gStyle = StyleSheet.create({
     	width: 319,
     	borderColor: '#C4C4C4',
     	borderWidth: 1,
-    	fontSize: 14,
-    	lineHeight: 16,
+    	fontSize: 15,
+    	lineHeight: 18,
     	fontWeight: '300',
-    	padding: 5,
+    	padding: 3,
     },
     radioBoxOuter: {
     	width: 20,
@@ -248,13 +295,13 @@ export const gStyle = StyleSheet.create({
     },
     smallText: {
     	fontWeight: '300',
-		fontSize: 11,
-		lineHeight: 13,
+		fontSize: 15,
+		lineHeight: 18,
 		color: '#202020',
     },
     link: {
-		fontSize: 14,
-		lineHeight: 16,
+		fontSize: 15,
+		lineHeight: 18,
 		textAlign: 'center',
 		color: '#17A2B8',
 		textDecorationLine: 'underline',
@@ -503,8 +550,8 @@ export const gStyleGame = StyleSheet.create({
 		borderRadius: 10,
 	},
 	answerImage: {
-		width: 60,
-		height: 60,
+		width: 150,
+		height: 80,
 		borderRadius: 10,
 	},
 	answerText: {
@@ -521,17 +568,29 @@ export const gStyleGame = StyleSheet.create({
 		alignItems: 'center',
 		padding: 2,
 	},
+	questionBlockRow: {
+		width: 120,
+		height: 30,
+		borderWidth: 1,
+		borderColor: '#17A2B8',
+		borderRadius: 10,
+		padding: 2,
+		gap: 10,
+		flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+	},
 	questionBlockDisabled: {
 		borderColor: '#C4C4C4',
 	},
 	questionImage: {
-		width: 19,
-		height: 32,
+		width: 10,
+		height: 18,
 	},
 	questionText: {
-		fontWeight: '300',
-		fontSize: 9,
-		lineHeight: 11,
+		fontWeight: '400',
+		fontSize: 16,
+		lineHeight: 20,
 		textAlign: 'center',
 		color: '#17A2B8',
 
@@ -545,6 +604,30 @@ export const gStyleGame = StyleSheet.create({
 	    lineHeight: 29,
 	    color: '#17A2B8',
 	    textAlign: 'center',
+	},
+	hintBlockRow: {
+		width: 120,
+		height: 30,
+		borderWidth: 1,
+		borderColor: '#ebbf00',
+		borderRadius: 10,
+		padding: 2,
+		gap: 10,
+		flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+	},
+	hintImageButton: {
+		width: 10,
+		height: 15,
+	},
+	hintTextButton: {
+		fontWeight: '400',
+		fontSize: 16,
+		lineHeight: 20,
+		textAlign: 'center',
+		color: '#ebbf00',
+
 	},
 	
 });
@@ -653,8 +736,8 @@ export const gStyleProgress = StyleSheet.create({
 export const gStyleHowPlay = StyleSheet.create({
 	blockBlue: {
 		backgroundColor: '#17A2B8',
-		maxWidth: 340,
-		height: 300,
+		width: 350,
+		height: 250,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',
@@ -686,8 +769,8 @@ export const gStyleHowPlay = StyleSheet.create({
 	blockBordered: {
 		borderColor: '#202020',
 		borderWidth: 3,
-		maxWidth: 340,
-		height: 300,
+		width: 350,
+		height: 250,
 		alignItems: 'center',
 		justifyContent: 'center',
 		alignSelf: 'center',

@@ -8,10 +8,12 @@ import { ModalAnswer2 } from '../modal/ModalAnswer2'
 import { ModalTask1 } from '../modal/ModalTask1'
 import { ModalTask2 } from '../modal/ModalTask2'
 import { ModalImage } from '../modal/ModalImage'
+import { ModalHint } from '../modal/ModalHint'
 import { ModalHintAlert } from '../modal/ModalHintAlert'
 import { ModalSkipAlert } from '../modal/ModalSkipAlert'
 import { ModalBackAlert } from '../modal/ModalBackAlert'
 import { ModalProgress } from '../modal/ModalProgress'
+import { ModalReset } from '../modal/ModalReset'
 
 import { gStyle, gStyleHeader } from '../../../styles/style'
 
@@ -99,6 +101,33 @@ export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
                 game={game}
                 setGame={setGame}
                 setModal={setModal}
+            />
+            break
+        
+        case 'hint1': 
+            content = 
+            <ModalHint
+                game={game}
+                setModal={setModal}
+                task={1}
+            />
+            break
+        
+        case 'hint2': 
+            content = 
+            <ModalHint
+                game={game}
+                setModal={setModal}
+                task={2}
+            />
+            break
+        
+        case 'resetProgress': 
+            content = 
+            <ModalReset
+                game={game}
+                setModal={setModal}
+                setGame={setGame}
             />
             break
     }

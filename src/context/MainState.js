@@ -5,7 +5,7 @@ import { MainContext } from './mainContext'
 import { mainReducer } from './mainReducer'
 import { 
     MAIN_SCREEN,
-
+    QUEST_CLEANUP,
     CHANGE_SCREEN,
     PREVIOUS_SCREEN,
     SET_QUEST_ID,
@@ -37,6 +37,7 @@ export const MainState = ({ children }) => {
 
     const changeScreen = (screen) => dispatch({ type: CHANGE_SCREEN, screen })
     const previousScreen = () => dispatch({ type: PREVIOUS_SCREEN })
+    const questScreenCleanup = () => dispatch({ type: QUEST_CLEANUP})
     const setQuestId = (questId) => dispatch({ type: SET_QUEST_ID, questId })
     const setCityData = (cityData) => dispatch({ type: SET_CITY_DATA, cityData })
     //const setToken = (token) => dispatch({ type: SET_TOKEN, token })
@@ -137,6 +138,7 @@ export const MainState = ({ children }) => {
                 cityData: state.cityData,
                 setCityData,
                 resetToken,
+                questScreenCleanup,
                 //setToken,
                 //loader: state.loader,
                 //error: state.error,

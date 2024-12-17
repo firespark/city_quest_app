@@ -113,8 +113,19 @@ export const HowPlayScreen = () => {
                         title={data.playTitle3}
                         description={data.playContent3}
                     />
-
-    				<ContentText ps={data.content} />
+                    <HowPlayBlock
+                        number="4"
+                        title={data.playTitle4}
+                        description={data.playContent4}
+                    />
+                    <HowPlayBlockBlue
+                        number="5"
+                        title={data.playTitle5}
+                        description={data.playContent5}
+                    />
+                </View>
+                <View style={[gStyle.container, gStyle.mt20]}>
+                    <ContentText ps={data.content} />
 
     			</View>
 			</ScrollView>

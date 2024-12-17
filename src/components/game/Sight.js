@@ -9,9 +9,9 @@ export const Sight = ({ setModal, title, image }) => {
 
 
     return (
-    	<View style={[gStyle.wrapper, gStyle.mt15]}>
+    	<View style={[gStyle.wrapper, gStyle.mt15, gStyle.panelBlockCenter]}>
     		<TouchableOpacity
-		       	style={gStyle.panelRowLeft}
+		       	style={gStyle.panelBlockCenter}
 		       	activeOpacity={0.7}
 		       	onPress={() => {
   		        	setModal('answer1')
@@ -21,9 +21,15 @@ export const Sight = ({ setModal, title, image }) => {
 					source={{ uri: image }}
 					style={gStyleGame.answerImage}
 				/>
-				<View style={gStyle.ml10}>
-	    			<Text style={gStyle.answerText}>{title}</Text>
-	    		</View>	        
+				{
+					(title)
+					?
+					<View style={gStyle.mt15}>
+					<Text style={gStyle.titleBold}>{title}</Text>
+					</View>
+					:
+					null
+				}       
 		    </TouchableOpacity>
 		    
 

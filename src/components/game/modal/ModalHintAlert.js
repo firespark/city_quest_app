@@ -10,7 +10,7 @@ import { MainContext } from '../../../context/mainContext'
 import { Http } from '../../../scripts/http'
 
 
-export const ModalHintAlert = ({ setModal, game, setGame }) => {
+export const ModalHintAlert = ({ setModal, setGame }) => {
 
     const { questId, token, scrollViewRef } = useContext(MainContext)
 

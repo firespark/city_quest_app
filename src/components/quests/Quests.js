@@ -24,7 +24,7 @@ export const Quests = ({cityId}) => {
 
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/all/${cityId}`)
-
+            console.log(output)
             if (output.success == 1) {
                 setData(output.data)
             }

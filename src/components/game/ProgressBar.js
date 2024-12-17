@@ -4,7 +4,7 @@ import { View, TouchableOpacity } from 'react-native'
 import { gStyle, gStyleProgress } from '../../styles/style'
 
 
-export const ProgressBar = ({game, setGame, setModal}) => {
+export const ProgressBar = ({game, setModal}) => {
 
     const content = []
 
@@ -27,10 +27,6 @@ export const ProgressBar = ({game, setGame, setModal}) => {
             style={gStyle.panelRowLeft}
             activeOpacity={0.7}
             onPress={() => {
-                /* setGame({
-                    ...game, 
-                    'levels_template': true,
-                }) */
                 setModal('progress')
             }}
         >

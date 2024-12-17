@@ -8,7 +8,7 @@ export const NextGame = ({ nextGame }) => {
 
 
     return (
-    	<View style={[gStyle.center, gStyle.mt20]}>
+    	<View style={[gStyle.center, gStyle.mt30]}>
             <TouchableOpacity
                 style={gStyle.button}
                 activeOpacity={0.7}

@@ -39,7 +39,7 @@ export const QuestScreen = () => {
 
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/get/${questId}`)
-
+            console.log(output);
             if (output.success == 1) {
                 setData(output.data)
             }
@@ -105,6 +105,7 @@ export const QuestScreen = () => {
                     <StartFinish
                         start={data.start_point}
                         finish={data.end_point}
+                        sights_count={data.sights_count}
                     />
                     <ContentSimple ps={data.content} />
                 </View>

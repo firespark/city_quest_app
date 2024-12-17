@@ -4,6 +4,7 @@ import {
     SET_QUEST_ID,
     SET_CITY_DATA,
     SET_TOKEN, 
+    QUEST_CLEANUP,
     //SET_LOADER, 
     //SET_ERROR
 } from './types'
@@ -15,7 +16,6 @@ export const mainReducer = (state, action) => {
         case CHANGE_SCREEN: 
             let previousScreens = state.screens.slice();
             const lastScreen = previousScreens[previousScreens.length - 1];
-
             if(lastScreen == action.screen) return state
 
             if(lastScreen == 'MENU_SCREEN') previousScreens.pop()
@@ -41,6 +41,12 @@ export const mainReducer = (state, action) => {
             return {
                 ...state, 
                 screens: screens,
+            }
+        case QUEST_CLEANUP: 
+            const filteredScreens = state.screens.filter((screen, index) => screen !== 'GAME_SCREEN' || index === state.screens.length - 1);
+            return {
+                ...state, 
+                screens: filteredScreens,
             }
 
         case SET_QUEST_ID: 

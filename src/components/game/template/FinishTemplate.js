@@ -8,7 +8,7 @@ import { gStyle } from '../../../styles/style'
 
 
 
-export const FinishTemplate = ({ title, content, game, setGame, setModal }) => {
+export const FinishTemplate = ({ title, content, game, setModal }) => {
 
 	
 	
@@ -21,12 +21,13 @@ export const FinishTemplate = ({ title, content, game, setGame, setModal }) => {
             <View style={[gStyle.center, gStyle.mt10]}>
                 <ProgressBar
                     game={game}
-                    setGame={setGame}
                     setModal={setModal}
                 />
             </View>
             <Finish
                 text={content}
+                game={game}
+                setModal={setModal}
             />
             <Quests />
 

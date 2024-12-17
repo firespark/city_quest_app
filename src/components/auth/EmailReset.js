@@ -8,7 +8,6 @@ import { gStyle } from '../../styles/style'
 import { Http } from '../../scripts/http'
 
 
-
 export const EmailReset = ({ setEmail, setTemplate, setError, setLoader }) => {
 
     const [input, setInput] = useState(null)

@@ -18,6 +18,7 @@ export const PREVIOUS_SCREEN = 'PREVIOUS_SCREEN'
 export const SET_QUEST_ID = 'SET_QUEST_ID'
 export const SET_CITY_DATA = 'SET_CITY_DATA'
 export const SET_TOKEN = 'SET_TOKEN'
+export const QUEST_CLEANUP = 'QUEST_CLEANUP'
 //export const SET_LOADER = 'SET_LOADER'
 //export const SET_ERROR = 'SET_ERROR'
 

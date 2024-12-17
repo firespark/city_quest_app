@@ -10,15 +10,15 @@ export const TaskSign = ({ number, setModal, disabled }) => {
 
 
     return (
-    	<View style={[gStyle.wrapper, gStyle.mt15]}>
+    	<View style={[gStyle.wrapper, gStyle.mt20]}>
 
 	    	{
 	    		(disabled)
 	    		?
 	    		<View>
-				    <View style={[gStyleGame.questionBlock, gStyleGame.questionBlockDisabled]}>
+				    <View style={[gStyleGame.questionBlockRow, gStyleGame.questionBlockDisabled]}>
 				    	<Image source={require('../../../assets/img/question2-disabled.png')} style={gStyleGame.questionImage} />
-			    		<Text style={[gStyleGame.questionText, gStyleGame.questionTextDisabled]}>Вопрос {number}</Text>
+			    		<Text style={[gStyleGame.questionText, gStyleGame.questionTextDisabled]}>Задание {number}</Text>
 			    	</View>
 			    </View>
 			    :
@@ -28,9 +28,9 @@ export const TaskSign = ({ number, setModal, disabled }) => {
 	  		        	setModal(`task${number}`)
 	  		      	}}
 			    >
-				    <View style={gStyleGame.questionBlock}>
+				    <View style={gStyleGame.questionBlockRow}>
 				    	<Image source={require('../../../assets/img/question2.png')} style={gStyleGame.questionImage} />
-			    		<Text style={gStyleGame.questionText}>Вопрос {number}</Text>
+			    		<Text style={gStyleGame.questionText}>Задание {number}</Text>
 			    	</View>
 			    </TouchableOpacity>
 			    

@@ -9,7 +9,7 @@ import { GAME_SCREEN } from '../../context/types';
 import { MainContext } from '../../context/mainContext';
 
 export const OpenQuest = ({ quest }) => {
-	const { changeScreen, setQuestId } = useContext(MainContext);
+	const { changeScreen, setQuestId, questScreenCleanup } = useContext(MainContext);
 
 	return (
 		<View style={gStyle.mb20}>
@@ -19,6 +19,7 @@ export const OpenQuest = ({ quest }) => {
 				onPress={() => {
 					changeScreen(GAME_SCREEN);
 					setQuestId(quest.id);
+					questScreenCleanup();
 				}}
 			>
 				<Image source={{ uri: quest.quest_image }} style={gStyleQuests.questOpenImage} />

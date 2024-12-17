@@ -1,10 +1,13 @@
-import React from 'react'
-import { View, Text } from 'react-native'
-
+import React, { useContext } from 'react'
+import { View, Text, TouchableOpacity } from 'react-native'
+import { Quests } from '../quests/Quests'
 import { gStyle } from '../../styles/style'
+import { MainContext } from '../../context/mainContext'
+import { QUESTS_SCREEN } from '../../context/types'
 
+export const Finish = ({ text, game, setModal }) => {
 
-export const Finish = ({ text }) => {
+    const { changeScreen, setCityData } = useContext(MainContext)
 
     return (
         <View>
@@ -12,14 +15,31 @@ export const Finish = ({ text }) => {
                 <Text style={gStyle.p}>
                     {text}
                 </Text>
-                <Text selectable style={gStyle.p}>
-                    Первые планы создания в Москве бизнес-квартала международного образца появились в 1991 году. Инициатором был архитектор Борис Иванович Тхор[5], который обратился к Ю. М. Лужкову с предложением построить небоскрёбы международного делового центра. Тогда специально для строительства и эксплуатации ММДЦ «Москва-Сити» при активной поддержке Правительства Москвы было создано Акционерное общество «Сити», позднее преобразованное в ПАО «Сити», которое выступило в роли управляющей компании по созданию и развитию проекта ММДЦ «Москва-Сити». На основании соответствующих договоров, подписанных с Правительством Москвы, ПАО «Сити» выполняет функции заказчика по всему проекту и является арендатором земли под ММДЦ «Москва-Сити». 
-                </Text>
             </View>
-            <View style={[gStyle.mt10, gStyle.mb15]}>
-                <Text style={gStyle.titleBold}>Еще квесты:</Text>
+            <View style={[gStyle.center, gStyle.mt10]}>
+                <TouchableOpacity
+                    style={gStyle.buttonCity}
+                    activeOpacity={0.7}
+                    onPress={() => {
+                        changeScreen(QUESTS_SCREEN)
+                        setCityData({id: game.quest_city_id, title: game.quest_city})
+                    }}
+                >
+                    <Text style={gStyle.buttonTextSmall}>Еще квесты в городе</Text>
+                    <Text style={gStyle.buttonTextSmall}>{game.quest_city}</Text>
+                </TouchableOpacity>
             </View>
-            
+            <View style={[gStyle.center, gStyle.mt20]}>
+                <TouchableOpacity
+                    style={gStyle.buttonCity}
+                    activeOpacity={0.7}
+                    onPress={() => {
+                        setModal('resetProgress')
+                    }}
+                >
+                    <Text style={gStyle.buttonTextSmall}>Сбросить прогресс</Text>
+                </TouchableOpacity>
+            </View>
         </View>
     )
 }

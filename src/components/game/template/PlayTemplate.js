@@ -61,7 +61,7 @@ export const PlayTemplate = ({ game, setGame, setModal, nextGame }) => {
                         null        
                     }
                     
-                    <View style={gStyle.panelRowLeft}>
+                    <View style={gStyle.panelRowCenter}>
                         <TaskSign
                             number="1"
                             setModal={setModal}
@@ -92,7 +92,7 @@ export const PlayTemplate = ({ game, setGame, setModal, nextGame }) => {
                         title={game.sight_title}
                         image={game.sight_image}
                     />
-                    <View style={gStyle.panelRowLeft}>
+                    <View style={gStyle.panelRowCenter}>
                         <TaskSign
                             number="1"
                             setModal={setModal}
