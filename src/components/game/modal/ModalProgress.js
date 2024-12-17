@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react'
-import { View, TouchableOpacity, Text } from 'react-native'
+import { View, TouchableOpacity, Text, Image } from 'react-native'
 
 import {Loader} from '../../common/Loader'
 import {Error} from '../../common/Error'
@@ -42,7 +42,14 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
                         setLevel(i)
                     }}
                 >
-                    <Text style={gStyleProgress.progressCounter}>{(i == game.levels) ? '🏆' : i}</Text>
+                    {
+                        (i == game.levels)
+                        ?
+                        <Image source={require('../../../../assets/img/finish.png')} style={gStyleProgress.finish} />
+                        :
+                        <Text style={gStyleProgress.progressCounter}>{i}</Text>
+                    }
+                    
                 </TouchableOpacity>
             )
         }
@@ -52,7 +59,13 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
                     key={i} 
                     style={[gStyleProgress.progressPointBig, st]}
                 >
-                    <Text style={gStyleProgress.progressCounter}>{(i == game.levels) ? '🏆' : i}</Text>
+                    {
+                        (i == game.levels)
+                        ?
+                        <Image source={require('../../../../assets/img/finish.png')} style={gStyleProgress.finish} />
+                        :
+                        <Text style={gStyleProgress.progressCounter}>{i}</Text>
+                    }
                 </View>
             )
         }

@@ -680,6 +680,7 @@ export const gStyleProgress = StyleSheet.create({
 		flexDirection: 'row',
         flexWrap: 'wrap',
         alignItems: 'center',
+		
 	},
 	progressPoint: {
         height: 30,
@@ -716,7 +717,8 @@ export const gStyleProgress = StyleSheet.create({
     	marginRight: 5,
     	marginTop: 10,
     	marginBottom: 10,
-    	justifyContent: 'center'
+		justifyContent: 'center',
+		alignItems: 'center',
     },
 
     progressCurrentBig: {
@@ -730,7 +732,10 @@ export const gStyleProgress = StyleSheet.create({
 		textAlign: 'center',
 		color: '#FFFFFF',
     },
-	
+	finish: {
+		width: 25,
+		height: 25
+	},
 });
 
 export const gStyleHowPlay = StyleSheet.create({
