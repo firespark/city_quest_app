@@ -80,7 +80,7 @@ export const gStyle = StyleSheet.create({
     p: {
         marginBottom: 5,
         fontSize: 18,
-        lineHeight: 18,
+        lineHeight: 21,
         color: '#202020',
         fontWeight: '300',
     },

@@ -9,7 +9,6 @@ export const Template1 = ({ tasks }) => {
 
 	const task = tasks[0]
 
-	
     return (
     	
 	    <View style={gStyle.mt20}>
@@ -20,7 +19,8 @@ export const Template1 = ({ tasks }) => {
 				null
 	    	}
 			
-			<Text selectable style={[gStyle.p, gStyle.textCenter, gStyle.mt10]}>{task.text}</Text>				        		
+			<Text selectable style={[gStyle.p, gStyle.textCenter, gStyle.mt10]}>{task.text.join('\n')}</Text>				        		
+
 	    </View>
 
 

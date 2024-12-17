@@ -7,6 +7,7 @@ import { gStyle, gStyleGame } from '../../styles/style'
 
 export const Template2 = ({ game, setGame, setModal, taskNumber }) => {
 
+	console.log(game)
 	const setFullImage = (image) => {
 		setGame({
             ...game, 
@@ -22,7 +23,6 @@ export const Template2 = ({ game, setGame, setModal, taskNumber }) => {
 	if(tasks){
 
 	    {tasks.map((task, index) => (
-
 	    	blocks.push(
 	        	<View 
 	        		key={index}
@@ -45,7 +45,7 @@ export const Template2 = ({ game, setGame, setModal, taskNumber }) => {
 			    	}
 
 		        	
-					<Text selectable style={gStyleGame.taskText}>{task.text}</Text>				        		
+					<Text selectable style={gStyleGame.taskText}>{task.text.join('\n')}</Text>				        		
 				</View>
 		        
 	        )    
