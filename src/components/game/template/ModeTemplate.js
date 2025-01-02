@@ -46,7 +46,7 @@ export const ModeTemplate = ({ game, setGame }) => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }
@@ -84,7 +84,7 @@ export const ModeTemplate = ({ game, setGame }) => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

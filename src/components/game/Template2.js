@@ -7,7 +7,7 @@ import { gStyle, gStyleGame } from '../../styles/style'
 
 export const Template2 = ({ game, setGame, setModal, taskNumber }) => {
 
-	console.log(game)
+	
 	const setFullImage = (image) => {
 		setGame({
             ...game, 
@@ -35,7 +35,7 @@ export const Template2 = ({ game, setGame, setModal, taskNumber }) => {
 						    onPress={() => setFullImage(task.image)}
 						>
 							<Image 
-							    source={{ uri: task.image }}
+							    source={{ uri: task.image + '?time=' + new Date().getMinutes() }}
 							    style={gStyleGame.taskImage}
 							/>
 							<Image source={require('../../../assets/img/zoom.png')} style={gStyleGame.zoomImage} />
@@ -44,8 +44,12 @@ export const Template2 = ({ game, setGame, setModal, taskNumber }) => {
 						null
 			    	}
 
-		        	
-					<Text selectable style={gStyleGame.taskText}>{task.text.join('\n')}</Text>				        		
+					{
+						(task.text != '') ?
+						<Text selectable style={gStyleGame.taskText}>{task.text.join('\n')}</Text>
+						:
+						null
+					}
 				</View>
 		        
 	        )    

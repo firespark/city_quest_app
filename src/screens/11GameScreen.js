@@ -29,7 +29,7 @@ export const GameScreen = () => {
             
         }
         catch(e) {
-            console.log(e)
+            
             
         }
        

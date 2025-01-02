@@ -31,7 +31,7 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader, to
                 
                 if (output.success == 1) {
                     const login = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/login`, postdata, token)
-                    console.log(login)
+                    
                     if (login.success == 1) {
                         changeScreen(PROFILE_SCREEN)       
                     }
@@ -49,7 +49,7 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader, to
                         
             }
             catch(e) {
-                console.log(e)
+                
                 setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                     
             }

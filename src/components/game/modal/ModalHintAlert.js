@@ -39,7 +39,7 @@ export const ModalHintAlert = ({ setModal, setGame }) => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
         finally {
@@ -64,7 +64,7 @@ export const ModalHintAlert = ({ setModal, setGame }) => {
                     onPress={() => {
                         getHint()
                         setModal(null)
-                        console.log(scrollViewRef)
+                        
                         if (scrollViewRef)
                             scrollViewRef.current?.scrollToEnd({animated: true})
                     }}

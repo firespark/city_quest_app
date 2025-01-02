@@ -8,9 +8,9 @@ export const QuestTitle = ({ title, city }) => {
 
     
     return (
-        <View style={gStyle.mt10}>
+        <View style={[gStyle.container]}>
             <Text selectable style={gStyleQuests.questsTitleBold}>{city}</Text>
-            <Text selectable style={gStyleQuests.questsTitle}>{title}</Text>
+            <Text selectable style={[gStyleQuests.questsTitle, gStyle.mt10]}>{title}</Text>
         </View>
     )
 

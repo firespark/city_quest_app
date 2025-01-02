@@ -44,7 +44,7 @@ export const OpenQuests = () => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

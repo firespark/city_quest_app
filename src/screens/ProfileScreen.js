@@ -49,7 +49,6 @@ export const ProfileScreen = () => {
 
             if (output.success == 1) {
                 setUser(output.data)
-                console.log(`output ${output}`)
             }
             else {
                 if(output.error) {
@@ -62,14 +61,12 @@ export const ProfileScreen = () => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }
         finally {
             setLoader(false)
-            console.log(token)
-            console.log(user)
         }
        
     }

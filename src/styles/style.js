@@ -115,6 +115,10 @@ export const gStyle = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
+    panelRowLeftTop: {
+        flexDirection: 'row',
+        alignItems: 'top',
+    },
     panelRowRight: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -204,6 +208,9 @@ export const gStyle = StyleSheet.create({
 		color: '#202020',
 
     },
+    textUpperCase: {
+		textTransform: 'uppercase',
+    },
 
 	button: {
         width: 181,
@@ -216,6 +223,13 @@ export const gStyle = StyleSheet.create({
         width: 181,
         backgroundColor:'#17A2B8',
         height: 45,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
+	buttonReset: {
+        width: 150,
+        backgroundColor:'#b81717',
+        height: 40,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -330,7 +344,6 @@ export const gStyleHeader = StyleSheet.create({
 		padding: 8,
 		borderBottomColor: '#C4C4C4',
 		borderBottomWidth: 1,
-		marginTop: 25,
 		backgroundColor: '#ffffff',
 	},
 	logo: {
@@ -496,6 +509,13 @@ export const gStyleQuests = StyleSheet.create({
 		fontSize: 13,
 		lineHeight: 15,
 	},
+	questProgressIcon: {
+			width: 46,
+			height: 46,
+			position: 'absolute',
+			right: 5,
+			top: 5,
+	}
 });
 
 export const gStyleGame = StyleSheet.create({
@@ -604,6 +624,9 @@ export const gStyleGame = StyleSheet.create({
 	    lineHeight: 29,
 	    color: '#17A2B8',
 	    textAlign: 'center',
+	},
+	address: {
+	    width: 300,
 	},
 	hintBlockRow: {
 		width: 120,
@@ -727,7 +750,7 @@ export const gStyleProgress = StyleSheet.create({
     },
     progressCounter: {
     	fontWeight: '300',
-		fontSize: 29,
+		fontSize: 24,
 		lineHeight: 34,
 		textAlign: 'center',
 		color: '#FFFFFF',

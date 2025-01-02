@@ -67,7 +67,7 @@ export const Task1 = ({ game, setGame, setModal }) => {
             const postdata = {quest_answer: answers, answer_number: 1}
 
             const output = await Http.post(`http://test2.gagara-web.ru/api/games/checkAnswer/${questId}`, postdata, token)
-
+			//console.log(output)
             if (output.success == 1) {
             	setInputResults(output.data.inputResults)
             	if(!output.data.errors) {
@@ -87,7 +87,7 @@ export const Task1 = ({ game, setGame, setModal }) => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

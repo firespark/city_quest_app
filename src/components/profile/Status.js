@@ -32,7 +32,7 @@ export const Status = ( {token} ) => {
 			
 		}
 		catch(e) {
-			console.log(e)
+			
 			setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
 			
 		}

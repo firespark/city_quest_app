@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { View } from 'react-native'
 import { Quest } from './Quest'
 
@@ -8,12 +8,12 @@ import {Error} from '../common/Error'
 import { gStyle } from '../../styles/style'
 
 import { Http } from '../../scripts/http'
-
+import { MainContext } from '../../context/mainContext'
 
 export const Quests = ({cityId}) => {
 
     const [data, setData] = useState();
-
+    const { token } = useContext(MainContext)
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
 
@@ -23,10 +23,18 @@ export const Quests = ({cityId}) => {
         setLoader(true)
 
         try {
-            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/all/${cityId}`)
-            console.log(output)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/all/${cityId}`, token)
+            
             if (output.success == 1) {
-                setData(output.data)
+                setData(output.data.sort((a, b) => {
+                    const statusOrder = ['in_progress', null, 'finished'];
+                  
+                    const aIndex = statusOrder.indexOf(a.status);
+                    const bIndex = statusOrder.indexOf(b.status);
+                  
+                    return aIndex - bIndex;
+                  })
+                  )
             }
             else {
                 if(output.error) {
@@ -39,7 +47,7 @@ export const Quests = ({cityId}) => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

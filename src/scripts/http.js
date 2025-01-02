@@ -5,7 +5,7 @@ export class Http {
             return await request(url, token)
         }
         catch (e) {
-            console.log(e)
+            
         }
     }
 
@@ -15,7 +15,7 @@ export class Http {
             return await request(url, token, 'POST', data)
         }
         catch (e) {
-            console.log(e)
+            
         }
     }
 }

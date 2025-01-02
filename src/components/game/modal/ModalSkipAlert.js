@@ -44,7 +44,7 @@ export const ModalSkipAlert = ({ setModal, game, setGame }) => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

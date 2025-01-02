@@ -39,7 +39,7 @@ export const QuestScreen = () => {
 
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/get/${questId}`)
-            console.log(output);
+
             if (output.success == 1) {
                 setData(output.data)
             }
@@ -54,7 +54,7 @@ export const QuestScreen = () => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

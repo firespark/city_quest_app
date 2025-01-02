@@ -42,7 +42,7 @@ export const ModalTask2 = ({ game, setModal, setGame }) => {
 	    		:
 	    		null
 	        }
-	        <Text selectable style={[gStyle.titleBold, gStyle.mt20]}>{game.answer2}</Text>
+	        <Text selectable style={[gStyle.titleBold, gStyle.mt20, gStyle.textUpperCase]}>{game.answer2}</Text>
 
 		    
 	    </View>

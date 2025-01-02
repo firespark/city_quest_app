@@ -51,15 +51,15 @@ export const ModalAnswer1 = ({ title, image, address, location, description, set
 					{
 						(address)
 						? 
-						<View style={gStyle.panelRowLeft}>
+						<View style={gStyle.panelRowLeftTop}>
 	    					<Text style={gStyle.textThin}>Адрес: </Text>
-	    					<Text selectable style={gStyle.text}>{address}</Text>
+	    					<Text selectable style={[gStyle.text, gStyleGame.address]}>{address}</Text>
 	    				</View>
 						:
 						null
 					}
 					{
-						(address)
+						(location)
 						? 
 						<View style={gStyle.panelRowLeft}>
 	    					<Text style={gStyle.textThin}>Координаты: </Text>

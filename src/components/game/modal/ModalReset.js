@@ -28,7 +28,7 @@ export const ModalReset = ({ setModal, setGame }) => {
             setLoader(true)
             try {
                 const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/reset/${questId}`, postdata, token)
-                console.log(output)
+               
                 if (output.success == 1) {
                     setGame([]);
                     changeScreen(QUEST_SCREEN);
@@ -47,7 +47,7 @@ export const ModalReset = ({ setModal, setGame }) => {
                 
             }
             catch(e) {
-                console.log(e)
+                
                 setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 
             }
@@ -90,13 +90,13 @@ export const ModalReset = ({ setModal, setGame }) => {
           
             <View style={gStyle.center}>
                 <TouchableOpacity
-                    style={[gStyle.button, gStyle.mt20]}
+                    style={[gStyle.buttonReset, gStyle.mt30]}
                     activeOpacity={0.7}
                     onPress={() => {
                         resetProgress()
                     }}
                 >
-                    <Text style={gStyle.buttonText}>Сбросить прогресс</Text>
+                    <Text style={gStyle.buttonTextSmall}>Сбросить прогресс</Text>
                 </TouchableOpacity>
             </View>
         </View>

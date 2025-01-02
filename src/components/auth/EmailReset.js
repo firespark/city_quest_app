@@ -15,11 +15,11 @@ export const EmailReset = ({ setEmail, setTemplate, setError, setLoader }) => {
     const [agree, setAgree] = useState(true)
 
     const checkEmail = async () => {
-        console.log('checking email')
+        
         setLoader(true)
         setError(null)
         setStyle(null)
-        console.log(agree)
+        
         if(!agree) {
             setError('Не отмечена галочка согласия обработки персональных данных')
         }
@@ -51,7 +51,7 @@ export const EmailReset = ({ setEmail, setTemplate, setError, setLoader }) => {
                     
                 }
                 catch(e) {
-                    console.log(e)
+                    
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                     
                 }

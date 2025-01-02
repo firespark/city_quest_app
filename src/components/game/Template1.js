@@ -14,12 +14,16 @@ export const Template1 = ({ tasks }) => {
 	    <View style={gStyle.mt20}>
 	    	{
 	    		(task.image) ?
-	    		<FullWidthImage source={{ uri: task.image }} />
+	    		<FullWidthImage source={{ uri: task.image + '?time=' + new Date().getMinutes() }} />
 				:
 				null
 	    	}
-			
-			<Text selectable style={[gStyle.p, gStyle.textCenter, gStyle.mt10]}>{task.text.join('\n')}</Text>				        		
+			{
+				(task.text != '') ?
+				<Text selectable style={[gStyle.p, gStyle.textCenter, gStyle.mt10]}>{task.text.join('\n')}</Text>				        		
+					:
+				null
+			}
 
 	    </View>
 

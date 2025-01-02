@@ -25,7 +25,7 @@ export function fetchData ( url, token = '', method = 'GET', postData = {} ) {
                 
             }
             catch(e) {
-                console.log(e)
+                
                 showError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             }
             finally {
@@ -51,7 +51,7 @@ async function get( url, token = '' ) {
             return await request(url, token)
         }
         catch (e) {
-            console.log(e)
+            
         }
     }
 
@@ -61,7 +61,7 @@ async function get( url, token = '' ) {
             return await request(url, token, 'POST', data)
         }
         catch (e) {
-            console.log(e)
+            
         }
     }
 

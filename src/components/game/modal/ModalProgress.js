@@ -76,7 +76,7 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
         setLoader(true)
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/games/getLevel/${questId}/${value}`, token)
-
+          
             if (output.success == 1) {
                 setGame(output.data)
                 setModal(null)
@@ -92,7 +92,7 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

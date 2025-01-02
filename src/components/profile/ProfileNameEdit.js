@@ -49,7 +49,7 @@ export const ProfileNameEdit = ({ user, setUser, setTemplate, setSuccess }) => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

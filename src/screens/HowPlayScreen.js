@@ -59,7 +59,7 @@ export const HowPlayScreen = () => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }

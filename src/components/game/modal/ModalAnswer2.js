@@ -11,9 +11,9 @@ export const ModalAnswer2 = ({ answer2, setModal, nextGame }) => {
     return (
     	<View style={gStyle.mt10}>
     		<Text style={gStyleGame.answerCorrect}>Верно!</Text>
-    		<Text selectable style={[gStyle.titleBold, gStyle.mt20]}>{answer2}</Text>
+    		<Text selectable style={[gStyle.titleBold, gStyle.mt20, gStyle.textUpperCase]}>{answer2}</Text>
     		
-	        <View style={[gStyle.center, gStyle.mt10]}>
+	        <View style={[gStyle.center, gStyle.mt30]}>
 			   	<TouchableOpacity
 			       	style={gStyle.button}
 			       	activeOpacity={0.7}

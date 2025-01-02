@@ -36,7 +36,7 @@ export const Layout = () => {
 
 
     const { screens } = useContext(MainContext)
-    console.log(screens)
+    
     const screen = screens[screens.length - 1];
 
     switch (screen) {

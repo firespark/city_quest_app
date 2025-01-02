@@ -57,7 +57,7 @@ export const Email = ({ setEmail, setTemplate, setError, setLoader }) => {
                     
                 }
                 catch(e) {
-                    console.log(e)
+
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                     
                 }

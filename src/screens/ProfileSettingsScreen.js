@@ -57,7 +57,7 @@ export const ProfileSettingsScreen = () => {
             
         }
         catch(e) {
-            console.log(e)
+            
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             
         }
@@ -79,8 +79,6 @@ export const ProfileSettingsScreen = () => {
         return <Error text={error} />
     }
 
-    console.log(user)
-    
 
     return (
         <View style={gStyle.flex}>
