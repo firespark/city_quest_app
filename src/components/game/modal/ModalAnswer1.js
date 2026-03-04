@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
 
 import { gStyle, gStyleGame } from '../../../styles/style'
@@ -9,6 +9,7 @@ import { gStyle, gStyleGame } from '../../../styles/style'
 export const ModalAnswer1 = ({ title, image, address, location, description, setModal }) => {
 
 	const ps = []
+	const { setAnswersState } = useContext(MainContext)
 
 	if(description){
 
@@ -83,8 +84,9 @@ export const ModalAnswer1 = ({ title, image, address, location, description, set
 			   	<TouchableOpacity
 			       	style={gStyle.button}
 			       	activeOpacity={0.7}
-			       	onPress={() => {
-  		    			setModal(null)
+					onPress={() => {
+						setAnswersState([]);
+						setModal(null);
   		    		}}
 			   	>
 			       	<Text style={gStyle.buttonText}>Продолжить</Text>

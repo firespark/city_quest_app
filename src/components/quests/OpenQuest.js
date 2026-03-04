@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { View, Text, Image, TouchableOpacity } from 'react-native';
 
 import { ProgressBar } from '../game/ProgressBar';
-
+import FastImage from 'react-native-fast-image';
 import { gStyle, gStyleQuests } from '../../styles/style';
 
 import { GAME_SCREEN } from '../../context/types';
@@ -22,7 +22,7 @@ export const OpenQuest = ({ quest }) => {
 					questScreenCleanup();
 				}}
 			>
-				<Image source={{ uri: quest.quest_image }} style={gStyleQuests.questOpenImage} />
+				<FastImage source={{ uri: quest.quest_image }} style={gStyleQuests.questOpenImage} />
 				<View style={[gStyle.ml15, gStyleQuests.questOpenBlock]}>
 					<Text selectable style={gStyleQuests.questOpenTitle}
 					>

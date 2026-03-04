@@ -10,11 +10,12 @@ import { QuestTitle } from '../components/quests/QuestTitle'
 import { QuestImage } from '../components/quests/QuestImage'
 import { StartFinish } from '../components/quests/StartFinish'
 import { StartButton } from '../components/quests/StartButton'
+import { ResetButton } from '../components/quests/ResetButton'
 
 import { Footer } from '../components/common/Footer'
 
-import {Loader} from '../components/common/Loader'
-import {Error} from '../components/common/Error'
+import { Loader } from '../components/common/Loader'
+import { Error } from '../components/common/Error'
 
 import { gStyle, gStyleHeader, gStyleQuests } from '../styles/style'
 
@@ -28,40 +29,41 @@ export const QuestScreen = () => {
     const [loader, setLoader] = useState(true)
     const [loadError, setLoadError] = useState(null)
 
-	const { questId, changeScreen } = useContext(MainContext)
+    const { questId, token, changeScreen, setAnswersState } = useContext(MainContext)
 
     const [data, setData] = useState([])
 
     const fetchData = async () => {
-
+        setAnswersState([]);
         setLoadError(null)
         setLoader(true)
 
         try {
-            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/get/${questId}`)
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/get/${questId}`, token)
 
             if (output.success == 1) {
                 setData(output.data)
+                console.log(output.data);
             }
             else {
-                if(output.error) {
+                if (output.error) {
                     setLoadError(output.error)
                 }
                 else {
                     setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-            
+
         }
-        catch(e) {
-            
+        catch (e) {
+
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
+
         }
         finally {
             setLoader(false)
         }
-       
+
     }
 
     useEffect(() => {
@@ -75,16 +77,16 @@ export const QuestScreen = () => {
     }
 
     if (loadError) {
-        return <Error text={error} />
+        return <Error text={loadError} />
     }
 
+    const progress = data.status == "in_progress" ? "Продолжить" : "Старт";
 
-
-	return (
+    return (
         <View style={gStyle.flex}>
-    		<View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
+            <View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
                 <Back />
-                <HeaderTitle title="Квест-экскурсия"/>
+                <HeaderTitle title="Квест-экскурсия" />
                 <Menu />
             </View>
             <ScrollView
@@ -92,7 +94,7 @@ export const QuestScreen = () => {
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
             >
-                            
+
                 <QuestTitle
                     title={data.title}
                     city={data.city}
@@ -100,7 +102,7 @@ export const QuestScreen = () => {
                 <QuestImage
                     image={data.image}
                 />
-            
+
                 <View style={gStyleQuests.questsContent}>
                     <StartFinish
                         start={data.start_point}
@@ -109,13 +111,22 @@ export const QuestScreen = () => {
                     />
                     <ContentSimple ps={data.content} />
                 </View>
-            
+
                 <StartButton
                     changeScreen={changeScreen}
+                    progress={progress}
                 />
-                            
+                
+                {
+                    data.status ? (
+                        <ResetButton
+                            changeScreen={changeScreen}
+                            progress={progress}
+                        />
+                    ) : null
+                }
             </ScrollView>
             <Footer />
-	    </View>
+        </View>
     )
 }

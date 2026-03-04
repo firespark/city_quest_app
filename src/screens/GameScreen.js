@@ -4,8 +4,8 @@ import { View, BackHandler, Alert } from 'react-native'
 import { GameTemplate } from '../components/game/template/GameTemplate'
 import { ModalTemplate } from '../components/game/template/ModalTemplate'
 
-import {Loader} from '../components/common/Loader'
-import {Error} from '../components/common/Error'
+import { Loader } from '../components/common/Loader'
+import { Error } from '../components/common/Error'
 
 import { gStyle } from '../styles/style'
 
@@ -19,9 +19,9 @@ export const GameScreen = () => {
     const [loader, setLoader] = useState(true)
     const [error, setError] = useState(null)
 
-	const { questId, token } = useContext(MainContext)
+    const { questId, token, setAnswersState } = useContext(MainContext)
 
-	const [modal, setModal] = useState(null)
+    const [modal, setModal] = useState(null)
 
     const [game, setGame] = useState([])
 
@@ -31,12 +31,12 @@ export const GameScreen = () => {
 
         //previousScreen();
         return true;
-      };
+    };
 
     const backHandler = BackHandler.addEventListener(
         'hardwareBackPress',
         backAction,
-      );
+    );
 
     const fetchData = async () => {
 
@@ -44,31 +44,31 @@ export const GameScreen = () => {
         setLoader(true)
 
         try {
-            
+
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/games/get/${questId}`, token)
 
             if (output.success == 1) {
                 setGame(output.data)
             }
             else {
-                if(output.error) {
+                if (output.error) {
                     setError(output.error)
                 }
                 else {
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-            
+
         }
-        catch(e) {
-            
+        catch (e) {
+
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
+
         }
         finally {
             setLoader(false)
         }
-       
+
     }
 
     useEffect(() => {
@@ -77,51 +77,51 @@ export const GameScreen = () => {
 
 
     const nextGame = async () => {
-
+        setAnswersState([]);
         setError(null)
         setLoader(true)
 
-    	let method = null
+        let method = null
 
-    	if(game.is_level){
-    		let level = game.step
-    		level++
-    		method = `${process.env.EXPO_PUBLIC_API_URL}/games/getLevel/${questId}/${level}`
-    	}
-    	else {
-    		
-    		method = `${process.env.EXPO_PUBLIC_API_URL}/games/next/${questId}`
-    	}  
-    	
-    	try {
-   			const output = await Http.get(method, token)
-    		        
+        if (game.is_level) {
+            let level = game.step
+            level++
+            method = `${process.env.EXPO_PUBLIC_API_URL}/games/getLevel/${questId}/${level}`
+        }
+        else {
+
+            method = `${process.env.EXPO_PUBLIC_API_URL}/games/next/${questId}`
+        }
+
+        try {
+            const output = await Http.get(method, token)
+
 
             if (output.success == 1) {
                 setGame(output.data)
             }
             else {
-                if(output.error) {
+                if (output.error) {
                     setError(output.error)
                 }
                 else {
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-            
+
         }
-        catch(e) {
-            
+        catch (e) {
+
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
+
         }
         finally {
             setLoader(false)
         }
-		
-			
-	        
-		
+
+
+
+
     }
 
     if (loader) {
@@ -134,25 +134,25 @@ export const GameScreen = () => {
 
     return (
         <View style={gStyle.flex}>
-        	{
-        		(modal) ?
-        		<ModalTemplate
-	    			game={game}
-	    			modal={modal}
-	    			setModal={setModal}
-	    			setGame={setGame}
-	    			nextGame={nextGame}
-	    		/>
-	    		:
-	    		<GameTemplate
-	    			game={game}
-	    			setGame={setGame}
-	    			setModal={setModal}
-	    			nextGame={nextGame}
-	    		/>
-        	}
-    		
-	    	
-	    </View>
+            {
+                (modal) ?
+                    <ModalTemplate
+                        game={game}
+                        modal={modal}
+                        setModal={setModal}
+                        setGame={setGame}
+                        nextGame={nextGame}
+                    />
+                    :
+                    <GameTemplate
+                        game={game}
+                        setGame={setGame}
+                        setModal={setModal}
+                        nextGame={nextGame}
+                    />
+            }
+
+
+        </View>
     )
 }

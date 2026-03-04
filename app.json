@@ -22,16 +22,21 @@
       },
       "package": "com.gagara.quest",
       "plugins": [
-            [
-              "@react-native-google-signin/google-signin",
-              {
-                "iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
-              }
-            ]
-          ]
+        [
+          "@react-native-google-signin/google-signin",
+          {
+            "iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
+          }
+        ]
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "ca583a78-1f74-4b4b-bcc3-28eafb89a6fa"
+      }
     }
   }
 }

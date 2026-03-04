@@ -47,6 +47,7 @@ export const MainState = ({ children }) => {
     //const [token, setToken] = useState('111');
 
     const [token, setToken] = useState();
+    const [answersState, setAnswersState] = useState([]);
 
     const backAction = () => {
         /* Alert.alert('MainState backAction', 'Are you sure you want to go back?', [
@@ -58,6 +59,7 @@ export const MainState = ({ children }) => {
           {text: 'YES', onPress: () => BackHandler.exitApp()},
         ]);
         // */
+        setAnswersState([]);
         previousScreen();
         return true;
       };
@@ -138,7 +140,9 @@ export const MainState = ({ children }) => {
                 cityData: state.cityData,
                 setCityData,
                 resetToken,
-                questScreenCleanup,
+                    questScreenCleanup,
+                    answersState,
+                setAnswersState,
                 //setToken,
                 //loader: state.loader,
                 //error: state.error,

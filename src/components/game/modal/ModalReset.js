@@ -21,7 +21,7 @@ export const ModalReset = ({ setModal, setGame }) => {
 
     const resetProgress = async () => {
 
-        if (comment == 'Подтверждаю') {
+        if (comment.trim() == 'Подтверждаю') {
             const postdata = {}
 
             setError(null)

@@ -35,7 +35,7 @@ export const Template2 = ({ game, setGame, setModal, taskNumber }) => {
 						    onPress={() => setFullImage(task.image)}
 						>
 							<Image 
-							    source={{ uri: task.image + '?time=' + new Date().getMinutes() }}
+							    source={{ uri: task.image }}
 							    style={gStyleGame.taskImage}
 							/>
 							<Image source={require('../../../assets/img/zoom.png')} style={gStyleGame.zoomImage} />

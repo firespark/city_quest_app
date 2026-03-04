@@ -20,6 +20,7 @@ export const Sight = ({ setModal, title, image }) => {
 	    		<Image 
 					source={{ uri: image }}
 					style={gStyleGame.answerImage}
+					
 				/>
 				{
 					(title)

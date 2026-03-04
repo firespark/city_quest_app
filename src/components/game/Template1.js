@@ -14,7 +14,7 @@ export const Template1 = ({ tasks }) => {
 	    <View style={gStyle.mt20}>
 	    	{
 	    		(task.image) ?
-	    		<FullWidthImage source={{ uri: task.image + '?time=' + new Date().getMinutes() }} />
+	    		<FullWidthImage source={{ uri: task.image }} />
 				:
 				null
 	    	}

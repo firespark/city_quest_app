@@ -18,7 +18,7 @@ import { Http } from '../../scripts/http'
 
 export const Task1 = ({ game, setGame, setModal }) => {
 
-	const { questId, token } = useContext(MainContext)
+	const { questId, token, answersState, setAnswersState } = useContext(MainContext)
 
 	const [answers, setAnswers] = useState([]);
 	const [inputResults, setInputResults] = useState({});
@@ -44,7 +44,7 @@ export const Task1 = ({ game, setGame, setModal }) => {
 		            placeholder={`Слово ${i+1}`}
 		            style={[gStyle.input, gStyle.mb20, style]}
 					placeholderTextColor={'#C4C4C4'}
-					value={answers[i]}
+					value={answersState[i] || ''}
 					onChangeText={(value) => answersHandler(i, value)}
 		        />
 	        </View>
@@ -54,7 +54,7 @@ export const Task1 = ({ game, setGame, setModal }) => {
 
 	const answersHandler = (key, value) => {
 		value = value.replace(/\s/g, ""); 
-        setAnswers({...answers, [key]: value})
+		setAnswersState({ ...answersState, [key]: value })
     }
 
     const checkAnswer = async () => {
@@ -64,14 +64,15 @@ export const Task1 = ({ game, setGame, setModal }) => {
 
     	try {
     		
-            const postdata = {quest_answer: answers, answer_number: 1}
+            const postdata = {quest_answer: answersState, answer_number: 1}
 
-            const output = await Http.post(`http://test2.gagara-web.ru/api/games/checkAnswer/${questId}`, postdata, token)
+            const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/checkAnswer/${questId}`, postdata, token)
 			//console.log(output)
             if (output.success == 1) {
             	setInputResults(output.data.inputResults)
             	if(!output.data.errors) {
-            		setGame(output.data)
+					setGame(output.data)
+					setAnswersState([]);
 			        setModal('answer1')
             	}
                 

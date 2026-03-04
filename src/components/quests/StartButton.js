@@ -6,7 +6,7 @@ import { gStyle } from '../../styles/style'
 import { GAME_SCREEN } from '../../context/types'
 
 
-export const StartButton = ({ changeScreen }) => {
+export const StartButton = ({ changeScreen, progress }) => {
 
     
     return (
@@ -16,7 +16,7 @@ export const StartButton = ({ changeScreen }) => {
                 activeOpacity={0.7}
                 onPress={() => changeScreen(GAME_SCREEN)}
             >
-                <Text style={gStyle.buttonText}>Старт</Text>
+                <Text style={gStyle.buttonText}>{progress}</Text>
             </TouchableOpacity>
         </View>
     )
