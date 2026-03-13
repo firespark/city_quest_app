@@ -11,7 +11,7 @@ const styles = StyleSheet.create({
 	  alignItems: "center",
 	},
 	image: {
-		width: windowWidth * 0.8, // Adjust the percentage as needed
+		width: windowWidth * 0.8,
     	aspectRatio: 1
 	},
   });

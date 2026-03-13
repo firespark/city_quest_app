@@ -3,6 +3,8 @@ import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
 
 import { gStyle, gStyleGame } from '../../../styles/style'
 
+import { MainContext } from '../../../context/mainContext'
+
 
 
 

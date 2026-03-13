@@ -6,13 +6,6 @@ import { gStyle, gStyleProfile } from '../../styles/style'
 
 
 export const ProfilePassword = ({ setTemplate, setSuccess }) => {
-
-    /*let passwordStr = '';
-
-    for (let i = 1; i <= passwordLength; i++) {
-
-        passwordStr += '*'
-    }*/
 	
     return (
     	<View style={[gStyle.panelRow, gStyle.mt20]}>

@@ -11,7 +11,7 @@ export const QuestImage = ({ image }) => {
         <View>
             <Image 
                 source={{ uri: image }} 
-                style={[gStyle.mt10, gStyle.image300]}
+                style={[gStyle.image300]}
             />
         </View>
     )

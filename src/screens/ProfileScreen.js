@@ -9,11 +9,12 @@ import { Status } from '../components/profile/Status'
 import { ProfileRegister } from '../components/profile/ProfileRegister'
 import { OpenQuests } from '../components/quests/OpenQuests'
 import { DoneQuests } from '../components/quests/DoneQuests'
+import { PurchasedQuests } from '../components/quests/PurchasedQuests'
 
 import { Footer } from '../components/common/Footer'
 
-import {Loader} from '../components/common/Loader'
-import {Error} from '../components/common/Error'
+import { Loader } from '../components/common/Loader'
+import { Error } from '../components/common/Error'
 
 import { gStyle, gStyleHeader } from '../styles/style'
 
@@ -31,10 +32,10 @@ export const ProfileScreen = () => {
 
 
     const [user, setUser] = useState({
-        'name' : null,
-        'email' : null,
-        'notes' : 0,    
-        
+        'name': null,
+        'email': null,
+        'notes': 0,
+
     })
 
     const fetchData = async () => {
@@ -44,31 +45,31 @@ export const ProfileScreen = () => {
 
         try {
             //const token = await AsyncStorage.getItem('APP_TOKEN')
-            
+
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/users/get`, token)
 
             if (output.success == 1) {
                 setUser(output.data)
             }
             else {
-                if(output.error) {
+                if (output.error) {
                     setLoadError(output.error)
                 }
                 else {
                     setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-            
+
         }
-        catch(e) {
-            
+        catch (e) {
+
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
+
         }
         finally {
             setLoader(false)
         }
-       
+
     }
 
     useEffect(() => {
@@ -85,33 +86,26 @@ export const ProfileScreen = () => {
 
     return (
         <View style={gStyle.flex}>
-    		<View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
-	            <Back />
-        		<HeaderTitle title={user.name}/>
-	            <Settings />
-	        </View>
-    		<ScrollView
-                style={gStyle.flex}
-                keyboardShouldPersistTaps="handled"
-                keyboardDismissMode="interactive"
-            >
+            <View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
+                <Back />
+                <HeaderTitle title={user.name} />
+                <Settings />
+            </View>
+            <ScrollView style={gStyle.flex} keyboardShouldPersistTaps="handled">
                 <View style={gStyle.container}>
-                    <Status
-                        token={token}
-                    />
-                    {
-                        (!user.email) ?
-                        <ProfileRegister />
-                        :
-                        null
-                    }
+                    <Status token={token} />
+                    {!user.email && <ProfileRegister />}
+
+                    <OpenQuests />
+
+                    <DoneQuests />
+
+                    {user.email && <PurchasedQuests />}
                     
-        			<OpenQuests />
-        			<DoneQuests />
                 </View>
-			</ScrollView>
-	    	<Footer active="profile" />
-	    </View>
+            </ScrollView>
+            <Footer active="profile" />
+        </View>
     )
 }
 

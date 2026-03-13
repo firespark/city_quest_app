@@ -3,153 +3,153 @@ import { StyleSheet } from 'react-native'
 export const gStyle = StyleSheet.create({
 
 	flex: {
-        flex: 1,
-    },
-    mt5: {
+		flex: 1,
+	},
+	mt5: {
 		marginTop: 5,
 	},
 	ml5: {
-        marginLeft: 5,
-    },
-    mr5: {
-        marginRight: 5,
-    },
-    mb5: {
-        marginBottom: 5,
-    },
-    mt8: {
+		marginLeft: 5,
+	},
+	mr5: {
+		marginRight: 5,
+	},
+	mb5: {
+		marginBottom: 5,
+	},
+	mt8: {
 		marginTop: 8,
 	},
 	ml8: {
-        marginLeft: 8,
-    },
-    mr8: {
-        marginRight: 8,
-    },
-    mb8: {
-        marginBottom: 8,
-    },
-    mt10: {
+		marginLeft: 8,
+	},
+	mr8: {
+		marginRight: 8,
+	},
+	mb8: {
+		marginBottom: 8,
+	},
+	mt10: {
 		marginTop: 10,
 	},
 	ml10: {
-        marginLeft: 10,
-    },
-    mr10: {
-        marginRight: 10,
-    },
-    mb10: {
-        marginBottom: 10,
-    },
-    mt15: {
+		marginLeft: 10,
+	},
+	mr10: {
+		marginRight: 10,
+	},
+	mb10: {
+		marginBottom: 10,
+	},
+	mt15: {
 		marginTop: 15,
 	},
 	ml15: {
-        marginLeft: 15,
-    },
-    mr15: {
-        marginRight: 15,
-    },
-    mb15: {
-        marginBottom: 15,
-    },
-    mt20: {
+		marginLeft: 15,
+	},
+	mr15: {
+		marginRight: 15,
+	},
+	mb15: {
+		marginBottom: 15,
+	},
+	mt20: {
 		marginTop: 20,
 	},
 	ml20: {
-        marginLeft: 20,
-    },
-    mr20: {
-        marginRight: 20,
-    },
-    mb20: {
-        marginBottom: 20,
-    },
-    mt30: {
+		marginLeft: 20,
+	},
+	mr20: {
+		marginRight: 20,
+	},
+	mb20: {
+		marginBottom: 20,
+	},
+	mt30: {
 		marginTop: 30,
 	},
 	ml30: {
-        marginLeft: 30,
-    },
-    mr30: {
-        marginRight: 30,
-    },
-    mb30: {
-        marginBottom: 30,
-    },
-    p: {
-        marginBottom: 5,
-        fontSize: 18,
-        lineHeight: 21,
-        color: '#202020',
-        fontWeight: '300',
-    },
-    textCenter: {
-    	textAlign: 'center',
-    },
-    center: {
-        alignItems: 'center',
-        
-    },
-    image300: {
-    	height: 300,
-        flex: 1,
-        width: null,
-    },
-    centerBlock: {
-        alignItems: 'center',
-        justifyContent: 'center',
-        
-    },
-    panelRow: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-    },
-    panelRowCenter: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    panelRowLeft: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-    panelRowLeftTop: {
-        flexDirection: 'row',
-        alignItems: 'top',
-    },
-    panelRowRight: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'flex-end',
-    },
-    panelBlockCenter: {
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    panelBlockRight: {
-        alignItems: 'flex-end',
-        justifyContent: 'flex-end',
-    },
-    wrapper: {
-        marginLeft: 10,
-        marginRight: 10,
-    },
-    container: {
-        padding: 10,
-        marginTop: 10,
-        marginBottom: 10,
-    },
+		marginLeft: 30,
+	},
+	mr30: {
+		marginRight: 30,
+	},
+	mb30: {
+		marginBottom: 30,
+	},
+	p: {
+		marginBottom: 5,
+		fontSize: 18,
+		lineHeight: 21,
+		color: '#202020',
+		fontWeight: '300',
+	},
+	textCenter: {
+		textAlign: 'center',
+	},
+	center: {
+		alignItems: 'center',
 
-    title: {
+	},
+	image300: {
+		height: 300,
+		flex: 1,
+		width: null,
+	},
+	centerBlock: {
+		alignItems: 'center',
+		justifyContent: 'center',
+
+	},
+	panelRow: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center',
+	},
+	panelRowCenter: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	panelRowLeft: {
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	panelRowLeftTop: {
+		flexDirection: 'row',
+		alignItems: 'top',
+	},
+	panelRowRight: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'flex-end',
+	},
+	panelBlockCenter: {
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	panelBlockRight: {
+		alignItems: 'flex-end',
+		justifyContent: 'flex-end',
+	},
+	wrapper: {
+		marginLeft: 10,
+		marginRight: 10,
+	},
+	container: {
+		padding: 10,
+		marginTop: 10,
+		marginBottom: 10,
+	},
+
+	title: {
 		color: '#202020',
 		fontSize: 18,
 		lineHeight: 21,
 		/*fontWeight: '300',*/
 		textAlign: 'center',
 	},
-    titleSights: {
+	titleSights: {
 		color: '#202020',
 		fontSize: 14,
 		lineHeight: 18,
@@ -164,156 +164,163 @@ export const gStyle = StyleSheet.create({
 		textAlign: 'center',
 	},
 	titleBold: {
-    	fontWeight: 'bold',
+		fontWeight: 'bold',
 		fontSize: 18,
 		lineHeight: 21,
 		textAlign: 'center',
 		color: '#202020',
-    },
-    titleBoldWhite: {
-    	fontWeight: 'bold',
+	},
+	titleBoldWhite: {
+		fontWeight: 'bold',
 		fontSize: 18,
 		lineHeight: 21,
 		textAlign: 'center',
 		color: '#ffffff',
-    },
-    text: {
+	},
+	text: {
 		fontSize: 18,
 		lineHeight: 21,
 		color: '#202020',
 
-    },
-    textRed: {
+	},
+	textRed: {
 		fontSize: 18,
 		lineHeight: 21,
 		color: '#FF0000',
 
-    },
-    textThin: {
-    	fontWeight: '300',
+	},
+	textThin: {
+		fontWeight: '300',
 		fontSize: 18,
 		lineHeight: 21,
 		color: '#202020',
-    },
-    textThin2: {
-    	fontWeight: '300',
-		fontSize: 18,
-		lineHeight: 21,
-		color: '#202020',
-
-    },
-    text2: {
+	},
+	textThin2: {
+		fontWeight: '300',
 		fontSize: 18,
 		lineHeight: 21,
 		color: '#202020',
 
-    },
-    textUpperCase: {
+	},
+	text2: {
+		fontSize: 18,
+		lineHeight: 21,
+		color: '#202020',
+
+	},
+	textUpperCase: {
 		textTransform: 'uppercase',
-    },
+	},
 
 	button: {
-        width: 181,
-        backgroundColor:'#17A2B8',
-        height: 42,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-	buttonCity: {
-        width: 181,
-        backgroundColor:'#17A2B8',
-        height: 45,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-	buttonReset: {
-        width: 150,
-        backgroundColor:'#b81717',
-        height: 40,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-	buttonHint: {
-        width: 181,
-        backgroundColor:'#17A2B8',
-        height: 42,
-        justifyContent: 'center',
-        alignItems: 'center',
-    },
-    buttonText: {
-        color: '#ffffff',
-        fontWeight: '500',
-        fontSize: 18,
-        lineHeight: 21,
-        textTransform: 'uppercase',
+		width: 181,
+		backgroundColor: '#17A2B8',
+		height: 42,
+		justifyContent: 'center',
+		alignItems: 'center',
 	},
-	buttonTextSmall: {
-        color: '#ffffff',
-        fontWeight: '500',
-        fontSize: 12,
-        lineHeight: 16,
-		textTransform: 'uppercase',
-		textAlign: 'center',
-    },
-    input: {
-    	width: 319,
-    	height: 29,
-    	borderColor: '#C4C4C4',
-    	borderWidth: 1,
+	buttonCity: {
+		width: 181,
+		backgroundColor: '#17A2B8',
+		height: 45,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	buttonBuy: {
+		width: 195,
+		backgroundColor: '#ebbf00',
+		height: 45,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	buttonReset: {
+		width: 150,
+		backgroundColor: '#b81717',
+		height: 40,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	buttonHint: {
+		width: 181,
+		backgroundColor: '#17A2B8',
+		height: 42,
+		justifyContent: 'center',
+		alignItems: 'center',
+	},
+	buttonText: {
+		color: '#ffffff',
+		fontWeight: '500',
 		fontSize: 18,
 		lineHeight: 21,
-    	fontWeight: '300',
-    	padding: 3,
-    },
-    inputError: {
-    	borderColor: '#B81717',
-    	borderWidth: 1,
-    	backgroundColor: 'rgba(184, 23, 23, 0.08)',
-    },
-    inputCorrect: {
-    	borderColor: '#027900',
-    	borderWidth: 1,
-    	backgroundColor: 'rgba(2, 121, 0, 0.08)',
-    },
-    checkbox: {
-    	width: 20,
-    	height: 20,
-    },
-    textarea: {
-    	width: 319,
-    	borderColor: '#C4C4C4',
-    	borderWidth: 1,
-    	fontSize: 15,
-    	lineHeight: 18,
-    	fontWeight: '300',
-    	padding: 3,
-    },
-    radioBoxOuter: {
-    	width: 20,
-    	height: 20,
-    	borderRadius: 10,
-    	borderWidth: 1,
-    	borderColor: '#C4C4C4',
-    	alignItems: 'center',
-    	justifyContent: 'center',
-    },
-    radioBoxInner: {
-    	width: 16,
-    	height: 16,
-    	borderRadius: 10,
-    	backgroundColor: '#C4C4C4',
-    },
-    smallIcon: {
-    	width: 16,
-    	height: 16,
-    },
-    smallText: {
-    	fontWeight: '300',
+		textTransform: 'uppercase',
+	},
+	buttonTextSmall: {
+		color: '#ffffff',
+		fontWeight: '500',
+		fontSize: 12,
+		lineHeight: 16,
+		textTransform: 'uppercase',
+		textAlign: 'center',
+	},
+	input: {
+		width: 319,
+		height: 29,
+		borderColor: '#C4C4C4',
+		borderWidth: 1,
+		fontSize: 18,
+		lineHeight: 21,
+		fontWeight: '300',
+		padding: 3,
+	},
+	inputError: {
+		borderColor: '#B81717',
+		borderWidth: 1,
+		backgroundColor: 'rgba(184, 23, 23, 0.08)',
+	},
+	inputCorrect: {
+		borderColor: '#027900',
+		borderWidth: 1,
+		backgroundColor: 'rgba(2, 121, 0, 0.08)',
+	},
+	checkbox: {
+		width: 20,
+		height: 20,
+	},
+	textarea: {
+		width: 319,
+		borderColor: '#C4C4C4',
+		borderWidth: 1,
+		fontSize: 15,
+		lineHeight: 18,
+		fontWeight: '300',
+		padding: 3,
+	},
+	radioBoxOuter: {
+		width: 20,
+		height: 20,
+		borderRadius: 10,
+		borderWidth: 1,
+		borderColor: '#C4C4C4',
+		alignItems: 'center',
+		justifyContent: 'center',
+	},
+	radioBoxInner: {
+		width: 16,
+		height: 16,
+		borderRadius: 10,
+		backgroundColor: '#C4C4C4',
+	},
+	smallIcon: {
+		width: 16,
+		height: 16,
+	},
+	smallText: {
+		fontWeight: '300',
 		fontSize: 15,
 		lineHeight: 18,
 		color: '#202020',
-    },
-    link: {
+	},
+	link: {
 		fontSize: 15,
 		lineHeight: 18,
 		textAlign: 'center',
@@ -331,10 +338,10 @@ export const gStyle = StyleSheet.create({
 		color: '#B81717',
 	},
 	correct: {
-	    fontSize: 25,
-	    lineHeight: 29,
-	    color: '#17A2B8',
-	    textAlign: 'center',
+		fontSize: 25,
+		lineHeight: 29,
+		color: '#17A2B8',
+		textAlign: 'center',
 	},
 });
 
@@ -347,21 +354,21 @@ export const gStyleHeader = StyleSheet.create({
 		backgroundColor: '#ffffff',
 	},
 	logo: {
-	    width: 48,
-	    height: 48,
+		width: 48,
+		height: 48,
 	},
 	back: {
-	    width: 30,
-	    height: 34,
+		width: 30,
+		height: 34,
 	},
 	close: {
-	    width: 34,
-	    height: 34,
+		width: 34,
+		height: 34,
 	},
 	headerTitle: {
-	    fontSize: 25,
-	    lineHeight: 29,
-	    color: '#202020',
+		fontSize: 25,
+		lineHeight: 29,
+		color: '#202020',
 	},
 	menuLine1: {
 		width: 44,
@@ -407,7 +414,7 @@ export const gStyleSearch = StyleSheet.create({
 		height: 29,
 		marginLeft: 5,
 	},
-	
+
 });
 
 export const gStyleCities = StyleSheet.create({
@@ -422,7 +429,7 @@ export const gStyleCities = StyleSheet.create({
 		width: 155,
 		height: 84,
 		borderRadius: 10,
- 	},
+	},
 	cityTitle: {
 		marginTop: 5,
 	},
@@ -443,7 +450,7 @@ export const gStyleCities = StyleSheet.create({
 		lineHeight: 16,
 		fontWeight: '300',
 	},
-		
+
 });
 
 export const gStyleQuests = StyleSheet.create({
@@ -487,17 +494,19 @@ export const gStyleQuests = StyleSheet.create({
 		borderTopRightRadius: 10,
 		borderTopLeftRadius: 10,
 		backgroundColor: '#ffffff',
+		zIndex: 20,
+		position: 'relative',
 	},
 	questOpenBlock: {
 		marginLeft: 15,
 		flex: 1,
 		maxWidth: '70%'
 	},
-    questOpenImage: {
-    	width: 100,
-    	height: 100,
-    	borderRadius: 10,
-    },
+	questOpenImage: {
+		width: 100,
+		height: 100,
+		borderRadius: 10,
+	},
 	questOpenTitle: {
 		color: '#202020',
 		fontSize: 16,
@@ -510,11 +519,11 @@ export const gStyleQuests = StyleSheet.create({
 		lineHeight: 15,
 	},
 	questProgressIcon: {
-			width: 46,
-			height: 46,
-			position: 'absolute',
-			right: 5,
-			top: 5,
+		width: 46,
+		height: 46,
+		position: 'absolute',
+		right: 5,
+		top: 5,
 	}
 });
 
@@ -597,8 +606,8 @@ export const gStyleGame = StyleSheet.create({
 		padding: 2,
 		gap: 10,
 		flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	questionBlockDisabled: {
 		borderColor: '#C4C4C4',
@@ -620,13 +629,13 @@ export const gStyleGame = StyleSheet.create({
 
 	},
 	answerCorrect: {
-	    fontSize: 25,
-	    lineHeight: 29,
-	    color: '#17A2B8',
-	    textAlign: 'center',
+		fontSize: 25,
+		lineHeight: 29,
+		color: '#17A2B8',
+		textAlign: 'center',
 	},
 	address: {
-	    width: 300,
+		width: 300,
 	},
 	hintBlockRow: {
 		width: 120,
@@ -637,8 +646,8 @@ export const gStyleGame = StyleSheet.create({
 		padding: 2,
 		gap: 10,
 		flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center',
+		alignItems: 'center',
+		justifyContent: 'center',
 	},
 	hintImageButton: {
 		width: 10,
@@ -652,7 +661,7 @@ export const gStyleGame = StyleSheet.create({
 		color: '#ebbf00',
 
 	},
-	
+
 });
 
 
@@ -662,7 +671,7 @@ export const gStyleAuth = StyleSheet.create({
 		height: 48,
 		margin: 7,
 	},
-	
+
 });
 
 export const gStyleProfile = StyleSheet.create({
@@ -694,23 +703,23 @@ export const gStyleProfile = StyleSheet.create({
 		textTransform: 'uppercase',
 		color: '#17A2B8',
 	},
-	
+
 });
 
 export const gStyleProgress = StyleSheet.create({
 	progressWrapper: {
 		width: 230,
 		flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-		
+		flexWrap: 'wrap',
+		alignItems: 'center',
+
 	},
 	progressPoint: {
-        height: 30,
-        width: 9,
-        margin: 1,
-        borderRadius: 5,
-    },
+		height: 30,
+		width: 9,
+		margin: 1,
+		borderRadius: 5,
+	},
 	progressInProgress: {
 		backgroundColor: '#77a83b',
 	},
@@ -720,41 +729,41 @@ export const gStyleProgress = StyleSheet.create({
 	progressFinishDone: {
 		backgroundColor: '#e3c117',
 	},
-    progressDisabled: {
-        backgroundColor: '#C4C4C4',
-    },
+	progressDisabled: {
+		backgroundColor: '#C4C4C4',
+	},
 
-    progressDone: {
-        backgroundColor: '#17A2B8',
-    },
-    progressCurrent: {
-        backgroundColor: '#164659',
-        height: 36,
-    },
+	progressDone: {
+		backgroundColor: '#17A2B8',
+	},
+	progressCurrent: {
+		backgroundColor: '#164659',
+		height: 36,
+	},
 
-    progressPointBig: {
-    	width: 35,
-    	height: 82,
-    	borderRadius: 5,
-    	marginLeft: 5,
-    	marginRight: 5,
-    	marginTop: 10,
-    	marginBottom: 10,
+	progressPointBig: {
+		width: 35,
+		height: 82,
+		borderRadius: 5,
+		marginLeft: 5,
+		marginRight: 5,
+		marginTop: 10,
+		marginBottom: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
-    },
+	},
 
-    progressCurrentBig: {
-        backgroundColor: '#164659',
-        height: 99,
-    },
-    progressCounter: {
-    	fontWeight: '300',
+	progressCurrentBig: {
+		backgroundColor: '#164659',
+		height: 99,
+	},
+	progressCounter: {
+		fontWeight: '300',
 		fontSize: 24,
 		lineHeight: 34,
 		textAlign: 'center',
 		color: '#FFFFFF',
-    },
+	},
 	finish: {
 		width: 25,
 		height: 25
@@ -825,20 +834,20 @@ export const gStyleHowPlay = StyleSheet.create({
 		marginBottom: 2,
 	},
 
-	
+
 });
 
 export const gStyleFooter = StyleSheet.create({
 	footerPanel: {
 		flexDirection: 'row',
-        justifyContent: 'space-around',
-        alignItems: 'center',
+		justifyContent: 'space-around',
+		alignItems: 'center',
 		borderTopColor: '#C4C4C4',
 		borderTopWidth: 1,
 		paddingTop: 6,
 		paddingBottom: 9,
-        backgroundColor: '#ffffff',
-        marginTop: 20,
+		backgroundColor: '#ffffff',
+		marginTop: 20,
 	},
 	footerBlock: {
 		alignItems: 'center',
@@ -867,3 +876,124 @@ export const gStyleFooter = StyleSheet.create({
 		marginTop: 2,
 	},
 });
+
+export const gStylePaid = StyleSheet.create({
+
+	lockedOverlay: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		backgroundColor: 'rgba(85, 214, 234, 0.1)',
+		zIndex: 10,
+	},
+
+	purchasedOverlay: {
+		position: 'absolute',
+		top: 0,
+		left: 0,
+		right: 0,
+		bottom: 0,
+		backgroundColor: 'rgba(76, 175, 80, 0.1)',
+		zIndex: 10,
+	},
+	paidIconsRow: {
+		position: 'absolute',
+		top: 15,
+		right: 15,
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	checkText: {
+		color: '#4caf50',
+		fontSize: 26,
+		fontWeight: 'bold',
+		marginRight: 8,
+		textShadowColor: 'rgba(0, 0, 0, 0.3)',
+		textShadowOffset: { width: 1, height: 1 },
+		textShadowRadius: 2,
+	},
+	dollarCircle: {
+		width: 36,
+		height: 36,
+		borderRadius: 18,
+		backgroundColor: 'rgba(235, 191, 0, 0.95)',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderWidth: 2,
+		borderColor: '#fff',
+		elevation: 5,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.3,
+		shadowRadius: 2,
+	},
+	dollarText: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		color: '#fff',
+		textAlign: 'center',
+		marginTop: -1,
+	},
+	paidIconsRowSmall: {
+		position: 'absolute',
+		top: 5,
+		right: 5,
+		flexDirection: 'row',
+		alignItems: 'center',
+	},
+	checkTextSmall: {
+		color: '#4caf50',
+		fontSize: 18,
+		fontWeight: 'bold',
+		marginRight: 4,
+		textShadowColor: 'rgba(0, 0, 0, 0.3)',
+		textShadowOffset: { width: 1, height: 1 },
+		textShadowRadius: 1,
+	},
+	dollarCircleSmall: {
+		width: 20,
+		height: 20,
+		borderRadius: 10,
+		backgroundColor: 'rgba(235, 191, 0, 0.95)',
+		justifyContent: 'center',
+		alignItems: 'center',
+		borderWidth: 1,
+		borderColor: '#fff',
+	},
+	dollarTextSmall: {
+		fontSize: 11,
+		fontWeight: 'bold',
+		color: '#fff',
+		textAlign: 'center',
+		marginTop: -1,
+	},
+	modalOverlay: {
+		flex: 1,
+		backgroundColor: 'rgba(0,0,0,0.5)',
+		justifyContent: 'flex-end'
+	},
+	googleWindow: {
+		backgroundColor: '#fff',
+		padding: 30,
+		borderTopLeftRadius: 25,
+		borderTopRightRadius: 25,
+		alignItems: 'center',
+		minHeight: 250
+	},
+	googleTitle: { fontSize: 16, color: '#5f6368', marginBottom: 20, alignSelf: 'flex-start' },
+	itemName: { fontSize: 18, fontWeight: 'bold', marginBottom: 10 },
+	price: { fontSize: 26, fontWeight: 'bold', marginBottom: 30 },
+	payBtn: {
+		backgroundColor: '#01875f',
+		paddingVertical: 14,
+		paddingHorizontal: 60,
+		borderRadius: 30,
+		marginBottom: 20
+	},
+	payBtnText: { color: '#fff', fontWeight: 'bold', fontSize: 16 },
+	cancelText: { color: '#5f6368', fontSize: 14 },
+	successContainer: { alignItems: 'center', justifyContent: 'center', padding: 20 },
+	successText: { fontSize: 18, fontWeight: 'bold', color: '#4caf50', marginTop: 10 }
+})

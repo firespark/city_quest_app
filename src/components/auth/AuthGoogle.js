@@ -19,15 +19,15 @@ export const AuthGoogle = ({ token, changeScreen, screen, setError, setLoader })
 		try {
 			await GoogleSignin.hasPlayServices();
 			const response = await GoogleSignin.signIn();
-			
+
 			if (response.type === 'success') {
-				
+
 				//setState({ userInfo: response.data });
 
 				const postdata = { idToken: response.data.idToken };
 				try {
 					const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/auth/loginGoogle`, postdata, token);
-					
+
 					if (output.success == 1) {
 						changeScreen(screen);
 					} else {
@@ -38,16 +38,15 @@ export const AuthGoogle = ({ token, changeScreen, screen, setError, setLoader })
 						}
 					}
 				} catch (e) {
-					
+
 					setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом');
-				} 
-			} else {
-				// sign in was cancelled by user
+				}
 			}
+			
 		} catch (e) {
-			
+
 			setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом');
-			
+
 		}
 		setLoader(false);
 	};
