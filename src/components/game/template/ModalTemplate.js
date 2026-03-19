@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, ScrollView } from 'react-native'
 
 import { ModalClose } from '../modal/ModalClose'
@@ -13,7 +12,6 @@ import { ModalHintAlert } from '../modal/ModalHintAlert'
 import { ModalSkipAlert } from '../modal/ModalSkipAlert'
 import { ModalBackAlert } from '../modal/ModalBackAlert'
 import { ModalProgress } from '../modal/ModalProgress'
-import { ModalReset } from '../modal/ModalReset'
 
 import { gStyle, gStyleHeader } from '../../../styles/style'
 
@@ -122,14 +120,6 @@ export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
             />
             break
         
-        case 'resetProgress': 
-            content = 
-            <ModalReset
-                game={game}
-                setModal={setModal}
-                setGame={setGame}
-            />
-            break
     }
 
 	

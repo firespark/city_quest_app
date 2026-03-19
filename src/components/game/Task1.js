@@ -1,12 +1,10 @@
-import React, { useState, useContext } from 'react'
+import { useState, useContext } from 'react'
 import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native'
 
 import { Template1 } from './Template1'
 import { Template2 } from './Template2'
-import { Hint } from './Hint'
 
 import {Loader} from '../common/Loader'
-import {Error} from '../common/Error'
 
 import { gStyle } from '../../styles/style'
 import { gStyleGame } from '../../styles/style'

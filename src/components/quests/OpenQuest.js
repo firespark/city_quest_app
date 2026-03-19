@@ -1,9 +1,9 @@
-import React, { useContext } from 'react';
+import { useContext } from 'react';
 import { View, Text, TouchableOpacity, ImageBackground } from 'react-native';
-import FastImage from 'react-native-fast-image';
+
 import { gStyle, gStyleQuests, gStylePaid } from '../../styles/style';
 
-import { GAME_SCREEN } from '../../context/types';
+import { QUEST_SCREEN } from '../../context/types';
 import { MainContext } from '../../context/mainContext';
 
 export const OpenQuest = ({ quest }) => {
@@ -19,7 +19,7 @@ export const OpenQuest = ({ quest }) => {
                 style={gStyle.panelRowLeft}
                 activeOpacity={0.7}
                 onPress={() => {
-                    changeScreen(GAME_SCREEN);
+                    changeScreen(QUEST_SCREEN);
                     setQuestId(quest.id);
                     questScreenCleanup();
                 }}

@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import { View } from 'react-native'
 
 import { Back } from '../components/common/Back'
@@ -15,7 +15,6 @@ import { Error } from '../components/common/Error'
 
 import { gStyle, gStyleHeader } from '../styles/style'
 
-import { PROFILE_SCREEN } from '../context/types'
 import { MainContext } from '../context/mainContext'
 
 

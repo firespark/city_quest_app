@@ -1,5 +1,5 @@
-import React, { useContext, useState } from 'react'
-import { View, TouchableOpacity, Text, ActivityIndicator, Modal, StyleSheet } from 'react-native'
+import { useContext, useState } from 'react'
+import { View, TouchableOpacity, Text, ActivityIndicator, Modal } from 'react-native'
 import { gStyle, gStylePaid } from '../../styles/style'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'

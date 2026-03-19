@@ -1,11 +1,7 @@
-import React from 'react'
 import { View, ScrollView } from 'react-native'
 
-import { Back } from '../components/common/Back'
 import { Close } from '../components/common/Close'
-
 import { MenuItems } from '../components/common/MenuItems'
-
 import { Footer } from '../components/common/Footer'
 
 import { gStyle, gStyleHeader } from '../styles/style'

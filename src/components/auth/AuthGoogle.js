@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, Linking } from 'react-native';
+import { View, Text, TouchableOpacity, Image } from 'react-native';
 import { Http } from '../../scripts/http';
 
 import { gStyle, gStyleAuth } from '../../styles/style';

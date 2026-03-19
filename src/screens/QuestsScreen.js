@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { View, ScrollView, Text } from 'react-native'
 
 import { Back } from '../components/common/Back'

@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import { useContext, useState } from 'react'
 import { View, Text, TouchableOpacity, Modal, FlatList } from 'react-native'
 import { MainContext } from '../../context/mainContext'
 import { gStyle, gStyleCommon } from '../../styles/style'

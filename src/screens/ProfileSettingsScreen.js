@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { View } from 'react-native'
 
 import { EditTemplate } from '../components/profile/EditTemplate'
@@ -9,7 +9,7 @@ import { Footer } from '../components/common/Footer'
 import {Loader} from '../components/common/Loader'
 import {Error} from '../components/common/Error'
 
-import { gStyle, gStyleHeader } from '../styles/style'
+import { gStyle } from '../styles/style'
 
 import { MainContext } from '../context/mainContext'
 

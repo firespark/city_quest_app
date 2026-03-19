@@ -1,4 +1,4 @@
-import React, { useReducer, useState, useEffect } from 'react'
+import { useReducer, useState, useEffect } from 'react'
 import { BackHandler } from 'react-native'
 import { MainContext } from './mainContext'
 import { mainReducer } from './mainReducer'

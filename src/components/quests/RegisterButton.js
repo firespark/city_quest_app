@@ -1,4 +1,4 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 import { AUTH_SCREEN } from '../../context/types'
 import { gStyle } from '../../styles/style'

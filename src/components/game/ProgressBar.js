@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, TouchableOpacity } from 'react-native'
 
 import { gStyle, gStyleProgress } from '../../styles/style'

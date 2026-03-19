@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 
-import { gStyle, gStyleCities } from '../../styles/style'
+import { gStyle } from '../../styles/style'
 
 import { QUESTS_SCREEN } from '../../context/types'
 import { MainContext } from '../../context/mainContext'

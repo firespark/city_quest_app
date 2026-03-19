@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { ScrollView, View } from 'react-native'
 import { PopularCity } from './PopularCity'
 
 import { Loader } from '../common/Loader'
 import { Error } from '../common/Error'
 
-import { gStyle } from '../../styles/style'
 import { Http } from '../../scripts/http'
 import { MainContext } from '../../context/mainContext'
 

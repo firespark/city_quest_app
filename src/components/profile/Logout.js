@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
+import { useContext } from 'react'
+import { Text, TouchableOpacity } from 'react-native'
 import { MainContext } from '../../context/mainContext'
 import { gStyle, gStyleProfile } from '../../styles/style'
 import { MAIN_SCREEN } from '../../context/types'

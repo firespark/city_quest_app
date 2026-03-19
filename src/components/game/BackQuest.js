@@ -1,7 +1,6 @@
-import React from 'react'
 import { TouchableOpacity, Image } from 'react-native'
 
-import { gStyle, gStyleHeader } from '../../styles/style'
+import { gStyleHeader } from '../../styles/style'
 
 
 export const BackQuest = ({ setModal }) => {

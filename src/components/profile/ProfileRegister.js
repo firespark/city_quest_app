@@ -1,11 +1,10 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 
 import { gStyle } from '../../styles/style'
 
 import { AUTH_SCREEN } from '../../context/types'
 import { MainContext } from '../../context/mainContext'
-
 
 
 export const ProfileRegister = () => {

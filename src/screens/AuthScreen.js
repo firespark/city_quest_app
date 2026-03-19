@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import { useState, useContext } from 'react'
 import { View } from 'react-native'
 
 import { Back } from '../components/common/Back'

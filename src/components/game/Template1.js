@@ -1,9 +1,6 @@
-import React from 'react'
-import { View, Text, Image } from 'react-native'
+import { View, Text } from 'react-native'
 import FullWidthImage from '../common/FullWidthImage';
-import { gStyle, gStyleGame } from '../../styles/style'
-
-
+import { gStyle } from '../../styles/style'
 
 export const Template1 = ({ tasks }) => {
 

@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
 
 import { Social } from '../auth/Social'

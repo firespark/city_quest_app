@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, Text, Image } from 'react-native'
 
 import { gStyle, gStyleHeader } from '../../styles/style'

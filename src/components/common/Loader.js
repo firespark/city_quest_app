@@ -1,20 +1,12 @@
-import React from 'react'
-import { StyleSheet, View, ActivityIndicator } from 'react-native'
+import { View, ActivityIndicator } from 'react-native'
+import { gStyle } from '../../styles/style';
 
 export const Loader = () => {
 
 
     return (
-        <View style={styles.center}>
+        <View style={gStyle.flexCenter}>
             <ActivityIndicator size="large" color="#17A2B8" />
         </View>
     )
 }
-
-const styles = StyleSheet.create({
-    center: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-});

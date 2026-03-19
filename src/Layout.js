@@ -1,4 +1,4 @@
-import React, {useContext} from 'react'
+import {useContext} from 'react'
 import {MainContext} from './context/mainContext'
 import { 
     ABOUT_SCREEN,

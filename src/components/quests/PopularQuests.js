@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { View } from 'react-native'
 import { Quest } from './Quest'
 
 import { Loader } from '../common/Loader'
 import { Error } from '../common/Error'
 
-import { gStyle } from '../../styles/style'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
 

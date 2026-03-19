@@ -1,4 +1,3 @@
-import React from 'react'
 import { TouchableOpacity, Image } from 'react-native'
 
 import { gStyleHeader } from '../../styles/style'

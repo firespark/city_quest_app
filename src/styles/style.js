@@ -91,6 +91,10 @@ export const gStyle = StyleSheet.create({
 		alignItems: 'center',
 
 	},
+	flexCenter: {
+		alignItems: 'center',
+
+	},
 	image300: {
 		height: 300,
 		flex: 1,
@@ -141,7 +145,6 @@ export const gStyle = StyleSheet.create({
 		marginTop: 10,
 		marginBottom: 10,
 	},
-
 	title: {
 		color: '#202020',
 		fontSize: 18,
@@ -234,7 +237,7 @@ export const gStyle = StyleSheet.create({
 		alignItems: 'center',
 	},
 	buttonReset: {
-		width: 150,
+		width: 195,
 		backgroundColor: '#b81717',
 		height: 40,
 		justifyContent: 'center',
@@ -878,41 +881,55 @@ export const gStyleFooter = StyleSheet.create({
 });
 
 export const gStyleCommon = StyleSheet.create({
-    selector: { 
-        flexDirection: 'row', 
-        alignItems: 'center', 
-        justifyContent: 'center',
-        backgroundColor: '#f8f9fa', 
-        padding: 12, 
-        borderRadius: 10,
-        borderWidth: 1,
-        borderColor: '#C4C4C4'
-    },
-    flag: { fontSize: 20, marginRight: 10 },
-    arrow: { fontSize: 12, marginLeft: 10, color: '#C4C4C4' },
-    
-    modalOverlay: { 
-        flex: 1, 
-        justifyContent: 'center', 
-        backgroundColor: 'rgba(0,0,0,0.5)', 
-        padding: 20 
-    },
-    listWrapper: { 
-        backgroundColor: '#fff', 
-        borderRadius: 20, 
-        padding: 20, 
-        maxHeight: '70%',
-        elevation: 5,
-        shadowColor: '#000',
-        shadowOffset: { width: 0, height: 2 },
-        shadowOpacity: 0.25,
-        shadowRadius: 3.84,
-    },
-    item: { 
-        paddingVertical: 15, 
-        borderBottomWidth: 1, 
-        borderBottomColor: '#eee' 
-    }
+	selector: {
+		flexDirection: 'row',
+		alignItems: 'center',
+		justifyContent: 'center',
+		backgroundColor: '#f8f9fa',
+		padding: 12,
+		borderRadius: 10,
+		borderWidth: 1,
+		borderColor: '#C4C4C4'
+	},
+	flag: { fontSize: 20, marginRight: 10 },
+	arrow: { fontSize: 12, marginLeft: 10, color: '#C4C4C4' },
+
+	modalOverlay: {
+		flex: 1,
+		justifyContent: 'center',
+		backgroundColor: 'rgba(0,0,0,0.5)',
+		padding: 20
+	},
+	listWrapper: {
+		backgroundColor: '#fff',
+		padding: 20,
+		maxHeight: '70%',
+		elevation: 5,
+		shadowColor: '#000',
+		shadowOffset: { width: 0, height: 2 },
+		shadowOpacity: 0.25,
+		shadowRadius: 3.84,
+	},
+	modalWindow: { 
+		backgroundColor: '#fff', 
+		padding: 20, 
+		width: '100%', 
+		maxWidth: 360 
+	},
+	item: {
+		paddingVertical: 15,
+		borderBottomWidth: 1,
+		borderBottomColor: '#eee'
+	},
+	textTitle: {
+		fontSize: 18,
+		fontWeight: 'bold',
+		color: '#333',
+		marginBottom: 10,
+		paddingLeft: 10,
+		borderLeftWidth: 4,
+		borderLeftColor: '#17A2B8'
+	}
 })
 
 export const gStylePaid = StyleSheet.create({

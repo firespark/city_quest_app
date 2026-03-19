@@ -1,5 +1,5 @@
-import React, { useContext } from 'react'
-import { View, Text, ImageBackground, TouchableOpacity, Image, StyleSheet } from 'react-native'
+import { useContext } from 'react'
+import { View, Text, ImageBackground, TouchableOpacity, Image } from 'react-native'
 
 import { gStyle, gStyleQuests, gStylePaid } from '../../styles/style'
 import { QUEST_SCREEN } from '../../context/types'

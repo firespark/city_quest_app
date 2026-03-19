@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
 
 import { Agreement } from '../auth/Agreement'

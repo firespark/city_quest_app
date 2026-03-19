@@ -1,5 +1,6 @@
-import React, { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { View, ScrollView, Text } from 'react-native'
+
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
@@ -14,6 +15,8 @@ import { BuyButton } from '../components/quests/BuyButton'
 import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
+import { ResetModal } from '../components/quests/ResetModal'
+
 import { gStyle, gStyleHeader, gStyleQuests, gStylePaid } from '../styles/style'
 import { MainContext } from '../context/mainContext'
 import { Http } from '../scripts/http'
@@ -23,6 +26,8 @@ export const QuestScreen = () => {
     const [loadError, setLoadError] = useState(null)
     const { questId, token, changeScreen, setAnswersState } = useContext(MainContext)
     const [data, setData] = useState([])
+
+    const [modalVisible, setModalVisible] = useState(false)
 
     const fetchData = async () => {
         setAnswersState([]);
@@ -59,6 +64,7 @@ export const QuestScreen = () => {
                 <HeaderTitle title="Квест-экскурсия" />
                 <Menu />
             </View>
+
             <ScrollView style={gStyle.flex} keyboardShouldPersistTaps="handled">
                 <View>
                     <QuestTitle title={data.title} city={data.city} />
@@ -91,14 +97,21 @@ export const QuestScreen = () => {
                         <RegisterButton />
                     )
                 ) : (
-
                     <>
                         <StartButton changeScreen={changeScreen} progress={progress} />
-                        {data.status ? <ResetButton changeScreen={changeScreen} progress={progress} /> : null}
+                        {data.status ? <ResetButton setModalVisible={setModalVisible} /> : null}
                     </>
                 )}
             </ScrollView>
+
             <Footer />
+
+            <ResetModal
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                onSuccess={fetchData}
+            />
+
         </View>
     )
 }

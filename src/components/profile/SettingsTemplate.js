@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, ScrollView } from 'react-native'
 
 import { Back } from '../common/Back'
@@ -11,8 +10,6 @@ import { ProfileNotes } from '../profile/ProfileNotes'
 import { ProfilePassword } from '../profile/ProfilePassword'
 import { ProfileSuccess } from '../profile/ProfileSuccess'
 import { Logout } from '../profile/Logout'
-import { ProfileNameEdit } from '../profile/ProfileNameEdit'
-import { ProfilePasswordEdit } from '../profile/ProfilePasswordEdit'
 
 import { gStyle, gStyleHeader } from '../../styles/style'
 

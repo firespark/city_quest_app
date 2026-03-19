@@ -1,11 +1,11 @@
-import React, { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { OpenQuest } from './OpenQuest'
 
 import { Loader } from '../common/Loader'
 import { Error } from '../common/Error'
 
-import { gStyle } from '../../styles/style'
+import { gStyle, gStyleCommon } from '../../styles/style'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
 
@@ -57,25 +57,16 @@ export const OpenQuests = () => {
     const list = []
 
     if (data) {
-
         Object.keys(data).map((countryName) => {
             list.push(
-                <Text style={{
-                    fontSize: 18,
-                    fontWeight: 'bold',
-                    color: '#333',
-                    marginBottom: 10,
-                    paddingLeft: 10,
-                    borderLeftWidth: 4,
-                    borderLeftColor: '#007AFF'
-                }}>
+                <Text key={countryName} style={gStyleCommon.textTitle}>
                     {countryName}
                 </Text>
             );
 
             data[countryName].map((item, index) => {
                 list.push(
-                    <View key={countryName + index}>
+                    <View key={item.id}>
                         <OpenQuest quest={item} />
                     </View>
                 )

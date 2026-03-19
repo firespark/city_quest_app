@@ -1,4 +1,3 @@
-import React from 'react'
 import { View } from 'react-native'
 
 import { GameTitle } from '../GameTitle'
@@ -9,7 +8,7 @@ import { Task2 } from '../Task2'
 import { TaskSign } from '../TaskSign'
 import { NextGame } from '../NextGame'
 
-import { gStyle, gStyleHeader } from '../../../styles/style'
+import { gStyle } from '../../../styles/style'
 
 
 

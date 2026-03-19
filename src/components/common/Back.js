@@ -1,7 +1,7 @@
-import React, { useContext } from 'react'
+import { useContext } from 'react'
 import { TouchableOpacity, Image } from 'react-native'
 
-import { gStyle, gStyleHeader } from '../../styles/style'
+import { gStyleHeader } from '../../styles/style'
 
 import { MainContext } from '../../context/mainContext'
 

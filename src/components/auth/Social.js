@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, Text, TouchableOpacity, Image, Linking } from 'react-native'
 
 import { gStyle, gStyleAuth } from '../../styles/style'

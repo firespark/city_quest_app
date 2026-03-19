@@ -1,9 +1,5 @@
-import React from 'react'
 import { View } from 'react-native'
 import { CityChild } from './CityChild'
-
-//import { gStyle } from '../../styles/style'
-
 
 export const CitiesChildren = ({ cities }) => {
 
@@ -24,6 +20,4 @@ export const CitiesChildren = ({ cities }) => {
             {list}
         </View>
     )
-
-
 }

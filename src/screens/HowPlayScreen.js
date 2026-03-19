@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { View, ScrollView } from 'react-native'
 
 import { Back } from '../components/common/Back'

@@ -1,5 +1,5 @@
-import React, { useContext, useState, useEffect } from 'react'
-import { View, BackHandler, Alert } from 'react-native'
+import { useContext, useState, useEffect } from 'react'
+import { View, BackHandler } from 'react-native'
 
 import { GameTemplate } from '../components/game/template/GameTemplate'
 import { ModalTemplate } from '../components/game/template/ModalTemplate'

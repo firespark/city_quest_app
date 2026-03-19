@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react'
+import { useState, useContext, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { PurchasedQuest } from './PurchasedQuest';
 import { Loader } from '../common/Loader'

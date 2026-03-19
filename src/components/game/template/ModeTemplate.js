@@ -1,10 +1,8 @@
-import React, { useContext, useState, useEffect } from 'react'
+import { useContext, useState, useEffect } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 
 import { Modes } from '../modes/Modes'
-
 import {Loader} from '../../common/Loader'
-import {Error} from '../../common/Error'
 
 import { gStyle } from '../../../styles/style'
 

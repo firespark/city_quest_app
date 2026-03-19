@@ -1,4 +1,3 @@
-import React from 'react'
 import { View, Image, TextInput, TouchableOpacity } from 'react-native'
 
 import { gStyle, gStyleSearch } from '../../styles/style'
