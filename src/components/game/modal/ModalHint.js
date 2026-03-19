@@ -9,7 +9,7 @@ export const ModalHint = ({ setModal, game, task }) => {
     if (task == 2) {
         hint = game.sight_hint2;
     }
-    console.log(hint)
+
     return (
         <View style={gStyle.mt20}>
             <Text style={[gStyle.titleBold, gStyle.textCenter, gStyle.mb10]}>Подсказка:</Text>

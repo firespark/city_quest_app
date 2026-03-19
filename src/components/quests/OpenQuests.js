@@ -2,18 +2,14 @@ import React, { useState, useContext, useEffect } from 'react'
 import { View, Text } from 'react-native'
 import { OpenQuest } from './OpenQuest'
 
-import {Loader} from '../common/Loader'
-import {Error} from '../common/Error'
+import { Loader } from '../common/Loader'
+import { Error } from '../common/Error'
 
 import { gStyle } from '../../styles/style'
-
 import { MainContext } from '../../context/mainContext'
-
 import { Http } from '../../scripts/http'
 
-
 export const OpenQuests = () => {
-
     const { token } = useContext(MainContext)
     const [data, setData] = useState()
 
@@ -21,37 +17,37 @@ export const OpenQuests = () => {
     const [error, setError] = useState(null)
 
     const fetchData = async () => {
-
         setError(null)
         setLoader(true)
 
         try {
-            //const token = await AsyncStorage.getItem('APP_TOKEN')
-            
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/opened`, token)
 
             if (output.success == 1) {
-                setData(output.data)
+
+                const grouped = output.data.reduce((acc, quest) => {
+                    const country = quest.country_title || 'Другие';
+                    if (!acc[country]) acc[country] = [];
+                    acc[country].push(quest);
+                    return acc;
+                }, {});
+                setData(grouped);
             }
             else {
-                if(output.error) {
+                if (output.error) {
                     setError(output.error)
                 }
                 else {
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-            
         }
-        catch(e) {
-            
+        catch (e) {
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
         }
         finally {
             setLoader(false)
         }
-       
     }
 
     useEffect(() => {
@@ -60,14 +56,31 @@ export const OpenQuests = () => {
 
     const list = []
 
-    if(data){
-        data.map((item, index) => (  
+    if (data) {
+
+        Object.keys(data).map((countryName) => {
             list.push(
-                <View key={index}>
-                    <OpenQuest quest={item} />
-                </View>
-            ) 
-        ))
+                <Text style={{
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                    color: '#333',
+                    marginBottom: 10,
+                    paddingLeft: 10,
+                    borderLeftWidth: 4,
+                    borderLeftColor: '#007AFF'
+                }}>
+                    {countryName}
+                </Text>
+            );
+
+            data[countryName].map((item, index) => {
+                list.push(
+                    <View key={countryName + index}>
+                        <OpenQuest quest={item} />
+                    </View>
+                )
+            })
+        })
     }
 
     if (loader) {
@@ -80,14 +93,13 @@ export const OpenQuests = () => {
             <View style={gStyle.mt10}>
                 {
                     (list.length > 0)
-                    ? 
-                    list
-                    :
-                    <Text style={[gStyle.textCenter, gStyle.mt10]}>Нет открытых квестов</Text>
+                        ?
+                        list
+                        :
+                        (data && !loader) ? <Text style={[gStyle.textCenter, gStyle.mt10]}>Нет открытых квестов</Text> : null
                 }
+                {error && <Error text={error} />}
             </View>
         </View>
     )
-
-
 }

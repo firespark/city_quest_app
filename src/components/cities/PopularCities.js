@@ -1,70 +1,53 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 import { ScrollView, View } from 'react-native'
 import { PopularCity } from './PopularCity'
 
-import {Loader} from '../common/Loader'
-import {Error} from '../common/Error'
+import { Loader } from '../common/Loader'
+import { Error } from '../common/Error'
 
 import { gStyle } from '../../styles/style'
-
 import { Http } from '../../scripts/http'
-
+import { MainContext } from '../../context/mainContext'
 
 export const PopularCities = () => {
 
-    const [data, setData] = useState();
+    const { countryId } = useContext(MainContext)
 
+    const [data, setData] = useState();
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
 
     const fetchData = async () => {
 
+        if (!countryId) return 
+
         setError(null)
         setLoader(true)
 
         try {
-            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/cities/featured`)
+
+            const url = `${process.env.EXPO_PUBLIC_API_URL}/cities/featured?country_id=${countryId}`
+            const output = await Http.get(url)
 
             if (output.success == 1) {
                 setData(output.data)
             }
             else {
-                if(output.error) {
-                    setError(output.error)
-                }
-                else {
-                    setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-                }
+                setError(output.error || 'Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             }
-            
         }
-        catch(e) {
-            
+        catch (e) {
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
         finally {
             setLoader(false)
         }
-       
     }
 
     useEffect(() => {
         fetchData()
-    }, [])
+    }, [countryId]) 
 
-    const list = []
-
-    if(data){
-        data.map((item, index) => (  
-            list.push(
-                <View key={index}>
-                    <PopularCity city={item} />
-                </View>
-            ) 
-        ))
-    }
-
-    
     if (loader) {
         return <Loader />
     }
@@ -79,9 +62,11 @@ export const PopularCities = () => {
             keyboardShouldPersistTaps="handled"
             keyboardDismissMode="interactive"
         >
-            {list}
+            {data && data.map((item, index) => (
+                <View key={item.id || index}>
+                    <PopularCity city={item} />
+                </View>
+            ))}
         </ScrollView>
     )
-
-
 }

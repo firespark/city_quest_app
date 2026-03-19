@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { View, ScrollView } from 'react-native'
 
 import { Back } from '../components/common/Back'
@@ -9,37 +9,40 @@ import { SearchInput } from '../components/common/SearchInput'
 import { CitiesSearch } from '../components/cities/CitiesSearch'
 
 import { Footer } from '../components/common/Footer'
-
-import {Error} from '../components/common/Error'
+import { Error } from '../components/common/Error'
 
 import { gStyle, gStyleHeader } from '../styles/style'
-
 import { Http } from '../scripts/http'
-
+import { MainContext } from '../context/mainContext'
 
 export const SearchScreen = () => {
 
-    const [loadError, setLoadError] = useState(null)
+    const { countryId } = useContext(MainContext)
 
-	const [data, setData] = useState(null)
-	const [input, setInput] = useState(null)
+    const [loadError, setLoadError] = useState(null)
+    const [data, setData] = useState(null)
+    const [input, setInput] = useState(null)
 
     const searchData = async (value = null, search = false) => {
-
         setLoadError(null)
 
-    	if(!search){
-    		setInput(value)
-    	}
+        if (!search) {
+            setInput(value)
+        }
 
-    	const str = (search) ? input : value
-    	
+        const str = (search) ? input : value
+        
+        if (!str || str.trim().length === 0) {
+            setData(null)
+            return
+        }
 
-    	//if(input && input.length >= 2) {
+        try {
 
-	    try {
-            
-            const postdata = {str: str}
+            const postdata = {
+                str: str,
+                country_id: countryId
+            }
 
             const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/cities/search`, postdata)
 
@@ -47,56 +50,51 @@ export const SearchScreen = () => {
                 setData(output.data)
             }
             else {
-                if(output.error) {
-                    setLoadError(output.error)
-                }
-                else {
-                    setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-                }
+                setLoadError(output.error || 'Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             }
-            
         }
         catch(e) {
-            
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
         }
-        
-		//}
-		
     }
-
 
     if (loadError) {
-        return <Error text={loadError} />
+        return (
+            <View style={gStyle.flex}>
+                <View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
+                    <Back />
+                    <HeaderTitle title="Ошибка"/>
+                    <Menu />
+                </View>
+                <Error text={loadError} />
+                <Footer active="search" />
+            </View>
+        )
     }
-
-    
 
     return (
         <View style={gStyle.flex}>
-    		<View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
-	            <Back />
-        		<HeaderTitle title="Поиск"/>
-	            <Menu />
-	        </View>
-    		<ScrollView
+            <View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
+                <Back />
+                <HeaderTitle title="Поиск"/>
+                <Menu />
+            </View>
+            <ScrollView
                 style={gStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
             >
-				<View style={gStyle.container}>
-					<SearchInput
-						setInput={setInput}
-						searchData={searchData}
-					/>
-					<CitiesSearch
-						data={data}
-					/>
-				</View>    			
-                
-			</ScrollView>
-	    	<Footer active="search" />
-	    </View>
+                <View style={gStyle.container}>
+                    <SearchInput
+                        setInput={setInput}
+                        searchData={searchData}
+                    />
+                    <CitiesSearch
+                        data={data}
+                    />
+                </View>             
+            </ScrollView>
+            <Footer active="search" />
+        </View>
     )
 }

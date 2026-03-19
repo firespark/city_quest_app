@@ -1,6 +1,5 @@
 import React, { useReducer, useState, useEffect } from 'react'
 import { BackHandler } from 'react-native'
-import { Alert } from 'react-native'
 import { MainContext } from './mainContext'
 import { mainReducer } from './mainReducer'
 import { 
@@ -10,150 +9,130 @@ import {
     PREVIOUS_SCREEN,
     SET_QUEST_ID,
     SET_CITY_DATA,
-    SET_TOKEN,
-    //SET_LOADER,
-    //SET_ERROR
- } from './types'
+    SET_COUNTRY_ID,
+    SET_COUNTRIES
+} from './types'
 
 import AsyncStorage from '@react-native-async-storage/async-storage'
+import { Http } from '../scripts/http'
 
 export const MainState = ({ children }) => {
     const initialState = {
-        //token: 'EcbN75U8VbcSe6u2FqqHPmeBqBAX8y8LNOLG5hsbLa4UbJdomlQkw299huIVy8CXQIixkoHVakImc1634995838',
         screens: [MAIN_SCREEN],
         questId: null,
         cityData: null,
-        //loader: false,
-        //error: null
+        countryId: null,
+        countries: []
     }
-    /*const initialState = {
-        token: 'gobfJUP0jA0LHV1GeFrLe91aeBvSR1cp9eTn2ECmhsm7s8WDdAhLxHKCwTzwi6zPvGXwZ05o5u51n1629285723',
-        screens: [GAME_SCREEN],
-        questId: 8,
-        //loader: false,
-        //error: null
-    }*/
+
     const [state, dispatch] = useReducer(mainReducer, initialState)
+    const [token, setToken] = useState();
+    const [answersState, setAnswersState] = useState([]);
+
+    const setCountryId = async (id) => {
+        dispatch({ type: SET_COUNTRY_ID, countryId: id })
+        try {
+            await AsyncStorage.setItem('APP_COUNTRY_ID', id.toString());
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const getCountries = async () => {
+        try {
+            const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/countries/all`)
+            
+            if (output.success == 1) {
+                dispatch({ type: SET_COUNTRIES, countries: output.data })
+                
+                const savedCountryId = await AsyncStorage.getItem('APP_COUNTRY_ID')
+                
+                if (savedCountryId) {
+                    dispatch({ type: SET_COUNTRY_ID, countryId: parseInt(savedCountryId) })
+                } else if (output.data.length > 0) {
+                    setCountryId(output.data[0].id)
+                }
+            }
+        } catch (e) {
+            console.log(e)
+        }
+    }
 
     const changeScreen = (screen) => dispatch({ type: CHANGE_SCREEN, screen })
     const previousScreen = () => dispatch({ type: PREVIOUS_SCREEN })
     const questScreenCleanup = () => dispatch({ type: QUEST_CLEANUP})
     const setQuestId = (questId) => dispatch({ type: SET_QUEST_ID, questId })
     const setCityData = (cityData) => dispatch({ type: SET_CITY_DATA, cityData })
-    //const setToken = (token) => dispatch({ type: SET_TOKEN, token })
-    //const setLoader = (token) => dispatch({ type: SET_LOADER, loader })
-    //const setError = (token) => dispatch({ type: SET_ERROR, error })
-
-    //const [token, setToken] = useState('111');
-
-    const [token, setToken] = useState();
-    const [answersState, setAnswersState] = useState([]);
-
-    const backAction = () => {
-        /* Alert.alert('MainState backAction', 'Are you sure you want to go back?', [
-          {
-            text: 'Cancel',
-            onPress: () => null,
-            style: 'cancel',
-          },
-          {text: 'YES', onPress: () => BackHandler.exitApp()},
-        ]);
-        // */
-        setAnswersState([]);
-        previousScreen();
-        return true;
-      };
-
-    const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        backAction,
-      );
 
     const getToken = async () => {
-
         try {
-            await AsyncStorage.getItem('APP_TOKEN').then((value) => {
-                if (value) {
-                    setToken(value);
-                }
-                else {
-                    const newToken = createToken(77) + Date.now()
-                    saveToken(newToken)
-                    setToken(newToken);
-                }
-            });
-        }
-        catch(e) {
-            console.log('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-        }
+            const value = await AsyncStorage.getItem('APP_TOKEN')
+            if (value) {
+                setToken(value);
+            } else {
+                const newToken = createToken(77) + Date.now()
+                saveToken(newToken)
+                setToken(newToken);
+            }
+        } catch(e) { console.log(e) }
+    }
+
+    const saveToken = async (value) => {
+        try { await AsyncStorage.setItem('APP_TOKEN', value); } catch(e) {}
     }
 
     const resetToken = async () => {
-        try {
-            const newToken = createToken(77) + Date.now()
-            saveToken(newToken)
-            setToken(newToken);
-        }
-        catch(e) {
-            console.log('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-        }
+        const newToken = createToken(77) + Date.now()
+        saveToken(newToken)
+        setToken(newToken);
     }
-
-
-    const saveToken = async (value) => {
-
-        try {
-            await AsyncStorage.setItem('APP_TOKEN', value);
-        }
-        catch(e) {
-            console.log('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-        }
-
-    }
-
 
     function createToken(length) {
-        let result           = '';
-        const characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        let charactersLength = characters.length;
+        let result = '';
+        const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
         for ( var i = 0; i < length; i++ ) {
-            result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            result += characters.charAt(Math.floor(Math.random() * characters.length));
         }
         return result;
     }
-    
+
+    const backAction = () => {
+        setAnswersState([]);
+        previousScreen();
+        return true;
+    };
+
     useEffect(() => {
         getToken()
+        getCountries()
+        
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
+        return () => backHandler.remove();
     }, []);
 
-
     return (
-        (token) ?
-        <MainContext.Provider
-            value={{
-                token,
-                screens: state.screens,
-                changeScreen,
-                previousScreen,
-                questId: state.questId,
-                setQuestId,
-                cityData: state.cityData,
-                setCityData,
-                resetToken,
+        token ? (
+            <MainContext.Provider
+                value={{
+                    token,
+                    screens: state.screens,
+                    questId: state.questId,
+                    cityData: state.cityData,
+                    countryId: state.countryId,
+                    countries: state.countries,
+                    changeScreen,
+                    previousScreen,
+                    setQuestId,
+                    setCityData,
+                    setCountryId,
+                    resetToken,
                     questScreenCleanup,
                     answersState,
-                setAnswersState,
-                //setToken,
-                //loader: state.loader,
-                //error: state.error,
-                //setLoader,
-                //setError
-            }}
-        >
-            {children}
-        </MainContext.Provider>
-
-        : null
-        
+                    setAnswersState,
+                }}
+            >
+                {children}
+            </MainContext.Provider>
+        ) : null
     )
 }

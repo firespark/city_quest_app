@@ -1,10 +1,12 @@
 import {
-    CHANGE_SCREEN, 
+    CHANGE_SCREEN,
     PREVIOUS_SCREEN,
     SET_QUEST_ID,
     SET_CITY_DATA,
-    SET_TOKEN, 
+    SET_TOKEN,
     QUEST_CLEANUP,
+    SET_COUNTRY_ID,
+    SET_COUNTRIES
     //SET_LOADER, 
     //SET_ERROR
 } from './types'
@@ -12,59 +14,71 @@ import {
 export const mainReducer = (state, action) => {
 
     switch (action.type) {
-        
-        case CHANGE_SCREEN: 
+
+        case CHANGE_SCREEN:
             let previousScreens = state.screens.slice();
             const lastScreen = previousScreens[previousScreens.length - 1];
-            if(lastScreen == action.screen) return state
+            if (lastScreen == action.screen) return state
 
-            if(lastScreen == 'MENU_SCREEN') previousScreens.pop()
+            if (lastScreen == 'MENU_SCREEN') previousScreens.pop()
 
-            if(action.screen == 'MAIN_SCREEN') {
+            if (action.screen == 'MAIN_SCREEN') {
                 previousScreens = []
             }
-            else{
-                 previousScreens.push(action.screen)
+            else {
+                previousScreens.push(action.screen)
             }
 
-            if(previousScreens.length > 15) {
+            if (previousScreens.length > 15) {
                 previousScreens.shift()
             }
-           
+
             return {
-                ...state, 
+                ...state,
                 screens: previousScreens,
             }
-        case PREVIOUS_SCREEN: 
+        case PREVIOUS_SCREEN:
             const screens = state.screens.slice();
             screens.pop();
             return {
-                ...state, 
+                ...state,
                 screens: screens,
             }
-        case QUEST_CLEANUP: 
+        case QUEST_CLEANUP:
             const filteredScreens = state.screens.filter((screen, index) => screen !== 'GAME_SCREEN' || index === state.screens.length - 1);
             return {
-                ...state, 
+                ...state,
                 screens: filteredScreens,
             }
 
-        case SET_QUEST_ID: 
+        case SET_QUEST_ID:
             return {
-                ...state, 
+                ...state,
                 questId: action.questId
             }
 
-        case SET_CITY_DATA: 
+        case SET_CITY_DATA:
             return {
-                ...state, 
+                ...state,
                 cityData: action.cityData
             }
 
-        case SET_TOKEN: 
+        case SET_TOKEN:
             return {
-                ...state, 
+                ...state,
                 token: action.token
+            }
+
+        case SET_COUNTRY_ID:
+            return {
+                ...state,
+                countryId: action.countryId
+            }
+            
+        case SET_COUNTRIES:
+            return {
+                ...state,
+                countries: action.countries
             }
 
         /*case SET_LOADER: 

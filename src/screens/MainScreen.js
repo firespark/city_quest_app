@@ -4,7 +4,8 @@ import { View, ScrollView } from 'react-native'
 import { Logo } from '../components/common/Logo'
 import { Menu } from '../components/common/Menu'
 
-import { Search } from '../components/common/Search'
+//import { Search } from '../components/common/Search'
+import { CountrySelector } from '../components/countries/CountrySelector'
 import { PopularCities } from '../components/cities/PopularCities'
 import { PopularQuests } from '../components/quests/PopularQuests'
 
@@ -25,7 +26,8 @@ export const MainScreen = () => {
     			keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
     		>
-    			<Search />
+    			{/* <Search /> */}
+				<CountrySelector />
 			    <PopularCities />
 			    <PopularQuests />
 			</ScrollView>
