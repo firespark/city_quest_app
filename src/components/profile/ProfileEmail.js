@@ -1,20 +1,13 @@
 import { View, Text } from 'react-native'
-
-import { gStyle, gStyleProfile } from '../../styles/style'
-
-
+import { profileStyle } from '../../styles/profileStyle'
 
 export const ProfileEmail = ({ email }) => {
-	
-    return (
-    	<View>
-    		<View style={gStyle.panelRowLeft}>
-    			<Text style={gStyleProfile.settingsTitleThin}>Email: </Text>
-    			<Text selectable style={gStyleProfile.settingsTitle}>{email}</Text>
-    		</View>
-    	</View>
-
-
-    )
+	return (
+		<View style={profileStyle.row}>
+			<Text style={profileStyle.label}>Email</Text>
+			<View style={profileStyle.valueBlock}>
+				<Text selectable style={profileStyle.value}>{email}</Text>
+			</View>
+		</View>
+	)
 }
-

@@ -1,23 +1,21 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 
-import { gStyle } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
 
 
 export const NextGame = ({ nextGame }) => {
 
-
     return (
-    	<View style={[gStyle.center, gStyle.mt30]}>
+        <View style={[mainStyle.center, mainStyle.mt30, mainStyle.mb30]}>
             <TouchableOpacity
-                style={gStyle.button}
+                style={mainStyle.button}
                 activeOpacity={0.7}
                 onPress={() => {
                     nextGame()
                 }}
             >
-                <Text style={gStyle.buttonText}>Дальше</Text>
+                <Text style={mainStyle.buttonText}>Дальше</Text>
             </TouchableOpacity>
         </View>
     )
 }
-

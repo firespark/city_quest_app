@@ -1,41 +1,38 @@
 import { useContext } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 
-import { gStyle } from '../../../styles/style'
+import { mainStyle } from '../../../styles/mainStyle'
+import { gameStyle } from '../../../styles/gameStyle'
 
 import { MainContext } from '../../../context/mainContext'
-
 
 export const ModalBackAlert = ({ setModal }) => {
 
     const { previousScreen } = useContext(MainContext)
 
-  
     return (
-        <View style={[gStyle.flex, gStyle.centerBlock]}>
-            <Text style={gStyle.title}>Ты хочешь выйти из игры?</Text>
-            <View style={[gStyle.center, gStyle.mt20]}>
+        <View style={mainStyle.container}>
+            <Text style={mainStyle.titleMain}>Ты хочешь выйти из игры?</Text>
+
+            <View style={gameStyle.gameActions}>
                 <TouchableOpacity
-                    style={gStyle.button}
+                    style={mainStyle.dangerButton}
                     activeOpacity={0.7}
                     onPress={() => {
                         previousScreen()
                     }}
                 >
-                    <Text style={gStyle.buttonText}>Выйти</Text>
+                    <Text style={mainStyle.dangerButtonText}>Выйти</Text>
                 </TouchableOpacity>
 
-            </View>
-            <View style={[gStyle.center, gStyle.mt20]}>
                 <TouchableOpacity
+                    style={gameStyle.gameCancelLink}
                     activeOpacity={0.7}
                     onPress={() => setModal(null)}
                 >
-                    <Text style={gStyle.link}>Остаться</Text>
+                    <Text style={gameStyle.gameLinkText}>Остаться</Text>
                 </TouchableOpacity>
             </View>
         </View>
-
     )
 }
-

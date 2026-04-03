@@ -1,0 +1,120 @@
+import { StyleSheet } from 'react-native'
+
+export const countriesStyle = StyleSheet.create({
+    countriesWrapper: {
+        padding: 10,
+        paddingTop: 20,
+    },
+    countriesPremiumSelector: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: '#FFFFFF',
+        padding: 12,
+        paddingRight: 20,
+        borderRadius: 16,
+        shadowColor: '#000',
+        shadowOffset: { width: 0, height: 4 },
+        shadowOpacity: 0.05,
+        shadowRadius: 8,
+        elevation: 3,
+    },
+    countriesSelectorLeft: {
+        flexDirection: 'row',
+        alignItems: 'center',
+    },
+    countriesIconCircle: {
+        width: 44,
+        height: 44,
+        borderRadius: 22,
+        backgroundColor: '#F1F5F9',
+        justifyContent: 'center',
+        alignItems: 'center',
+        marginRight: 12,
+    },
+    countriesIconText: {
+        fontSize: 20,
+    },
+    countriesLabel: {
+        fontSize: 12,
+        color: '#BDC3C7',
+        fontWeight: '600',
+        textTransform: 'uppercase',
+    },
+    countryName: {
+        fontSize: 18,
+        fontWeight: '700',
+        color: '#2C3E50',
+    },
+    countriesChevron: {
+        fontSize: 24,
+        color: '#BDC3C7',
+    },
+    countriesModalOverlay: {
+        flex: 1,
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        justifyContent: 'flex-end',
+    },
+    countriesBottomSheet: {
+        backgroundColor: '#FFFFFF',
+        borderTopLeftRadius: 30,
+        borderTopRightRadius: 30,
+        paddingHorizontal: 20,
+        paddingBottom: 40,
+        paddingTop: 15,
+        maxHeight: '80%',
+    },
+    countriesDragIndicator: {
+        width: 40,
+        height: 5,
+        backgroundColor: '#F1F5F9',
+        borderRadius: 3,
+        alignSelf: 'center',
+        marginBottom: 20,
+    },
+    countriesSheetTitle: {
+        fontSize: 22,
+        fontWeight: '800',
+        color: '#2C3E50',
+        marginBottom: 20,
+        textAlign: 'center',
+    },
+    countriesItemRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingVertical: 16,
+        paddingHorizontal: 15,
+        borderRadius: 12,
+        marginBottom: 5,
+    },
+    countriesItemRowActive: {
+        backgroundColor: '#F1F5F9',
+    },
+    countriesItemText: {
+        fontSize: 18,
+        color: '#5A6A7A',
+        fontWeight: '500',
+    },
+    countriesItemTextActive: {
+        color: '#17A2B8',
+        fontWeight: '700',
+    },
+    countriesCheckMark: {
+        fontSize: 18,
+        color: '#17A2B8',
+        fontWeight: 'bold',
+    },
+    countriesCancelButton: {
+        marginTop: 15,
+        paddingVertical: 15,
+        backgroundColor: '#F1F5F9',
+        borderRadius: 14,
+        alignItems: 'center',
+    },
+    countriesCancelText: {
+        fontSize: 16,
+        color: '#E74C3C',
+        fontWeight: '600',
+    },
+});

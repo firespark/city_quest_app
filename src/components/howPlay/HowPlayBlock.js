@@ -1,27 +1,18 @@
 import { View, Text } from 'react-native'
-
-import { gStyle, gStyleHowPlay } from '../../styles/style'
-
+import { howPlayStyle } from '../../styles/howPlayStyle'
 
 export const HowPlayBlock = ({ number, title, description }) => {
-
-    
-
     return (
-    	<View style={gStyleHowPlay.blockBordered}>
-			<View style={gStyleHowPlay.circleBordered}>
-				<Text style={gStyleHowPlay.textNumber}>{number}</Text>
-			</View>
-			<View>
-				<Text selectable style={gStyle.titleBold}>{title}</Text>
-			</View>
-			<View style={gStyleHowPlay.wrap30}>
-    			<Text selectable style={gStyle.title}>{description}</Text>
-        	</View>
-    	</View>
-
+        <View style={[howPlayStyle.card, howPlayStyle.cardLight]}>
+            <View style={howPlayStyle.headerRow}>
+                <View style={howPlayStyle.numberCircleLight}>
+                    <Text style={howPlayStyle.numberTextLight}>{number}</Text>
+                </View>
+                <Text selectable style={howPlayStyle.titleLight}>{title}</Text>
+            </View>
+            <View>
+                <Text selectable style={howPlayStyle.descLight}>{description}</Text>
+            </View>
+        </View>
     )
-
-
 }
-

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
-import { Loader } from '../components/Loader'
-import { Error } from '../components/Error'
+import { Loader } from '../components/common/Loader'
+import { Error } from '../components/common/Error'
 
 export const fetchDataMethod = props => {
     const {
@@ -15,13 +15,13 @@ export const fetchDataMethod = props => {
     const [data, setData] = useState({});
     const [loader, setLoader] = useState(false);
     const [error, setError] = useState(null);
-    
+
     const fetchData = async () => {
         setError(null)
         setLoader(true)
         try {
-            let headers = {'Content-Type': 'application/json'}
-    
+            let headers = { 'Content-Type': 'application/json' }
+
             if (token != '') {
                 headers['Authorization'] = `Bearer ${token}`
                 headers['Accept'] = 'application/json'
@@ -32,7 +32,7 @@ export const fetchDataMethod = props => {
                 headers: headers
             }
 
-            if(method == 'POST') {
+            if (method == 'POST') {
                 config.body = JSON.stringify(postdata)
             }
 
@@ -46,16 +46,16 @@ export const fetchDataMethod = props => {
             else {
                 setError(output.error)
             }
-            
+
         }
-        catch(e) {
-            
+        catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
         finally {
             setLoader(false)
         }
-       
+
     }
 
     useEffect(() => {

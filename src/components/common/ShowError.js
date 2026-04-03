@@ -4,8 +4,7 @@ export const ShowError = ({ text }) => {
 
     return (
         <View>
-        	<Text selectable>{text}</Text>
+            <Text selectable>{text}</Text>
         </View>
     )
 }
-

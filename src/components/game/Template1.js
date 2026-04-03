@@ -1,30 +1,33 @@
 import { View, Text } from 'react-native'
+
+import { mainStyle } from '../../styles/mainStyle'
+import { gameStyle } from '../../styles/gameStyle'
+
 import FullWidthImage from '../common/FullWidthImage';
-import { gStyle } from '../../styles/style'
 
 export const Template1 = ({ tasks }) => {
+    const task = tasks[0]
 
-	const task = tasks[0]
+    if (!task) return null;
 
     return (
-    	
-	    <View style={gStyle.mt20}>
-	    	{
-	    		(task.image) ?
-	    		<FullWidthImage source={{ uri: task.image }} />
-				:
-				null
-	    	}
-			{
-				(task.text != '') ?
-				<Text selectable style={[gStyle.p, gStyle.textCenter, gStyle.mt10]}>{task.text.join('\n')}</Text>				        		
-					:
-				null
-			}
+        <View style={mainStyle.card}>
+            {task.image ? (
+                <View style={gameStyle.templateImageWrapper}>
+                    <FullWidthImage
+                        source={{ uri: task.image }}
+                        style={gameStyle.templateImage}
+                    />
+                </View>
+            ) : null}
 
-	    </View>
-
-
+            {task.text && task.text.length > 0 ? (
+                <View style={gameStyle.templateTextContent}>
+                    <Text selectable style={mainStyle.description}>
+                        {task.text.join('\n')}
+                    </Text>
+                </View>
+            ) : null}
+        </View>
     )
 }
-

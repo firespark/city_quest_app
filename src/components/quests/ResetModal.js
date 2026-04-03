@@ -1,10 +1,12 @@
 import { useState, useContext } from 'react'
 import { View, TouchableOpacity, Text, TextInput, Modal } from 'react-native'
 
+import { mainStyle } from '../../styles/mainStyle'
+import { questsStyle } from '../../styles/questsStyle'
+
 import { Loader } from '../common/Loader'
 import { Error } from '../common/Error'
 
-import { gStyle, gStyleCommon } from '../../styles/style'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
 
@@ -17,7 +19,7 @@ export const ResetModal = ({ modalVisible, setModalVisible, onSuccess }) => {
     const [error, setError] = useState(null)
 
     const resetProgress = async () => {
-        if (comment.trim() === 'Подтверждаю') {
+        if (comment.trim().toLowerCase() === 'подтверждаю') {
             const postdata = {}
             setError(null)
             setLoader(true)
@@ -38,63 +40,69 @@ export const ResetModal = ({ modalVisible, setModalVisible, onSuccess }) => {
                 }
             }
             catch (e) {
+                console.error('Error:', e)
                 setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             }
             finally {
                 setLoader(false)
             }
+        } else if (comment.trim().length > 0) {
+            setError('Введите слово "Подтверждаю" без ошибок');
         }
     }
 
     return (
         <Modal visible={modalVisible} animationType="fade" transparent={true}>
-            <View style={gStyleCommon.modalOverlay}>
-                <View style={gStyleCommon.modalWindow}>
+            <View style={mainStyle.modalOverlay}>
+                <View style={mainStyle.card}>
                     {loader ? (
                         <Loader />
                     ) : (
-                        <View>
-                            <View style={gStyle.mt10}>
-                                <Text style={gStyle.title}>Вы действительно хотите сбросить</Text>
-                                <Text style={gStyle.title}>прогресс квеста?</Text>
+                        <View style={[mainStyle.mt15, mainStyle.mb15]}>
+                            <View style={mainStyle.center}>
+                                <Text style={mainStyle.titleMain}>Сброс прогресса</Text>
                             </View>
 
-                            <View style={[gStyle.mt20, gStyle.block320]}>
-                                <Text style={gStyle.textRed}>
-                                    Это действие нельзя отменить, если вы действительно хотите сбросить прогресс текущего квеста и начать заново - введите "Подтверждаю" без кавычек в поле снизу и нажмите на кнопку
+                            <View style={mainStyle.mb25}>
+                                <Text style={mainStyle.errorText}>
+                                    Это действие нельзя отменить. Если вы действительно хотите сбросить прогресс и начать квест заново, введите слово <Text style={mainStyle.textBold}>Подтверждаю</Text> в поле ниже.
                                 </Text>
 
-                                <View style={gStyle.mt10}>
-                                    <TextInput
-                                        placeholder="Сова, подтверди"
-                                        style={[gStyle.textarea, gStyle.mt5]}
-                                        placeholderTextColor={'#C4C4C4'}
-                                        multiline
-                                        numberOfLines={3}
-                                        onChangeText={(value) => setComment(value)}
-                                        value={comment}
-                                    />
-                                </View>
+                                <TextInput
+                                    placeholder="Подтверждаю"
+                                    style={[mainStyle.modernInput, mainStyle.mt25]}
+                                    placeholderTextColor={'#BDC3C7'}
+                                    onChangeText={(value) => {
+                                        setComment(value);
+                                        setError(null);
+                                    }}
+                                    value={comment}
+                                    autoCapitalize="none"
+                                />
                             </View>
 
-                            <View style={gStyle.center}>
+                            <View style={mainStyle.center}>
                                 <TouchableOpacity
-                                    style={[gStyle.buttonReset, gStyle.mt30]}
+                                    style={mainStyle.dangerButton}
                                     activeOpacity={0.7}
                                     onPress={resetProgress}
                                 >
-                                    <Text style={gStyle.buttonTextSmall}>Сбросить прогресс</Text>
+                                    <Text style={mainStyle.dangerButtonText}>Сбросить прогресс</Text>
                                 </TouchableOpacity>
 
                                 <TouchableOpacity
-                                    style={gStyle.mt20}
-                                    onPress={() => setModalVisible(false)}
+                                    style={[questsStyle.resetCancelLink, mainStyle.mt10]}
+                                    onPress={() => {
+                                        setModalVisible(false);
+                                        setError(null);
+                                        setComment('');
+                                    }}
                                 >
-                                    <Text style={gStyle.link}>Отмена</Text>
+                                    <Text style={mainStyle.description}>Отмена</Text>
                                 </TouchableOpacity>
                             </View>
 
-                            {error && <Error text={error} />}
+                            {error && <View style={mainStyle.mt15}><Error text={error} /></View>}
                         </View>
                     )}
                 </View>

@@ -7,17 +7,16 @@ import {
     QUEST_CLEANUP,
     SET_COUNTRY_ID,
     SET_COUNTRIES
-    //SET_LOADER, 
-    //SET_ERROR
 } from './types'
 
 export const mainReducer = (state, action) => {
 
     switch (action.type) {
 
-        case CHANGE_SCREEN:
+        case CHANGE_SCREEN: {
             let previousScreens = state.screens.slice();
             const lastScreen = previousScreens[previousScreens.length - 1];
+
             if (lastScreen == action.screen) return state
 
             if (lastScreen == 'MENU_SCREEN') previousScreens.pop()
@@ -37,19 +36,26 @@ export const mainReducer = (state, action) => {
                 ...state,
                 screens: previousScreens,
             }
-        case PREVIOUS_SCREEN:
+        }
+
+        case PREVIOUS_SCREEN: {
             const screens = state.screens.slice();
             screens.pop();
             return {
                 ...state,
                 screens: screens,
             }
-        case QUEST_CLEANUP:
-            const filteredScreens = state.screens.filter((screen, index) => screen !== 'GAME_SCREEN' || index === state.screens.length - 1);
+        }
+
+        case QUEST_CLEANUP: {
+            const filteredScreens = state.screens.filter((screen, index) =>
+                screen !== 'GAME_SCREEN' || index === state.screens.length - 1
+            );
             return {
                 ...state,
                 screens: filteredScreens,
             }
+        }
 
         case SET_QUEST_ID:
             return {
@@ -74,24 +80,12 @@ export const mainReducer = (state, action) => {
                 ...state,
                 countryId: action.countryId
             }
-            
+
         case SET_COUNTRIES:
             return {
                 ...state,
                 countries: action.countries
             }
-
-        /*case SET_LOADER: 
-            return {
-                ...state, 
-                loader: action.loader
-            }
-
-        case SET_ERROR: 
-            return {
-                ...state, 
-                error: action.error
-            }*/
 
         default:
             return state

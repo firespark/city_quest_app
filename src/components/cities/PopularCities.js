@@ -1,5 +1,8 @@
 import { useState, useEffect, useContext } from 'react'
-import { ScrollView, View } from 'react-native'
+
+import { mainStyle } from '../../styles/mainStyle'
+
+import { View } from 'react-native'
 import { PopularCity } from './PopularCity'
 
 import { Loader } from '../common/Loader'
@@ -18,7 +21,7 @@ export const PopularCities = () => {
 
     const fetchData = async () => {
 
-        if (!countryId) return 
+        if (!countryId) return
 
         setError(null)
         setLoader(true)
@@ -36,6 +39,7 @@ export const PopularCities = () => {
             }
         }
         catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
         finally {
@@ -45,7 +49,7 @@ export const PopularCities = () => {
 
     useEffect(() => {
         fetchData()
-    }, [countryId]) 
+    }, [countryId])
 
     if (loader) {
         return <Loader />
@@ -56,16 +60,12 @@ export const PopularCities = () => {
     }
 
     return (
-        <ScrollView
-            horizontal={true}
-            keyboardShouldPersistTaps="handled"
-            keyboardDismissMode="interactive"
-        >
+        <View style={mainStyle.container}>
             {data && data.map((item, index) => (
                 <View key={item.id || index}>
                     <PopularCity city={item} />
                 </View>
             ))}
-        </ScrollView>
+        </View>
     )
 }

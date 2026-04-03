@@ -1,8 +1,10 @@
 import { View, Text } from "react-native";
 import FullWidthImage from '../../common/FullWidthImage';
-import { gStyle } from '../../../styles/style'
 
-export const ModalHint = ({ setModal, game, task }) => {
+import { mainStyle } from '../../../styles/mainStyle'
+import { gameStyle } from '../../../styles/gameStyle'
+
+export const ModalHint = ({ game, task }) => {
     let hint = game.sight_hint1;
 
     if (task == 2) {
@@ -10,20 +12,15 @@ export const ModalHint = ({ setModal, game, task }) => {
     }
 
     return (
-        <View style={gStyle.mt20}>
-            <Text style={[gStyle.titleBold, gStyle.textCenter, gStyle.mb10]}>Подсказка:</Text>
+        <View style={mainStyle.container}>
+            <Text style={mainStyle.titleMain}>Подсказка</Text>
             {
                 (hint.image)
-                ?
-                    <FullWidthImage style={gStyle.mt30} source={{ uri: hint.image + '?time=' + new Date().getTime() }} />
-                :
-                null
+                    ? <FullWidthImage style={gameStyle.gameImage} source={{ uri: hint.image + '?time=' + new Date().getTime() }} />
+                    : null
             }
-                
-            <Text selectable style={[gStyle.text2, gStyle.mt30, gStyle.textCenter]}>{hint.text}</Text>
+
+            <Text selectable style={gameStyle.gameText}>{hint.text}</Text>
         </View>
-
-
     )
 }
-

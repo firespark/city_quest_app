@@ -12,7 +12,9 @@
     "@react-native-async-storage/async-storage": "^2.1.0",
     "@react-native-google-signin/google-signin": "^13.1.0",
     "expo": "~52.0.17",
+    "expo-asset": "~11.0.5",
     "expo-dev-client": "~5.0.20",
+    "expo-font": "~13.0.4",
     "expo-status-bar": "~2.0.0",
     "git": "^0.1.5",
     "react": "18.3.1",
@@ -20,7 +22,12 @@
     "react-native-fast-image": "^8.6.3"
   },
   "devDependencies": {
-    "@babel/core": "^7.20.0"
+    "@babel/core": "^7.20.0",
+    "@eslint/js": "^9.39.4",
+    "eslint": "^9.39.4",
+    "eslint-plugin-import": "^2.32.0",
+    "eslint-plugin-react": "^7.37.5",
+    "globals": "^17.4.0"
   },
   "private": true
 }

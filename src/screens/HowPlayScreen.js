@@ -1,21 +1,20 @@
 import { useState, useEffect } from 'react'
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, Text } from 'react-native'
+
+import { mainStyle } from '../styles/mainStyle'
+import { howPlayStyle } from '../styles/howPlayStyle'
+import { headerStyle } from '../styles/headerStyle'
 
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
-
-import { ContentTitle } from '../components/common/ContentTitle'
-import { ContentText } from '../components/common/ContentText'
+//import { ContentTitle } from '../components/common/ContentTitle'
+//import { ContentText } from '../components/common/ContentText'
 import { HowPlayBlockBlue } from '../components/howPlay/HowPlayBlockBlue'
 import { HowPlayBlock } from '../components/howPlay/HowPlayBlock'
-
 import { Footer } from '../components/common/Footer'
-
-import { gStyle, gStyleHeader } from '../styles/style'
-
-import {Loader} from '../components/common/Loader'
-import {Error} from '../components/common/Error'
+import { Loader } from '../components/common/Loader'
+import { Error } from '../components/common/Error'
 
 import { Http } from '../scripts/http'
 
@@ -26,14 +25,14 @@ export const HowPlayScreen = () => {
     const [loadError, setLoadError] = useState(null)
 
     const [data, setData] = useState({
-        'title' : null,
-        'content' : null,
-        'playTitle1' : null,
-        'playTitle2' : null,
-        'playTitle3' : null,
-        'playContent1' : null,
-        'playContent2' : null,
-        'playContent3' : null,
+        'title': null,
+        'content': null,
+        'playTitle1': null,
+        'playTitle2': null,
+        'playTitle3': null,
+        'playContent1': null,
+        'playContent2': null,
+        'playContent3': null,
     })
 
     const fetchData = async () => {
@@ -42,31 +41,31 @@ export const HowPlayScreen = () => {
         setLoader(true)
 
         try {
-            
+
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/pages/howPlay`)
 
             if (output.success == 1) {
                 setData(output.data)
             }
             else {
-                if(output.error) {
+                if (output.error) {
                     setLoadError(output.error)
                 }
                 else {
                     setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-            
+
         }
-        catch(e) {
-            
+        catch (e) {
+            console.error('Error:', e)
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
+
         }
         finally {
             setLoader(false)
         }
-       
+
     }
 
     useEffect(() => {
@@ -78,25 +77,44 @@ export const HowPlayScreen = () => {
     }
 
     if (loadError) {
-        return <Error text={error} />
+        return <Error text={loadError} />
     }
 
-    
+    const getCleanRules = (contentArray) => {
+        if (!Array.isArray(contentArray)) {
+            return [];
+        }
+
+        return contentArray
+            .map(item => {
+                if (typeof item !== 'string') return '';
+
+                let cleanText = item
+                    .replace(/[\n\r]/g, '')
+                    .replace(/<[^>]*>?/gm, '')
+                    .replace(/^[-—–]\s*/, '');
+
+                return cleanText.trim();
+            })
+            .filter(item => item.length > 0);
+    };
+
+    const rulesList = getCleanRules(data.content);
 
     return (
-        <View style={gStyle.flex}>
-    		<View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
-	            <Back />
-        		<HeaderTitle title="Как играть"/>
-	            <Menu />
-	        </View>
-    		<ScrollView
-                style={gStyle.flex}
+        <View style={mainStyle.flex}>
+            <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
+                <Back />
+                <HeaderTitle title="Как играть" />
+                <Menu />
+            </View>
+            <ScrollView
+                style={mainStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
             >
-    			<View style={gStyle.container}>
-    				<ContentTitle title="Как играть?" />
+                <View style={mainStyle.container}>
+                    {/* <ContentTitle title="Как играть?" /> */}
 
                     <HowPlayBlockBlue
                         number="1"
@@ -124,12 +142,24 @@ export const HowPlayScreen = () => {
                         description={data.playContent5}
                     />
                 </View>
-                <View style={[gStyle.container, gStyle.mt20]}>
-                    <ContentText ps={data.content} />
+                {rulesList.length > 0 && (
+                    <View style={mainStyle.container}>
+                        <View style={howPlayStyle.rulesContainer}>
+                            <Text style={howPlayStyle.rulesMainTitle}>Важно знать</Text>
 
-    			</View>
-			</ScrollView>
-	    	<Footer active="question" />
-	    </View>
+                            {rulesList.map((rule, index) => (
+                                <View key={index} style={howPlayStyle.ruleRow}>
+                                    <View style={howPlayStyle.ruleBullet}>
+                                        <View style={howPlayStyle.ruleBulletInner} />
+                                    </View>
+                                    <Text style={howPlayStyle.ruleText}>{rule}</Text>
+                                </View>
+                            ))}
+                        </View>
+                    </View>
+                )}
+            </ScrollView>
+            <Footer active="question" />
+        </View>
     )
 }

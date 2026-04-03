@@ -1,31 +1,31 @@
 import { View, ScrollView } from 'react-native'
 
+import { mainStyle } from '../styles/mainStyle'
+import { headerStyle } from '../styles/headerStyle'
+
 import { Close } from '../components/common/Close'
 import { MenuItems } from '../components/common/MenuItems'
 import { Footer } from '../components/common/Footer'
 
-import { gStyle, gStyleHeader } from '../styles/style'
-
-
 export const MenuScreen = () => {
 
 
-    return (
-        <View style={gStyle.flex}>
-    		<View style={[gStyle.panelRowRight, gStyleHeader.panelHeader]}>
-                <Close />
-	        </View>
-    		<ScrollView
-    			style={gStyle.flex}
-    			keyboardShouldPersistTaps="handled"
-                keyboardDismissMode="interactive"
-    		>
-				<View style={gStyle.container}>
+	return (
+		<View style={mainStyle.flex}>
+			<View style={[mainStyle.panelRowRight, headerStyle.panelHeader]}>
+				<Close />
+			</View>
+			<ScrollView
+				style={mainStyle.flex}
+				keyboardShouldPersistTaps="handled"
+				keyboardDismissMode="interactive"
+			>
+				<View style={mainStyle.container}>
 					<MenuItems />
-				</View>    			
-                
+				</View>
+
 			</ScrollView>
-	    	<Footer />
-	    </View>
-    )
+			<Footer />
+		</View>
+	)
 }

@@ -1,6 +1,9 @@
 import { useState, useEffect, useContext } from 'react'
 import { View, ScrollView } from 'react-native'
 
+import { mainStyle } from '../styles/mainStyle'
+import { headerStyle } from '../styles/headerStyle'
+
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
@@ -13,7 +16,6 @@ import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
 
-import { gStyle, gStyleHeader } from '../styles/style'
 import { Http } from '../scripts/http'
 import { MainContext } from '../context/mainContext'
 
@@ -44,7 +46,8 @@ export const CitiesScreen = () => {
                 setError(output.error || 'Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             }
         }
-        catch(e) {
+        catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
         finally {
@@ -61,29 +64,29 @@ export const CitiesScreen = () => {
     }
 
     return (
-        <View style={gStyle.flex}>
-            <View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
+        <View style={mainStyle.flex}>
+            <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
                 <Back />
-                <HeaderTitle title="Города"/>
+                <HeaderTitle title="Города" />
                 <Menu />
             </View>
             <ScrollView
-                style={gStyle.flex}
+                style={mainStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
             >
-                { 
+                {
                     (error)
-                    ? 
-                    <Error text={error} />
-                    :
-                    <View style={gStyle.container}>
-                        {/* <Search /> */}
-                        
-                        <Cities
-                            cities={data}
-                        />
-                    </View>
+                        ?
+                        <Error text={error} />
+                        :
+                        <View style={mainStyle.container}>
+                            {/* <Search /> */}
+
+                            <Cities
+                                cities={data}
+                            />
+                        </View>
                 }
             </ScrollView>
             <Footer />

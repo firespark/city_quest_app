@@ -1,13 +1,12 @@
 import { View, Text } from 'react-native'
 
-import { gStyle } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
 
 export const ContentTitle = ({ title }) => {
 
     return (
-        <View style={gStyle.mb10}>
-        	<Text selectable style={gStyle.titleBold}>{title}</Text>
+        <View style={mainStyle.mb10}>
+            <Text selectable style={mainStyle.titleBold}>{title}</Text>
         </View>
     )
 }
-

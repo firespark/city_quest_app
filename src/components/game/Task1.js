@@ -1,160 +1,132 @@
 import { useState, useContext } from 'react'
 import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native'
 
-import { Template1 } from './Template1'
-import { Template2 } from './Template2'
+import { mainStyle } from '../../styles/mainStyle'
+import { gameStyle } from '../../styles/gameStyle'
 
-import {Loader} from '../common/Loader'
-
-import { gStyle } from '../../styles/style'
-import { gStyleGame } from '../../styles/style'
-
+import { TaskTemplate } from './TaskTemplate' 
+import { Loader } from '../common/Loader'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
 
-
-
 export const Task1 = ({ game, setGame, setModal }) => {
 
-	const { questId, token, answersState, setAnswersState } = useContext(MainContext)
-
-	const [answers, setAnswers] = useState([]);
-	const [inputResults, setInputResults] = useState({});
-
-	const [loader, setLoader] = useState(false)
+    const { questId, token, answersState, setAnswersState } = useContext(MainContext)
+    const [inputResults, setInputResults] = useState({});
+    const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
 
-	const task = game.task1
-	const inputs = []
+    const task = game.task1
+    const inputs = []
 
     for (let i = 0; i < game.inputs1; i++) {
+        let style = null
+        if (typeof inputResults[i] !== 'undefined') {
+            style = (inputResults[i] == 1) ? mainStyle.inputCorrect : mainStyle.inputError
+        }
 
-    	let style = null
-    	if(typeof inputResults[i] !== 'undefined'){
-
-    		style = (inputResults[i] == 1) ? gStyle.inputCorrect : gStyle.inputError
-
-    	}
-        
         inputs.push(
-        	<View key={i}>
-        		<TextInput 
-		            placeholder={`Слово ${i+1}`}
-		            style={[gStyle.input, gStyle.mb20, style]}
-					placeholderTextColor={'#C4C4C4'}
-					value={answersState[i] || ''}
-					onChangeText={(value) => answersHandler(i, value)}
-		        />
-	        </View>
-	        
+            <View key={i} style={gameStyle.inputWrapper}>
+                <TextInput
+                    placeholder={game.inputs1 == 1 ? `Ответ` : `Слово ${i + 1}`}
+                    style={[mainStyle.modernInput, style]}
+                    placeholderTextColor={'#BDC3C7'}
+                    value={answersState[i] || ''}
+                    onChangeText={(value) => answersHandler(i, value)}
+                    autoCapitalize="none"
+                />
+            </View>
         )
     }
 
-	const answersHandler = (key, value) => {
-		value = value.replace(/\s/g, ""); 
-		setAnswersState({ ...answersState, [key]: value })
+    const answersHandler = (key, value) => {
+        value = value.replace(/\s/g, "");
+        setAnswersState({ ...answersState, [key]: value })
     }
 
     const checkAnswer = async () => {
-
-    	setError(null)
         setLoader(true)
-
-    	try {
-    		
-            const postdata = {quest_answer: answersState, answer_number: 1}
-
+        setError(null)
+        try {
+            const postdata = { quest_answer: answersState, answer_number: 1 }
             const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/checkAnswer/${questId}`, postdata, token)
 
             if (output.success == 1) {
-            	setInputResults(output.data.inputResults)
-            	if(!output.data.errors) {
-					setGame(output.data)
-					setAnswersState([]);
-			        setModal('answer1')
-            	}
-                
-            }
-            else {
-                if(output.error) {
-                    setError(output.error)
-                }
-                else {
-                    setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
+                setInputResults(output.data.inputResults)
+
+                if (!output.data.errors) {
+                    setGame(output.data)
+                    setAnswersState([]);
+                    setModal('answer1')
                 }
             }
-            
-        }
-        catch(e) {
-            
-            setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
-        }
-        finally {
+
+        } catch (e) {
+            console.error('Error:', e)
+            setError('Произошла ошибка при отправке')
+        } finally {
             setLoader(false)
         }
-
-
-
-	}
-
-	if (loader) {
-        return <Loader />
     }
-	
+
+
     return (
-    	<View>
-	        <Text style={[gStyle.titleBold, gStyle.mt20]}>Угадай достопримечательность</Text>
-	        { 
-				(task.template == 2)
-				? 
-				<Template2
-					game={game}
-					setGame={setGame}
-					setModal={setModal}
-					taskNumber="1"
-				/>
-				:
-				<Template1
-					tasks={task.tasks}
-				/>
-			}
+        <View style={mainStyle.container}>
+            <Text style={mainStyle.titleMain}>Угадай достопримечательность</Text>
 
-			{
-	        	(game.sight_hint1)
-	        	? 
-				<View style={[gStyle.center, gStyle.mt20]}>
+            <TaskTemplate 
+                tasks={task.tasks} 
+                game={game} 
+                setGame={setGame} 
+                setModal={setModal} 
+                taskNumber="1" 
+            />
 
-					<TouchableOpacity
-						activeOpacity={0.7}
-						onPress={() => setModal('hint1')}
-					>
-						<View style={gStyleGame.hintBlockRow}>
-							<Image source={require('../../../assets/img/hint.png')} style={gStyleGame.hintImageButton} />
-							<Text style={gStyleGame.hintTextButton}>Подсказка</Text>
-						</View>
-					</TouchableOpacity>
-				</View>
-	        	:
-	        	null
-	        }
-	        
-		    <View style={[gStyle.center, gStyle.mt30]}>
-		    	{inputs}
-		        
-		    </View>
-		    <View style={gStyle.center}>
-			    <TouchableOpacity
-				    style={gStyle.button}
-				    activeOpacity={0.7}
-				    onPress={() => checkAnswer()}
-				>
-				   	<Text style={gStyle.buttonText}>Ответ</Text>
-				</TouchableOpacity>
-			</View>
-	    </View>
+            {
+                (game.sight_hint1) ? (
+                    <View style={gameStyle.hintContainer}>
+                        <TouchableOpacity
+                            activeOpacity={0.7}
+                            onPress={() => setModal('hint1')}
+                        >
+                            <View style={gameStyle.hintPill}>
+                                <Image source={require('../../../assets/img/hint.png')} style={gameStyle.hintIcon} />
+                                <Text style={gameStyle.hintTextActive}>Подсказка</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </View>
+                ) : null
+            }
 
+            {loader ? (
+                <View style={mainStyle.mt30}>
+                    <Loader />
+                </View>
+            ) : (
+                <>
+                    <View style={mainStyle.mt15}>
+                        {inputs}
+                    </View>
 
+                    <View style={mainStyle.mt15}>
+                        <TouchableOpacity
+                            style={mainStyle.primaryButton}
+                            activeOpacity={0.7}
+                            onPress={() => checkAnswer()}
+                        >
+                            <Text style={mainStyle.buttonText}>Ответ</Text>
+                        </TouchableOpacity>
+                    </View>
+                </>
+            )}
+
+            {
+                (error) ? (
+                    <View style={mainStyle.errorContainer}>
+                        <Text style={mainStyle.errorText}>{error}</Text>
+                    </View>
+                ) : null
+            }
+        </View>
     )
 }
-

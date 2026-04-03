@@ -1,20 +1,17 @@
 import { View, Text, Image, TouchableOpacity } from 'react-native'
 
-import { gStyle, gStyleGame } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
+import { gameStyle } from '../../styles/gameStyle'
 
 export const TaskSign = ({ number, setModal, disabled }) => {
-
 	return (
-		<View style={[gStyle.wrapper, gStyle.mt20]}>
-
+		<View style={gameStyle.taskSignWrapper}>
 			{
 				(disabled)
 					?
-					<View>
-						<View style={[gStyleGame.questionBlockRow, gStyleGame.questionBlockDisabled]}>
-							<Image source={require('../../../assets/img/question2-disabled.png')} style={gStyleGame.questionImage} />
-							<Text style={[gStyleGame.questionText, gStyleGame.questionTextDisabled]}>Задание {number}</Text>
-						</View>
+					<View style={[gameStyle.pill, gameStyle.pillDisabled]}>
+						<Image source={require('../../../assets/img/question2-disabled.png')} style={gameStyle.taskImage} />
+						<Text style={[mainStyle.textBlue, mainStyle.textDisabled]}>Задание {number}</Text>
 					</View>
 					:
 					<TouchableOpacity
@@ -23,19 +20,12 @@ export const TaskSign = ({ number, setModal, disabled }) => {
 							setModal(`task${number}`)
 						}}
 					>
-						<View style={gStyleGame.questionBlockRow}>
-							<Image source={require('../../../assets/img/question2.png')} style={gStyleGame.questionImage} />
-							<Text style={gStyleGame.questionText}>Задание {number}</Text>
+						<View style={[gameStyle.pill, gameStyle.pillActive]}>
+							<Image source={require('../../../assets/img/question2.png')} style={gameStyle.taskImage} />
+							<Text style={mainStyle.textBlue}>Задание {number}</Text>
 						</View>
 					</TouchableOpacity>
-
 			}
-
-
-
 		</View>
-
-
 	)
 }
-

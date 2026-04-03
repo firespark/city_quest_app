@@ -1,84 +1,43 @@
 import { useState, useContext } from 'react'
-import { View, Text, TouchableOpacity, Image } from 'react-native'
-
-import {Loader} from '../common/Loader'
-
-import { gStyle, gStyleProfile } from '../../styles/style'
-
+import { View, Text, Switch } from 'react-native'
+import { Loader } from '../common/Loader'
+import { profileStyle } from '../../styles/profileStyle'
 import { MainContext } from '../../context/mainContext'
-
 import { Http } from '../../scripts/http'
 
-
-
 export const ProfileNotes = ({ user, setUser }) => {
-
-	const { token } = useContext(MainContext)
-
+    const { token } = useContext(MainContext)
     const [loader, setLoader] = useState(false)
-    const [error, setError] = useState(null)
 
-	const saveNotes = async () => {
-    	const postdata = {notes: !user.notes}
-
-        setError(null)
+    const saveNotes = async (newValue) => {
+        const postdata = { notes: newValue }
         setLoader(true)
 
-    	try {
+        try {
             const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/users/saveNotes`, postdata, token)
-
             if (output.success == 1) {
-                setUser({
-			        ...user, 
-			        'notes': !user.notes,
-			    })
+                setUser({ ...user, 'notes': newValue })
             }
-            else {
-                if(output.error) {
-                    setError(output.error)
-                }
-                else {
-                    setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-                }
-            }
-            
-        }
-        catch(e) {
-            
-            setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
-        }
-        finally {
+        } catch (e) {
+            console.error('Error:', e)
+        } finally {
             setLoader(false)
         }
-
-    	
-		
     }
 
-    if (loader) {
-        return <Loader />
-    }
-	
+    if (loader) return <Loader />
+
     return (
-    	<View style={[gStyle.panelRowLeft, gStyle.mt20]}>
-			<TouchableOpacity
-			    activeOpacity={0.7}
-			    onPress={() => saveNotes()}
-			>
-			   	{
-                    ( user.notes ) ?
-                    <Image source={require('../../../assets/img/check-true.png')} style={gStyle.checkbox} />
-                    :
-                    <Image source={require('../../../assets/img/check-false.png')} style={gStyle.checkbox} />
-                }
+        <View style={[profileStyle.row, profileStyle.rowLast]}>
+            <Text style={profileStyle.label}>Уведомления</Text>
 
-			</TouchableOpacity>
-			
-			<Text style={[gStyleProfile.settingsTitleThin, gStyle.ml5]}>Уведомления</Text>
-		</View>
-
-
+            <Switch
+                trackColor={{ false: "#F1F5F9", true: "#17A2B8" }}
+                thumbColor={"#FFFFFF"}
+                ios_backgroundColor="#F1F5F9"
+                onValueChange={saveNotes}
+                value={Boolean(user.notes)}
+            />
+        </View>
     )
 }
-

@@ -5,90 +5,68 @@ import { Skips } from '../Skips'
 import { Hints } from '../Hints'
 
 import { FinishTemplate } from './FinishTemplate'
-//import { LevelsTemplate } from './LevelsTemplate'
 import { ModeTemplate } from './ModeTemplate'
 import { PlayTemplate } from './PlayTemplate'
 
-import { gStyle, gStyleHeader } from '../../../styles/style'
-
-
+import { mainStyle } from '../../../styles/mainStyle'
+import { headerStyle } from '../../../styles/headerStyle'
 
 export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
 
     let template = <PlayTemplate
-                        game={game}
-                        setGame={setGame}
-                        setModal={setModal}
-                        nextGame={nextGame}
-                    />
+        game={game}
+        setGame={setGame}
+        setModal={setModal}
+        nextGame={nextGame}
+    />
 
-    if(game.finish && game.step == game.step_total){
-        template = <FinishTemplate 
-                        title={game.quest_title}
-                        content={game.finish_content}
-                        game={game}
-                        setGame={setGame}
-                        setModal={setModal}
-                    />
+    if (game.finish && game.step == game.step_total) {
+        template = <FinishTemplate
+            title={game.quest_title}
+            content={game.finish_content}
+            game={game}
+            setModal={setModal}
+        />
     }
 
-/*     if(game.levels_template){
-        template = <LevelsTemplate 
-                        game={game}
-                        setGame={setGame}
-                    />
-    } */
-
-    if(game.step == 0){
-        template = <ModeTemplate 
-                        game={game}
-                        setGame={setGame}
-                    />
+    if (game.step == 0) {
+        template = <ModeTemplate
+            setGame={setGame}
+        />
     }
 
-    
-	
     return (
-    	
-	    <View style={gStyle.flex}>
-    		<View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
-	            <BackQuest
+        <View style={mainStyle.pageBackground}>
+
+            <View style={headerStyle.panelHeader}>
+                <BackQuest
                     setModal={setModal}
                 />
-                
-        		<View style={gStyle.panelRow}>
 
-        			<Skips
-        				skips={game.skips_number}
+                <View style={headerStyle.headerActions}>
+                    <Skips
+                        skips={game.skips_number}
                         showSkip={game.show_skip}
                         setModal={setModal}
-        			/>
-        			<Hints
-        				hints={game.hints_number}
+                    />
+                    <Hints
+                        hints={game.hints_number}
                         showHint={game.show_hint}
                         setModal={setModal}
+                    />
+                </View>
+            </View>
 
-        			/>
-        		</View>
-                
-                {/*
-                <Close />
-                */}
-	        </View>
-    		<ScrollView
+            <ScrollView
+                style={mainStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
+                showsVerticalScrollIndicator={false}
             >
-                <View style={gStyle.container}>
+                <View style={mainStyle.scrollContent}>
                     {template}
-
                 </View>
-			</ScrollView>
-	    	
-	    </View>
-
-
-
+            </ScrollView>
+        </View>
     )
 }
-

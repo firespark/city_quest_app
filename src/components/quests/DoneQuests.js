@@ -1,20 +1,20 @@
 import { useState, useContext, useEffect } from 'react'
 import { View, Text } from 'react-native'
-import { OpenQuest } from './OpenQuest'
+import { Ionicons } from '@expo/vector-icons'
 
+import { questsStyle } from '../../styles/questsStyle'
+import { mainStyle } from '../../styles/mainStyle'
+
+import { OpenQuest } from './OpenQuest'
 import { Loader } from '../common/Loader'
 import { Error } from '../common/Error'
 
-import { gStyle, gStyleCommon } from '../../styles/style'
-
 import { MainContext } from '../../context/mainContext'
-
 import { Http } from '../../scripts/http'
-
 
 export const DoneQuests = () => {
     const { token } = useContext(MainContext)
-    const [data, setData] = useState()
+    const [data, setData] = useState(null)
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
 
@@ -24,7 +24,6 @@ export const DoneQuests = () => {
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/done`, token)
             if (output.success == 1) {
-
                 const grouped = output.data.reduce((acc, quest) => {
                     const country = quest.country_title || 'Другие';
                     if (!acc[country]) {
@@ -35,10 +34,11 @@ export const DoneQuests = () => {
                 }, {});
                 setData(grouped);
             } else {
-                setError(output.error || 'Возникли ошибки. Пожалуйста, сообщите разработчикам об этом');
+                setError(output.error || 'Возникли ошибки при загрузке данных');
             }
         } catch (e) {
-            setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом');
+            console.error('Error:', e)
+            setError('Не удалось загрузить пройденные квесты');
         } finally {
             setLoader(false)
         }
@@ -52,16 +52,22 @@ export const DoneQuests = () => {
     if (error) return <Error text={error} />
 
     return (
-        <View style={gStyle.mb20}>
-            <Text style={[gStyle.title, gStyle.mt10]}>Пройденные квесты</Text>
+        <View>
+            <Text style={questsStyle.blockTitle}>Пройденные квесты</Text>
 
             {data && Object.keys(data).length > 0 ? (
                 Object.keys(data).map((countryName) => (
-                    <View key={countryName} style={gStyle.mt20}>
+                    <View key={countryName} style={questsStyle.countryBlock}>
 
-                        <Text style={gStyleCommon.textTitle}>
-                            {countryName}
-                        </Text>
+                        <View style={questsStyle.countryHeader}>
+                            <Ionicons
+                                name="globe-outline"
+                                size={18}
+                                color="#7F8C8D"
+                                style={mainStyle.mr10}
+                            />
+                            <Text style={questsStyle.countryTitle}>{countryName}</Text>
+                        </View>
 
                         {data[countryName].map((item, index) => (
                             <View key={item.id || index}>
@@ -71,7 +77,7 @@ export const DoneQuests = () => {
                     </View>
                 ))
             ) : (
-                <Text style={[gStyle.textCenter, gStyle.mt10]}>Нет пройденных квестов</Text>
+                <Text style={questsStyle.emptyText}>Нет пройденных квестов</Text>
             )}
         </View>
     )

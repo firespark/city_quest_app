@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { View, TouchableOpacity, Image, Text } from 'react-native'
 
-import { gStyle, gStyleHeader } from '../../styles/style'
+import { headerStyle } from '../../styles/headerStyle'
 
 import { ABOUT_SCREEN, CONTACTS_SCREEN } from '../../context/types'
 import { MainContext } from '../../context/mainContext'
@@ -9,32 +9,38 @@ import { MainContext } from '../../context/mainContext'
 
 export const MenuItems = () => {
 
-  const { changeScreen } = useContext(MainContext)
-
+    const { changeScreen } = useContext(MainContext)
 
     return (
-        <View style={gStyleHeader.menuBlock}>
+        <View style={headerStyle.menuContainer}>
             <TouchableOpacity
-                style={[gStyle.panelRowLeft, gStyle.mt5]}
+                style={headerStyle.menuButtonPanel}
                 activeOpacity={0.7}
-                onPress={() => {
-                    changeScreen(ABOUT_SCREEN)
-                }}
+                onPress={() => changeScreen(ABOUT_SCREEN)}
             >
-                <Image source={require('../../../assets/img/info.png')} style={gStyle.smallIcon} />
-                <Text style={[gStyle.title, gStyle.ml5]}>О проекте</Text>
+                <View style={headerStyle.leftContent}>
+                    <View style={headerStyle.iconWrapper}>
+                        <Image source={require('../../../assets/img/info.png')} style={headerStyle.icon} />
+                    </View>
+                    <Text style={headerStyle.buttonText}>О проекте</Text>
+                </View>
+                <Text style={headerStyle.chevron}>›</Text>
             </TouchableOpacity>
+
             <TouchableOpacity
-                style={[gStyle.panelRowLeft, gStyle.mt5]}
+                style={headerStyle.menuButtonPanel}
                 activeOpacity={0.7}
-                onPress={() => {
-                    changeScreen(CONTACTS_SCREEN)
-                }}
+                onPress={() => changeScreen(CONTACTS_SCREEN)}
             >
-                <Image source={require('../../../assets/img/envelope.png')} style={gStyle.smallIcon} />
-                <Text style={[gStyle.title, gStyle.ml5]}>Контакты</Text>
+                <View style={headerStyle.leftContent}>
+                    <View style={headerStyle.iconWrapper}>
+                        <Image source={require('../../../assets/img/envelope.png')} style={headerStyle.icon} />
+                    </View>
+                    <Text style={headerStyle.buttonText}>Контакты</Text>
+                </View>
+                <Text style={headerStyle.chevron}>›</Text>
             </TouchableOpacity>
         </View>
-    )
-}
+    );
 
+}

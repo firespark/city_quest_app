@@ -1,24 +1,18 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-
-import { gStyle } from '../../styles/style'
-
 import { GAME_SCREEN } from '../../context/types'
 
+import { mainStyle } from '../../styles/mainStyle'
 
 export const StartButton = ({ changeScreen, progress }) => {
-
-    
     return (
-        <View style={gStyle.center}>
+        <View>
             <TouchableOpacity
-                style={gStyle.button}
+                style={mainStyle.primaryButton}
                 activeOpacity={0.7}
                 onPress={() => changeScreen(GAME_SCREEN)}
             >
-                <Text style={gStyle.buttonText}>{progress}</Text>
+                <Text style={mainStyle.primaryButtonText}>{progress}</Text>
             </TouchableOpacity>
         </View>
     )
-
-
 }

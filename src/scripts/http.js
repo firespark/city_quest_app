@@ -5,24 +5,24 @@ export class Http {
             return await request(url, token)
         }
         catch (e) {
-            
+            console.error('Error:', e)
         }
     }
 
     static async post(url, data, token = '') {
-        
+
         try {
             return await request(url, token, 'POST', data)
         }
         catch (e) {
-            
+            console.error('Error:', e)
         }
     }
 }
 
 async function request(url, token = '', method = 'GET', data = {}) {
-    let headers = {'Content-Type': 'application/json'}
-    
+    let headers = { 'Content-Type': 'application/json' }
+
     if (token != '') {
         headers['Authorization'] = `Bearer ${token}`
         headers['Accept'] = 'application/json'
@@ -33,7 +33,7 @@ async function request(url, token = '', method = 'GET', data = {}) {
         headers: headers
     }
 
-    if(method == 'POST') {
+    if (method == 'POST') {
         config.body = JSON.stringify(data)
     }
 

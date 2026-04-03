@@ -1,44 +1,44 @@
 import { useContext } from 'react'
 import { View, ScrollView, Text } from 'react-native'
 
+import { mainStyle } from '../styles/mainStyle'
+import { headerStyle } from '../styles/headerStyle'
+
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
-
 import { Quests } from '../components/quests/Quests'
-
 import { Footer } from '../components/common/Footer'
-
-import { gStyle, gStyleHeader, gStyleQuests } from '../styles/style'
 
 import { MainContext } from '../context/mainContext'
 
-
 export const QuestsScreen = () => {
-
-	const { changeScreen, cityData } = useContext(MainContext)
-
+	const { cityData } = useContext(MainContext)
 
 	return (
-        <View style={gStyle.flex}>
-    		<View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
-	            <Back />
-        		<HeaderTitle title="Квесты"/>
-	            <Menu />
-	        </View>
-    		<ScrollView
-    			style={gStyle.flex}
-    			keyboardShouldPersistTaps="handled"
-                keyboardDismissMode="interactive"
-    		>
-    			<View>
-    				<Text style={[gStyleQuests.questsTitleBold, gStyleQuests.questsTitleBlock]}>Квесты в городе {cityData.title}</Text>
-    			</View>
-			    <Quests
-			    	cityId={cityData.id}
-			    />
+		<View style={mainStyle.flex}>
+			<View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
+				<Back />
+				<HeaderTitle title="Квесты" />
+				<Menu />
+			</View>
+			<ScrollView
+				style={mainStyle.flex}
+				keyboardShouldPersistTaps="handled"
+				keyboardDismissMode="interactive"
+			>
+				<View style={mainStyle.container}>
+					<Text style={mainStyle.welcomeTitle}>
+						{cityData.title}
+					</Text>
+					<Text style={mainStyle.welcomeSubtitle}>
+						Доступные квест-экскурсии
+					</Text>
+				</View>
+
+				<Quests cityId={cityData.id} />
 			</ScrollView>
-	    	<Footer />
-	    </View>
-    )
+			<Footer />
+		</View>
+	)
 }

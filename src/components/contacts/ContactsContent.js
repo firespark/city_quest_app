@@ -1,39 +1,28 @@
-import { View, Text, Image, TouchableOpacity, Linking } from 'react-native'
+import { View, Text, TouchableOpacity, Linking } from 'react-native'
+import { SocialButtons } from './SocialButtons'
 
-import { Social } from '../auth/Social'
-
-import { gStyle } from '../../styles/style'
-
+import { mainStyle } from '../../styles/mainStyle'
+import { contactsStyle } from '../../styles/contactsStyle'
 
 export const ContactsContent = () => {
-
-    
-
     return (
-    	<View style={gStyle.center}>
-        	<View style={gStyle.mt10}>
-                <Social
-                    text="Подписывайся на наши соцсети"
-                />
-            </View>
-            
+        <View style={[mainStyle.card, mainStyle.mt20]}>
+            <View style={[mainStyle.center, mainStyle.mb25]}>
 
-            
-            <View style={gStyle.mt10}>
-                <Text style={gStyle.title}>Или напиши нам письмо:</Text>
-                <TouchableOpacity
-                    style={[gStyle.panelRowCenter, gStyle.mt5]}
-                    activeOpacity={0.7}
-                    onPress={() => Linking.openURL('mailto:info@gagara-web.ru')}
-                >
-                    <Image source={require('../../../assets/img/envelope.png')} style={gStyle.smallIcon} />
-                    <Text selectable style={[gStyle.title, gStyle.ml5, gStyle.link]}>info@gagara-web.ru</Text>
-                </TouchableOpacity>
+                <SocialButtons />
+
+                <View style={contactsStyle.emailBlock}>
+                    <Text style={[mainStyle.subtitle, mainStyle.textCenter, mainStyle.mt20]}>Или на Email:</Text>
+                    <TouchableOpacity
+                        style={contactsStyle.emailButton}
+                        activeOpacity={0.7}
+                        onPress={() => Linking.openURL('mailto:info@gagara-web.ru')}
+                    >
+                        <Text selectable style={contactsStyle.emailText}>info@gagara-web.ru</Text>
+                    </TouchableOpacity>
+                </View>
+
             </View>
         </View>
-
     )
-
-
 }
-

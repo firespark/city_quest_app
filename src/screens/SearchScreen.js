@@ -1,6 +1,9 @@
 import { useState, useContext } from 'react'
 import { View, ScrollView } from 'react-native'
 
+import { mainStyle } from '../styles/mainStyle'
+import { headerStyle } from '../styles/headerStyle'
+
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
@@ -11,7 +14,6 @@ import { CitiesSearch } from '../components/cities/CitiesSearch'
 import { Footer } from '../components/common/Footer'
 import { Error } from '../components/common/Error'
 
-import { gStyle, gStyleHeader } from '../styles/style'
 import { Http } from '../scripts/http'
 import { MainContext } from '../context/mainContext'
 
@@ -31,7 +33,7 @@ export const SearchScreen = () => {
         }
 
         const str = (search) ? input : value
-        
+
         if (!str || str.trim().length === 0) {
             setData(null)
             return
@@ -53,17 +55,18 @@ export const SearchScreen = () => {
                 setLoadError(output.error || 'Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
             }
         }
-        catch(e) {
+        catch (e) {
+            console.error('Error:', e)
             setLoadError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
     }
 
     if (loadError) {
         return (
-            <View style={gStyle.flex}>
-                <View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
+            <View style={mainStyle.flex}>
+                <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
                     <Back />
-                    <HeaderTitle title="Ошибка"/>
+                    <HeaderTitle title="Ошибка" />
                     <Menu />
                 </View>
                 <Error text={loadError} />
@@ -73,26 +76,25 @@ export const SearchScreen = () => {
     }
 
     return (
-        <View style={gStyle.flex}>
-            <View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
+        <View style={mainStyle.flex}>
+            <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
                 <Back />
-                <HeaderTitle title="Поиск"/>
+                <HeaderTitle title="Поиск" />
                 <Menu />
             </View>
             <ScrollView
-                style={gStyle.flex}
+                style={mainStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
             >
-                <View style={gStyle.container}>
+                <View style={mainStyle.container}>
                     <SearchInput
-                        setInput={setInput}
                         searchData={searchData}
                     />
                     <CitiesSearch
                         data={data}
                     />
-                </View>             
+                </View>
             </ScrollView>
             <Footer active="search" />
         </View>

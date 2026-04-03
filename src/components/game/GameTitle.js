@@ -1,15 +1,15 @@
 import { View, Text } from 'react-native'
 
-import { gStyle, gStyleGame } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
 
-
-export const GameTitle = ({title, description}) => {
-
+export const GameTitle = ({ title, description }) => {
     return (
-    	<View>
-	        <Text selectable style={[gStyleGame.gameTitle, gStyle.mt10]}>{title}</Text>
-            <Text selectable style={[gStyle.titleBold, gStyle.mt10]}>{description}</Text>
-	    </View>
+        <View style={mainStyle.wrapper}>
+            <Text selectable style={mainStyle.titleMain}>{title}</Text>
+
+            <View style={mainStyle.badge}>
+                <Text selectable style={[mainStyle.badgeText, mainStyle.textCenter]}>{description}</Text>
+            </View>
+        </View>
     )
 }
-

@@ -2,7 +2,7 @@ import { useReducer, useState, useEffect } from 'react'
 import { BackHandler } from 'react-native'
 import { MainContext } from './mainContext'
 import { mainReducer } from './mainReducer'
-import { 
+import {
     MAIN_SCREEN,
     QUEST_CLEANUP,
     CHANGE_SCREEN,
@@ -40,17 +40,17 @@ export const MainState = ({ children }) => {
 
     const getCountries = async () => {
         try {
+            //await AsyncStorage.clear();
+
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/countries/all`)
-            
+
             if (output.success == 1) {
                 dispatch({ type: SET_COUNTRIES, countries: output.data })
-                
+
                 const savedCountryId = await AsyncStorage.getItem('APP_COUNTRY_ID')
-                
+
                 if (savedCountryId) {
                     dispatch({ type: SET_COUNTRY_ID, countryId: parseInt(savedCountryId) })
-                } else if (output.data.length > 0) {
-                    setCountryId(output.data[0].id)
                 }
             }
         } catch (e) {
@@ -60,7 +60,7 @@ export const MainState = ({ children }) => {
 
     const changeScreen = (screen) => dispatch({ type: CHANGE_SCREEN, screen })
     const previousScreen = () => dispatch({ type: PREVIOUS_SCREEN })
-    const questScreenCleanup = () => dispatch({ type: QUEST_CLEANUP})
+    const questScreenCleanup = () => dispatch({ type: QUEST_CLEANUP })
     const setQuestId = (questId) => dispatch({ type: SET_QUEST_ID, questId })
     const setCityData = (cityData) => dispatch({ type: SET_CITY_DATA, cityData })
 
@@ -74,11 +74,15 @@ export const MainState = ({ children }) => {
                 saveToken(newToken)
                 setToken(newToken);
             }
-        } catch(e) { console.log(e) }
+        } catch (e) {
+            console.log(e)
+        }
     }
 
     const saveToken = async (value) => {
-        try { await AsyncStorage.setItem('APP_TOKEN', value); } catch(e) {}
+        try { await AsyncStorage.setItem('APP_TOKEN', value); } catch (e) {
+            console.error('Error:', e)
+        }
     }
 
     const resetToken = async () => {
@@ -90,7 +94,7 @@ export const MainState = ({ children }) => {
     function createToken(length) {
         let result = '';
         const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-        for ( var i = 0; i < length; i++ ) {
+        for (var i = 0; i < length; i++) {
             result += characters.charAt(Math.floor(Math.random() * characters.length));
         }
         return result;
@@ -105,7 +109,7 @@ export const MainState = ({ children }) => {
     useEffect(() => {
         getToken()
         getCountries()
-        
+
         const backHandler = BackHandler.addEventListener('hardwareBackPress', backAction);
         return () => backHandler.remove();
     }, []);

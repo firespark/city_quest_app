@@ -1,8 +1,12 @@
 import { useState, useContext, useEffect } from 'react'
 import { View, Text } from 'react-native'
+
+import { questsStyle } from '../../styles/questsStyle'
+import { mainStyle } from '../../styles/mainStyle'
+
 import { PurchasedQuest } from './PurchasedQuest';
 import { Loader } from '../common/Loader'
-import { gStyle } from '../../styles/style'
+import { Error } from '../common/Error'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
 
@@ -22,7 +26,8 @@ export const PurchasedQuests = () => {
             } else {
                 setError(output.error || 'Ошибка загрузки')
             }
-        } catch(e) {
+        } catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки при загрузке купленных квестов')
         } finally {
             setLoader(false)
@@ -36,17 +41,24 @@ export const PurchasedQuests = () => {
     if (loader) return <Loader />
 
     return (
-        <View style={gStyle.mt20}>
-            <Text style={gStyle.title}>Купленные квесты</Text>
-            <View style={gStyle.mt10}>
-                {data.length > 0 ? (
-                    data.map((item, index) => (
-                        <View key={index}>
-                            <PurchasedQuest quest={item} />
-                        </View>
-                    ))
-                ) : (
-                    <Text style={[gStyle.textCenter, gStyle.mt10]}>Нет купленных квестов</Text>
+        <View>
+            <Text style={questsStyle.blockTitle}>Купленные квесты</Text>
+
+            {error && (
+                <View style={mainStyle.mb20}>
+                    <Error text={error} />
+                </View>
+            )}
+
+            <View>
+                {data.length > 0 && data.map((item, index) => (
+                    <View key={index}>
+                        <PurchasedQuest quest={item} />
+                    </View>
+                ))}
+
+                {data.length === 0 && !error && (
+                    <Text style={questsStyle.emptyText}>Нет купленных квестов</Text>
                 )}
             </View>
         </View>

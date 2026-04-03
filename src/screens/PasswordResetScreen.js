@@ -1,6 +1,9 @@
 import { useState, useContext } from 'react'
 import { View } from 'react-native'
 
+import { mainStyle } from '../styles/mainStyle'
+import { headerStyle } from '../styles/headerStyle'
+
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
@@ -9,11 +12,9 @@ import { EmailReset } from '../components/auth/EmailReset'
 import { Code } from '../components/auth/Code'
 import { NewPassword } from '../components/auth/NewPassword'
 
-import {Loader} from '../components/common/Loader'
+import { Loader } from '../components/common/Loader'
 import { Footer } from '../components/common/Footer'
 import { Error } from '../components/common/Error'
-
-import { gStyle, gStyleHeader } from '../styles/style'
 
 import { MainContext } from '../context/mainContext'
 
@@ -32,39 +33,39 @@ export const PasswordResetScreen = () => {
     let content = null
 
     switch (template) {
-        
-        case 'code': 
-            content = 
-            <Code
-                email={email}
-                setTemplate={setTemplate}
-                setError={setError}
-                setCode={setCode}
-                setLoader={setLoader}
-                
-            />
+
+        case 'code':
+            content =
+                <Code
+                    email={email}
+                    setTemplate={setTemplate}
+                    setError={setError}
+                    setCode={setCode}
+                    setLoader={setLoader}
+
+                />
             break
 
-        case 'newPassword': 
-            content = 
-            <NewPassword
-                email={email}
-                code={code}
-                setError={setError}
-                setLoader={setLoader}
-                changeScreen={changeScreen}
-                token={token}
-            />
+        case 'newPassword':
+            content =
+                <NewPassword
+                    email={email}
+                    code={code}
+                    setError={setError}
+                    setLoader={setLoader}
+                    changeScreen={changeScreen}
+                    token={token}
+                />
             break
 
-        default: 
-            content = 
-            <EmailReset
-                setEmail={setEmail}
-                setTemplate={setTemplate}
-                setError={setError}
-                setLoader={setLoader}
-            />
+        default:
+            content =
+                <EmailReset
+                    setEmail={setEmail}
+                    setTemplate={setTemplate}
+                    setError={setError}
+                    setLoader={setLoader}
+                />
 
             break
 
@@ -75,25 +76,25 @@ export const PasswordResetScreen = () => {
     }
 
     return (
-        <View style={gStyle.flex}>
-    		<View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
-	            <Back />
-        		<HeaderTitle title="Восстановление пароля"/>
-	            <Menu />
-	        </View>
-    		<View style={[gStyle.flex, gStyle.centerBlock]}>
-    			{ 
+        <View style={mainStyle.flex}>
+            <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
+                <Back />
+                <HeaderTitle title="Восстановление пароля" />
+                <Menu />
+            </View>
+            <View style={[mainStyle.flex, mainStyle.centerBlock]}>
+                {
                     (error)
-                    ? 
-                    <Error
-                        text={error}
-                    />
-                    : null 
+                        ?
+                        <Error
+                            text={error}
+                        />
+                        : null
                 }
-    			{content}
+                {content}
 
-			</View>
-	    	<Footer />
-	    </View>
+            </View>
+            <Footer />
+        </View>
     )
 }

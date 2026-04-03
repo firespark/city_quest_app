@@ -1,15 +1,14 @@
 import { useState, useContext } from 'react'
 import { View, TouchableOpacity, Text, Image } from 'react-native'
 
-import {Loader} from '../../common/Loader'
+import { mainStyle } from '../../../styles/mainStyle'
+import { gameStyle } from '../../../styles/gameStyle'
 
-import { gStyle, gStyleProgress } from '../../../styles/style'
+import { Loader } from '../../common/Loader'
+import { Error } from '../../common/Error'
 
 import { MainContext } from '../../../context/mainContext'
 import { Http } from '../../../scripts/http'
-
-
-
 
 export const ModalProgress = ({ game, setGame, setModal }) => {
 
@@ -20,22 +19,38 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
 
     const content = []
 
-
     for (let i = 1; i <= game.levels; i++) {
-        let st = gStyleProgress.progressDisabled
-        if(i < game.step_total) st = gStyleProgress.progressDone
-        if (i == game.levels) st = gStyleProgress.progressFinish
-        if (i == game.step_total) st = gStyleProgress.progressInProgress
-        if (i == game.levels && i == game.step_total) st = gStyleProgress.progressFinishDone
-        if (i == game.step) st = gStyleProgress.progressCurrentBig
-        if (i == game.step && i == game.levels) st = [gStyleProgress.progressCurrentBig, gStyleProgress.progressFinishDone]
+        let st = gameStyle.progressMedalDisabled
+        let textSt = gameStyle.progressTextDisabled
+
+        if (i < game.step_total) {
+            st = gameStyle.progressMedalDone;
+            textSt = gameStyle.progressTextLight;
+        }
+
+        if (i == game.levels) {
+            st = gameStyle.progressMedalFinish;
+        }
+
+        if (i == game.step_total) {
+            st = gameStyle.progressMedalInProgress;
+            textSt = gameStyle.progressTextLight;
+        }
+
+        if (i == game.levels && i == game.step_total) {
+            st = gameStyle.progressMedalFinishDone;
+        }
+
+        let isCurrent = (i == game.step)
+        if (isCurrent) {
+            textSt = gameStyle.progressTextLight;
+        }
 
         if (i <= game.step_total) {
-
             content.push(
                 <TouchableOpacity
                     key={i}
-                    style={[gStyleProgress.progressPointBig, st]}
+                    style={[gameStyle.progressMedal, st, isCurrent && gameStyle.progressMedalCurrent]}
                     activeOpacity={0.7}
                     onPress={() => {
                         setLevel(i)
@@ -43,27 +58,26 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
                 >
                     {
                         (i == game.levels)
-                        ?
-                        <Image source={require('../../../../assets/img/finish.png')} style={gStyleProgress.finish} />
-                        :
-                        <Text style={gStyleProgress.progressCounter}>{i}</Text>
+                            ?
+                            <Image source={require('../../../../assets/img/finish.png')} style={gameStyle.progressFinishIcon} />
+                            :
+                            <Text style={textSt}>{i}</Text>
                     }
-                    
                 </TouchableOpacity>
             )
         }
         else {
             content.push(
                 <View
-                    key={i} 
-                    style={[gStyleProgress.progressPointBig, st]}
+                    key={i}
+                    style={[gameStyle.progressMedal, st, isCurrent && gameStyle.progressMedalCurrent]}
                 >
                     {
                         (i == game.levels)
-                        ?
-                        <Image source={require('../../../../assets/img/finish.png')} style={gStyleProgress.finish} />
-                        :
-                        <Text style={gStyleProgress.progressCounter}>{i}</Text>
+                            ?
+                            <Image source={require('../../../../assets/img/finish.png')} style={gameStyle.progressFinishIcon} />
+                            :
+                            <Text style={textSt}>{i}</Text>
                     }
                 </View>
             )
@@ -75,45 +89,43 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
         setLoader(true)
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/games/getLevel/${questId}/${value}`, token)
-          
+
             if (output.success == 1) {
                 setGame(output.data)
                 setModal(null)
             }
             else {
-                if(output.error) {
+                if (output.error) {
                     setError(output.error)
                 }
                 else {
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-            
         }
-        catch(e) {
-            
+        catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
         }
         finally {
             setLoader(false)
         }
-            
-        
     }
 
-	if (loader) {
+    if (loader) {
         return <Loader />
     }
-	
+
     return (
-    	
-	    <View style={[gStyle.center, gStyle.mt20]}>
-            <View style={gStyleProgress.progressWrapper}>
+        <View style={[mainStyle.container, mainStyle.center]}>
+            <View style={mainStyle.mb20}>
+                <Text style={mainStyle.titleMain}>Карта квеста</Text>
+            </View>
+            {error && <View style={mainStyle.mb15}><Error text={error} /></View>}
+
+            <View style={gameStyle.progressGrid}>
                 {content}
             </View>
         </View>
-
     )
 }
-

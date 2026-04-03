@@ -1,20 +1,17 @@
 import { TouchableOpacity, Image } from 'react-native'
 
-import { gStyleHeader } from '../../styles/style'
-
+import { gameStyle } from '../../styles/gameStyle'
 
 export const BackQuest = ({ setModal }) => {
-
     return (
         <TouchableOpacity
-            style={gStyleHeader.headerButtonWidth}
-           	activeOpacity={0.7}
-           	onPress={() => {
-  		        setModal('back')
-  		    }}
+            style={gameStyle.gameBackButton}
+            activeOpacity={0.7}
+            onPress={() => {
+                setModal('back')
+            }}
         >
-        	<Image source={require('../../../assets/img/back.png')} style={gStyleHeader.back} />
+            <Image source={require('../../../assets/img/back.png')} style={gameStyle.gameBackIcon} />
         </TouchableOpacity>
     )
 }
-

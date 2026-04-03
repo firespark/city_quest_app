@@ -1,17 +1,13 @@
 import { View, Text, Image } from 'react-native'
 
-import { gStyle, gStyleHeader } from '../../styles/style'
-
+import { mainStyle } from '../../styles/mainStyle'
+import { headerStyle } from '../../styles/headerStyle'
 
 export const Logo = () => {
-
     return (
-        <View style={gStyle.panelRow}>
-           	<Image source={require('../../../assets/img/logo-fun-black.png')} style={gStyleHeader.logo} />
-            <Text style={[gStyleHeader.headerTitle, gStyle.ml8]}>Гагара-Квест</Text>
+        <View style={mainStyle.panelRowLeft}>
+            <Image source={require('../../../assets/img/logo-fun-black.png')} style={headerStyle.logoImage} />
+            <Text style={headerStyle.logoTitle}>Квест-Туры</Text>
         </View>
     )
-
-
 }
-

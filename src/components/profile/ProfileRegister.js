@@ -1,32 +1,30 @@
 import { useContext } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 
-import { gStyle } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
+import { profileStyle } from '../../styles/profileStyle'
 
 import { AUTH_SCREEN } from '../../context/types'
 import { MainContext } from '../../context/mainContext'
 
-
 export const ProfileRegister = () => {
+    const { changeScreen } = useContext(MainContext)
 
-	const { changeScreen } = useContext(MainContext)
-	
     return (
-    	<View>
-	    	<View style={gStyle.p}>
-				<Text style={gStyle.textCenter}>Хочешь сохранять результаты своих игр на всех устройствах?</Text>
-	    	</View>
-	    	<TouchableOpacity
-	    		style={gStyle.p}
-	            activeOpacity={0.7}
-	            onPress={() => {
-		        	changeScreen(AUTH_SCREEN)
-		      	}}
-	        >
-				<Text style={gStyle.link}>Зарегистрируйся</Text>
-	    	</TouchableOpacity>
-	    </View>
+        <View style={profileStyle.profileContainer}>
+            <View style={mainStyle.mb15}>
+                <Text style={mainStyle.description}>
+                    Хочешь сохранять результаты своих игр навсегда?
+                </Text>
+            </View>
 
+            <TouchableOpacity
+                style={mainStyle.primaryButton}
+                activeOpacity={0.8}
+                onPress={() => changeScreen(AUTH_SCREEN)}
+            >
+                <Text style={mainStyle.primaryButtonText}>Войти / Зарегистрироваться</Text>
+            </TouchableOpacity>
+        </View>
     )
 }
-

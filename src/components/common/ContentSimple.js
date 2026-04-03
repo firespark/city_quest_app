@@ -1,14 +1,12 @@
 import { View, Text } from 'react-native'
 
-import { gStyle } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
 
 export const ContentSimple = ({ ps }) => {
 
-    
-
     return (
         <View>
-            <Text selectable style={gStyle.p}>{ps}</Text>
+            <Text selectable style={mainStyle.p}>{ps}</Text>
         </View>
     )
 }

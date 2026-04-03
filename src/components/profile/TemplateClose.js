@@ -1,6 +1,6 @@
 import { TouchableOpacity, Image } from 'react-native'
 
-import { gStyleHeader } from '../../styles/style'
+import { headerStyle } from '../../styles/headerStyle'
 
 
 export const TemplateClose = ({ setTemplate }) => {
@@ -8,13 +8,12 @@ export const TemplateClose = ({ setTemplate }) => {
 
     return (
         <TouchableOpacity
-           	activeOpacity={0.7}
-           	onPress={() => {
-  		        setTemplate(null)
-  		    }}
+            activeOpacity={0.7}
+            onPress={() => {
+                setTemplate(null)
+            }}
         >
-           	<Image source={require('../../../assets/img/close.png')} style={gStyleHeader.close} />
+            <Image source={require('../../../assets/img/close.png')} style={headerStyle.close} />
         </TouchableOpacity>
     )
 }
-

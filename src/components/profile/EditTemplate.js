@@ -5,52 +5,51 @@ import { TemplateClose } from './TemplateClose'
 import { ProfileNameEdit } from './ProfileNameEdit'
 import { ProfilePasswordEdit } from './ProfilePasswordEdit'
 
-import { gStyle, gStyleHeader } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
+import { headerStyle } from '../../styles/headerStyle'
 
 
 
 export const EditTemplate = ({ user, setUser, template, setTemplate, setSuccess }) => {
 
-	let content = null
+    let content = null
 
-	switch (template) {
-        case 'name': 
-            content = 
-            <ProfileNameEdit
-                user={user}
-                setUser={setUser}
-                setTemplate={setTemplate}
-                setSuccess={setSuccess}
-            />
+    switch (template) {
+        case 'name':
+            content =
+                <ProfileNameEdit
+                    user={user}
+                    setUser={setUser}
+                    setTemplate={setTemplate}
+                    setSuccess={setSuccess}
+                />
             break
 
-        case 'password': 
-            content = 
-            <ProfilePasswordEdit
-                user={user}
-                setUser={setUser}
-                setTemplate={setTemplate}
-                setSuccess={setSuccess}
-            />
+        case 'password':
+            content =
+                <ProfilePasswordEdit
+                    setTemplate={setTemplate}
+                    setSuccess={setSuccess}
+                />
             break
 
     }
 
-	
+
     return (
-    	
-	    <View style={gStyle.flex}>
-            <View style={[gStyle.panelRowRight, gStyleHeader.panelHeader]}>
+
+        <View style={mainStyle.flex}>
+            <View style={[mainStyle.panelRowRight, headerStyle.panelHeader]}>
                 <TemplateClose
                     setTemplate={setTemplate}
                 />
             </View>
             <ScrollView
-                style={gStyle.flex}
+                style={mainStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
             >
-                <View style={gStyle.container}>
+                <View style={mainStyle.container}>
                     {content}
 
                 </View>
@@ -62,4 +61,3 @@ export const EditTemplate = ({ user, setUser, template, setTemplate, setSuccess 
 
     )
 }
-

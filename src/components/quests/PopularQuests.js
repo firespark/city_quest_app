@@ -11,7 +11,7 @@ import { Http } from '../../scripts/http'
 export const PopularQuests = () => {
 
     const { token, countryId } = useContext(MainContext)
-    
+
     const [data, setData] = useState();
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
@@ -41,6 +41,7 @@ export const PopularQuests = () => {
             }
         }
         catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
         finally {

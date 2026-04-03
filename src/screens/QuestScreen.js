@@ -1,10 +1,14 @@
 import { useContext, useState, useEffect } from 'react'
-import { View, ScrollView, Text } from 'react-native'
+import { View, ScrollView } from 'react-native'
+
+import { mainStyle } from '../styles/mainStyle'
+import { headerStyle } from '../styles/headerStyle'
+import { questsStyle } from '../styles/questsStyle'
 
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
-import { ContentSimple } from '../components/common/ContentSimple'
+import { RichQuestContent } from '../components/quests/RichQuestContent'
 import { QuestTitle } from '../components/quests/QuestTitle'
 import { QuestImage } from '../components/quests/QuestImage'
 import { StartFinish } from '../components/quests/StartFinish'
@@ -17,7 +21,6 @@ import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
 import { ResetModal } from '../components/quests/ResetModal'
 
-import { gStyle, gStyleHeader, gStyleQuests, gStylePaid } from '../styles/style'
 import { MainContext } from '../context/mainContext'
 import { Http } from '../scripts/http'
 
@@ -26,7 +29,6 @@ export const QuestScreen = () => {
     const [loadError, setLoadError] = useState(null)
     const { questId, token, changeScreen, setAnswersState } = useContext(MainContext)
     const [data, setData] = useState([])
-
     const [modalVisible, setModalVisible] = useState(false)
 
     const fetchData = async () => {
@@ -41,6 +43,7 @@ export const QuestScreen = () => {
                 setLoadError(output.error || 'Ошибка загрузки')
             }
         } catch (e) {
+            console.error('Error:', e)
             setLoadError('Ошибка сети')
         } finally {
             setLoader(false)
@@ -54,54 +57,68 @@ export const QuestScreen = () => {
     if (loader) return <Loader />
     if (loadError) return <Error text={loadError} />
 
-    const progress = data.status == "in_progress" ? "Продолжить" : "Старт";
-    const overlayStyle = data.paid ? (data.available ? gStylePaid.purchasedOverlay : gStylePaid.lockedOverlay) : null;
+    let progress = "Начать приключение";
+    if (data.status === "in_progress") {
+        progress = "Продолжить";
+    } else if (data.status === "finished") {
+        progress = "Посмотреть игру";
+    }
 
     return (
-        <View style={gStyle.flex}>
-            <View style={[gStyle.panelRow, gStyleHeader.panelHeader]}>
+        <View style={mainStyle.flex}>
+            <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
                 <Back />
                 <HeaderTitle title="Квест-экскурсия" />
                 <Menu />
             </View>
 
-            <ScrollView style={gStyle.flex} keyboardShouldPersistTaps="handled">
-                <View>
-                    <QuestTitle title={data.title} city={data.city} />
-                    <View style={{ position: 'relative' }}>
-                        <QuestImage image={data.image} />
-                        {overlayStyle && <View style={overlayStyle} />}
-                        {data.paid && (
-                            <View style={gStylePaid.paidIconsRow}>
-                                {data.available && <Text style={gStylePaid.checkText}>✓</Text>}
-                                <View style={gStylePaid.dollarCircle}>
-                                    <Text style={gStylePaid.dollarText}>$</Text>
-                                </View>
-                            </View>
+            <ScrollView
+                style={mainStyle.flex}
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
+            >
+                <QuestImage data={data} />
+
+                <View style={questsStyle.questSheet}>
+
+                    <View style={mainStyle.card}>
+                        <QuestTitle
+                            title={data.title}
+                            city={data.city}
+                        />
+                        <StartFinish
+                            start={data.start_point}
+                            finish={data.end_point}
+                            sights_count={data.sights_count}
+                        />
+                    </View>
+
+                    <View style={[mainStyle.card, mainStyle.mt15]}>
+                        <RichQuestContent text={data.content} />
+                    </View>
+
+                    <View style={mainStyle.mt20}>
+                        {!data.available ? (
+                            data.is_auth ? (
+                                <BuyButton
+                                    questId={data.id}
+                                    onSuccess={fetchData}
+                                />
+                            ) : (
+                                <RegisterButton />
+                            )
+                        ) : (
+                            <>
+                                <StartButton
+                                    changeScreen={changeScreen}
+                                    progress={progress}
+                                />
+                                {data.status ? <ResetButton setModalVisible={setModalVisible} /> : null}
+                            </>
                         )}
                     </View>
-                </View>
 
-                <View style={gStyleQuests.questsContent}>
-                    <StartFinish start={data.start_point} finish={data.end_point} sights_count={data.sights_count} />
-                    <ContentSimple ps={data.content} />
                 </View>
-
-                {!data.available ? (
-                    data.is_auth ? (
-                        <BuyButton
-                            questId={data.id}
-                            onSuccess={fetchData}
-                        />
-                    ) : (
-                        <RegisterButton />
-                    )
-                ) : (
-                    <>
-                        <StartButton changeScreen={changeScreen} progress={progress} />
-                        {data.status ? <ResetButton setModalVisible={setModalVisible} /> : null}
-                    </>
-                )}
             </ScrollView>
 
             <Footer />
@@ -111,7 +128,6 @@ export const QuestScreen = () => {
                 setModalVisible={setModalVisible}
                 onSuccess={fetchData}
             />
-
         </View>
     )
 }

@@ -1,31 +1,33 @@
 import { View, Text } from 'react-native'
 
-import { gStyle } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
 
 export const ContentText = ({ ps = [] }) => {
 
     const content = []
 
-    if(ps){
+    if (ps) {
 
-        {ps.map((p, index) => (
+        {
+            ps.map((p, index) => (
 
-            content.push(
-                <View 
-                    key={index}
-                >
-                        
-                    <Text selectable style={gStyle.p}>{p}</Text>                                
-                </View>
-                
-            )    
+                content.push(
+                    <View
+                        key={index}
+                    >
 
-        ))}
+                        <Text selectable style={mainStyle.p}>{p}</Text>
+                    </View>
+
+                )
+
+            ))
+        }
     }
 
     return (
         <View>
-        	{content}
+            {content}
         </View>
     )
 }

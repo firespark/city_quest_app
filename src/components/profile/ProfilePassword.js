@@ -1,28 +1,22 @@
 import { View, Text, TouchableOpacity } from 'react-native'
-
-import { gStyle, gStyleProfile } from '../../styles/style'
-
+import { profileStyle } from '../../styles/profileStyle'
 
 export const ProfilePassword = ({ setTemplate, setSuccess }) => {
-	
     return (
-    	<View style={[gStyle.panelRow, gStyle.mt20]}>
-			<View style={gStyle.panelRow}>
-				<Text style={gStyleProfile.settingsTitleThin}>Пароль: </Text>
-				<Text style={gStyleProfile.settingsTitle}>********</Text>
-			</View>
-			<TouchableOpacity
-                activeOpacity={0.7}
-                onPress={() => {
-                    setSuccess(null)
-                    setTemplate('password')
-                }}
-            >
-                <Text style={gStyleProfile.settingsChange}>Изменить</Text>
-            </TouchableOpacity>
-		</View>
-
-
+        <View style={profileStyle.row}>
+            <Text style={profileStyle.label}>Пароль</Text>
+            <View style={profileStyle.valueBlock}>
+                <Text style={profileStyle.value}>••••••••</Text>
+                <TouchableOpacity
+                    activeOpacity={0.7}
+                    onPress={() => {
+                        setSuccess(null)
+                        setTemplate('password')
+                    }}
+                >
+                    <Text style={profileStyle.actionText}>Изменить</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
     )
 }
-

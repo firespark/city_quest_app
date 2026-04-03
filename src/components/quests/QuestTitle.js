@@ -1,17 +1,13 @@
 import { View, Text } from 'react-native'
 
-import { gStyle, gStyleQuests } from '../../styles/style'
-
+import { mainStyle } from '../../styles/mainStyle'
+import { questsStyle } from '../../styles/questsStyle'
 
 export const QuestTitle = ({ title, city }) => {
-
-    
     return (
-        <View style={[gStyle.container]}>
-            <Text selectable style={gStyleQuests.questsTitleBold}>{city}</Text>
-            <Text selectable style={[gStyleQuests.questsTitle, gStyle.mt10]}>{title}</Text>
+        <View style={mainStyle.mt15}>
+            <Text selectable style={[questsStyle.city, questsStyle.cityText, mainStyle.textCenter]}>{city}</Text>
+            <Text selectable style={[mainStyle.titleMain, mainStyle.mt5]}>{title}</Text>
         </View>
     )
-
-
 }

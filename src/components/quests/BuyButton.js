@@ -1,6 +1,9 @@
 import { useContext, useState } from 'react'
 import { View, TouchableOpacity, Text, ActivityIndicator, Modal } from 'react-native'
-import { gStyle, gStylePaid } from '../../styles/style'
+
+import { mainStyle } from '../../styles/mainStyle'
+import { questsStyle } from '../../styles/questsStyle'
+
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
 
@@ -20,16 +23,16 @@ export const BuyButton = ({ questId, onSuccess }) => {
         try {
             const output = await Http.post(
                 `${process.env.EXPO_PUBLIC_API_URL}/quests/buy`,
-                { 
+                {
                     quest_id: questId,
-                    mock_google_token: 'fake_token_12345' 
+                    mock_google_token: 'fake_token_12345'
                 },
                 token
             )
 
             if (output.success === 1) {
                 setIsSuccess(true)
-                
+
                 setTimeout(async () => {
                     setShowGoogleModal(false)
                     questScreenCleanup()
@@ -39,6 +42,7 @@ export const BuyButton = ({ questId, onSuccess }) => {
                 setShowGoogleModal(false)
             }
         } catch (e) {
+            console.error('Error:', e)
             setShowGoogleModal(false)
         } finally {
             setLoading(false)
@@ -46,36 +50,36 @@ export const BuyButton = ({ questId, onSuccess }) => {
     }
 
     return (
-        <View style={gStyle.center}>
-            <TouchableOpacity style={gStyle.buttonBuy} onPress={startPurchase} disabled={loading}>
-                {loading ? <ActivityIndicator color="#fff" /> : <Text style={gStyle.buttonText}>Купить квест</Text>}
+        <View style={mainStyle.center}>
+            <TouchableOpacity style={mainStyle.buttonBuy} onPress={startPurchase} disabled={loading}>
+                {loading ? <ActivityIndicator color="#fff" /> : <Text style={mainStyle.buttonText}>Купить квест</Text>}
             </TouchableOpacity>
 
             <Modal visible={showGoogleModal} transparent={true} animationType="slide">
-                <View style={gStylePaid.modalOverlay}>
-                    <View style={gStylePaid.googleWindow}>
+                <View style={questsStyle.modalOverlay}>
+                    <View style={questsStyle.googleWindow}>
                         {!isSuccess ? (
                             <>
-                                <Text style={gStylePaid.googleTitle}>Google Play (Имитация)</Text>
-                                <Text style={gStylePaid.itemName}>Квест-экскурсия (полная версия)</Text>
-                                <Text style={gStylePaid.price}>199,00 ₽</Text>
-                                
-                                <TouchableOpacity 
-                                    style={gStylePaid.payBtn} 
+                                <Text style={questsStyle.googleTitle}>Google Play (Имитация)</Text>
+                                <Text style={questsStyle.itemName}>Квест-экскурсия (полная версия)</Text>
+                                <Text style={questsStyle.price}>199,00 ₽</Text>
+
+                                <TouchableOpacity
+                                    style={questsStyle.payBtn}
                                     onPress={confirmPurchase}
                                     disabled={loading}
                                 >
-                                    {loading ? <ActivityIndicator color="#fff" /> : <Text style={gStylePaid.payBtnText}>1-TAP BUY</Text>}
+                                    {loading ? <ActivityIndicator color="#fff" /> : <Text style={questsStyle.payBtnText}>1-TAP BUY</Text>}
                                 </TouchableOpacity>
-                                
+
                                 <TouchableOpacity onPress={() => setShowGoogleModal(false)}>
-                                    <Text style={gStylePaid.cancelText}>Отмена</Text>
+                                    <Text style={questsStyle.cancelText}>Отмена</Text>
                                 </TouchableOpacity>
                             </>
                         ) : (
-                            <View style={gStylePaid.successContainer}>
-                                <Text style={gStylePaid.checkText}>✓</Text>
-                                <Text style={gStylePaid.successText}>Платеж выполнен!</Text>
+                            <View style={questsStyle.successContainer}>
+                                <Text style={questsStyle.checkText}>✓</Text>
+                                <Text style={questsStyle.successText}>Платеж выполнен!</Text>
                             </View>
                         )}
                     </View>

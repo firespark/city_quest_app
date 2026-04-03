@@ -1,19 +1,16 @@
 import { useContext, useState, useEffect } from 'react'
 import { View, BackHandler } from 'react-native'
 
+import { mainStyle } from '../styles/mainStyle'
+
 import { GameTemplate } from '../components/game/template/GameTemplate'
 import { ModalTemplate } from '../components/game/template/ModalTemplate'
 
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
 
-import { gStyle } from '../styles/style'
-
 import { MainContext } from '../context/mainContext'
-
 import { Http } from '../scripts/http'
-
-
 
 export const GameScreen = () => {
     const [loader, setLoader] = useState(true)
@@ -22,59 +19,53 @@ export const GameScreen = () => {
     const { questId, token, setAnswersState } = useContext(MainContext)
 
     const [modal, setModal] = useState(null)
-
     const [game, setGame] = useState([])
 
-    const backAction = () => {
-        if (modal) { setModal(null) }
-        else setModal('back')
+    useEffect(() => {
+        const backAction = () => {
+            if (modal) {
+                setModal(null)
+            } else {
+                setModal('back')
+            }
+            return true;
+        };
 
-        //previousScreen();
-        return true;
-    };
+        const backHandler = BackHandler.addEventListener(
+            'hardwareBackPress',
+            backAction,
+        );
 
-    const backHandler = BackHandler.addEventListener(
-        'hardwareBackPress',
-        backAction,
-    );
+        return () => backHandler.remove();
+    }, [modal]);
 
     const fetchData = async () => {
-
         setError(null)
         setLoader(true)
 
         try {
-
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/games/get/${questId}`, token)
 
             if (output.success == 1) {
                 setGame(output.data)
-            }
-            else {
+            } else {
                 if (output.error) {
                     setError(output.error)
-                }
-                else {
+                } else {
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-
-        }
-        catch (e) {
-
+        } catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-
-        }
-        finally {
+        } finally {
             setLoader(false)
         }
-
     }
 
     useEffect(() => {
         fetchData()
     }, [])
-
 
     const nextGame = async () => {
         setAnswersState([]);
@@ -87,41 +78,28 @@ export const GameScreen = () => {
             let level = game.step
             level++
             method = `${process.env.EXPO_PUBLIC_API_URL}/games/getLevel/${questId}/${level}`
-        }
-        else {
-
+        } else {
             method = `${process.env.EXPO_PUBLIC_API_URL}/games/next/${questId}`
         }
 
         try {
             const output = await Http.get(method, token)
 
-
             if (output.success == 1) {
                 setGame(output.data)
-            }
-            else {
+            } else {
                 if (output.error) {
                     setError(output.error)
-                }
-                else {
+                } else {
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-
-        }
-        catch (e) {
-
+        } catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-
-        }
-        finally {
+        } finally {
             setLoader(false)
         }
-
-
-
-
     }
 
     if (loader) {
@@ -133,7 +111,7 @@ export const GameScreen = () => {
     }
 
     return (
-        <View style={gStyle.flex}>
+        <View style={mainStyle.flex}>
             {
                 (modal) ?
                     <ModalTemplate
@@ -151,8 +129,6 @@ export const GameScreen = () => {
                         nextGame={nextGame}
                     />
             }
-
-
         </View>
     )
 }

@@ -1,35 +1,34 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 
-import { gStyle } from '../../../styles/style'
-
-
+import { mainStyle } from '../../../styles/mainStyle'
+import { gameStyle } from '../../../styles/gameStyle'
 
 export const Mode = ({ mode, selectedId, setSelectedId }) => {
 
-    const innerBlock = (mode.id == selectedId) ? <View style={gStyle.radioBoxInner}></View> : null;
+    const isSelected = mode.id == selectedId;
 
     return (
-        <View>
-        	<TouchableOpacity
-                style={[gStyle.panelRowLeft, gStyle.mb15]}
+        <View style={mainStyle.mb5}>
+            <TouchableOpacity
+                style={[mainStyle.radioCard, isSelected && mainStyle.radioCardActive]}
                 activeOpacity={0.7}
-                onPress={() => {
-                    setSelectedId(mode.id)
-                }}
+                onPress={() => setSelectedId(mode.id)}
             >
-                <View style={gStyle.radioBoxOuter}>
-                    {innerBlock}
+                <View style={gameStyle.modeRadioContainer}>
+                    <View style={[mainStyle.radioOuter, isSelected && mainStyle.radioOuterActive]}>
+                        {isSelected ? <View style={mainStyle.radioInner} /> : null}
+                    </View>
                 </View>
-                <View style={gStyle.ml10}>
-                    <Text selectable style={gStyle.text}>{mode.title}</Text>
-                    <Text selectable style={gStyle.smallText}>{mode.description}</Text>
+
+                <View style={gameStyle.modeTextContainer}>
+                    <Text selectable style={[mainStyle.subtitle, mainStyle.mt5, mainStyle.mb5, isSelected && gameStyle.modeTitleActive]}>
+                        {mode.title}
+                    </Text>
+                    <Text selectable style={[mainStyle.description, mainStyle.mb10]}>
+                        {mode.description}
+                    </Text>
                 </View>
             </TouchableOpacity>
         </View>
     )
-
-
 }
-
-
-                

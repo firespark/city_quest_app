@@ -1,63 +1,68 @@
 import { useContext } from 'react'
-import { View, Text, ImageBackground, TouchableOpacity, Image } from 'react-native'
+import { View, Text, Image, TouchableOpacity } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
-import { gStyle, gStyleQuests, gStylePaid } from '../../styles/style'
+import { StatusBadge, AccessBadge } from './QuestBadges'
+
+import { mainStyle } from '../../styles/mainStyle'
+import { questsStyle } from '../../styles/questsStyle'
+
 import { QUEST_SCREEN } from '../../context/types'
 import { MainContext } from '../../context/mainContext'
 
 export const Quest = ({ quest }) => {
     const { changeScreen, setQuestId, questScreenCleanup } = useContext(MainContext)
 
-    const statusImages = {
-        in_progress: require('../../../assets/img/in-progress.png'),
-        finished: require('../../../assets/img/finished.png'),
-    };
-
-    const overlayStyle = quest.available ? gStylePaid.purchasedOverlay : gStylePaid.lockedOverlay;
-
     return (
         <TouchableOpacity
-            style={gStyleQuests.questBlock}
-            activeOpacity={0.7}
+            style={questsStyle.questCardWrapper}
+            activeOpacity={0.8}
             onPress={() => {
                 changeScreen(QUEST_SCREEN)
                 setQuestId(quest.id)
                 questScreenCleanup();
             }}
         >
-            <ImageBackground
-                source={{ uri: quest.image }}
-                resizeMode="cover"
-                style={gStyle.image300}
-                imageStyle={quest.paid ? { opacity: 0.9 } : {}}
-            >
-                {quest.paid && (
-                    <View style={overlayStyle}>
-                        <View style={gStylePaid.paidIconsRow}>
-                            {quest.available && (
-                                <Text style={gStylePaid.checkText}>✓</Text>
-                            )}
-                            <View style={gStylePaid.dollarCircle}>
-                                <Text style={gStylePaid.dollarText}>$</Text>
-                            </View>
+            <View style={questsStyle.questImagePadding}>
+                <View style={questsStyle.questImageContainer}>
+                    <Image
+                        source={{ uri: quest.image }}
+                        style={questsStyle.questCardImage}
+                        resizeMode="cover"
+                    />
+                    <View style={questsStyle.questBadgeOverlay}>
+
+                        <View>
+                            <AccessBadge paid={quest.paid} available={quest.available} />
+                        </View>
+                        
+                        <View>
+                            <StatusBadge status={quest.status} />
                         </View>
                     </View>
-                )}
-
-                {
-                    quest.status && quest.available ? (
-                        <Image
-                            source={statusImages[quest.status]}
-                            style={gStyleQuests.questProgressIcon}
-                        />
-                    ) : null
-                }
-
-                <View style={[gStyleQuests.questCaption]}>
-                    <Text selectable style={gStyle.title}>{quest.title}</Text>
-                    <Text selectable style={[gStyle.titleSights, gStyle.mt10]}>{quest.sights_count} достопримечательностей</Text>
                 </View>
-            </ImageBackground>
+            </View>
+
+            <View style={questsStyle.questInfoContainer}>
+                <View style={questsStyle.questMainTextContent}>
+                    <Text style={questsStyle.questTitle} numberOfLines={2}>
+                        {quest.title}
+                    </Text>
+
+                    <View style={questsStyle.questStatRow}>
+                        <View style={[questsStyle.questIconCircle]}>
+                            <Ionicons name="library" size={20} color="#17A2B8" />
+                        </View>
+                        <View style={questsStyle.questTextContainer}>
+                            <Text style={questsStyle.questLabel}>Локаций: {quest.sights_count}</Text>
+                        </View>
+                    </View>
+                </View>
+
+                <View style={mainStyle.arrowContainer}>
+                    <Text style={mainStyle.pureArrow}>→</Text>
+                </View>
+            </View>
         </TouchableOpacity>
     )
 }

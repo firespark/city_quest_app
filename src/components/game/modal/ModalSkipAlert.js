@@ -1,15 +1,14 @@
 import { useState, useContext } from 'react'
 import { View, TouchableOpacity, Text, TextInput } from 'react-native'
 
-import {Loader} from '../../common/Loader'
+import { mainStyle } from '../../../styles/mainStyle'
 
-import { gStyle } from '../../../styles/style'
-
+import { Loader } from '../../common/Loader'
+import { Error } from '../../common/Error'
 import { MainContext } from '../../../context/mainContext'
 import { Http } from '../../../scripts/http'
 
-
-export const ModalSkipAlert = ({ setModal, game, setGame }) => {
+export const ModalSkipAlert = ({ setModal, setGame }) => {
 
     const { questId, token } = useContext(MainContext)
 
@@ -20,12 +19,11 @@ export const ModalSkipAlert = ({ setModal, game, setGame }) => {
     const [error, setError] = useState(null)
 
     const getSkip = async () => {
-
         setError(null)
         setLoader(true)
-        
-        const postdata = {reason_id: reason, comment: comment}
-    
+
+        const postdata = { reason_id: reason, comment: comment }
+
         try {
             const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/getSkip/${questId}`, postdata, token)
 
@@ -33,111 +31,77 @@ export const ModalSkipAlert = ({ setModal, game, setGame }) => {
                 setGame(output.data)
             }
             else {
-                if(output.error) {
+                if (output.error) {
                     setError(output.error)
                 }
                 else {
                     setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
                 }
             }
-            
         }
-        catch(e) {
-            
+        catch (e) {
+            console.error('Error:', e)
             setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-            
         }
         finally {
             setLoader(false)
         }
-
     }
 
-    if (loader) {
-        return <Loader />
-    }
+    if (loader) return <Loader />
 
+    const renderRadioItem = (id, text) => {
+        const isSelected = reason === id;
+        return (
+            <TouchableOpacity
+                style={[mainStyle.radioCard, isSelected && mainStyle.radioCardActive]}
+                activeOpacity={0.7}
+                onPress={() => setReason(id)}
+            >
+                <View style={[mainStyle.radioOuter, isSelected && mainStyle.radioOuterActive]}>
+                    {isSelected ? <View style={mainStyle.radioInner} /> : null}
+                </View>
+                <Text style={[mainStyle.radioText, isSelected && mainStyle.radioTextActive]}>{text}</Text>
+            </TouchableOpacity>
+        )
+    }
 
     return (
-        <View>
-            <View style={gStyle.mt10}>
-                <Text style={gStyle.title}>Почему ты хочешь пропустить задание?</Text>
-            </View>
-            <View style={[gStyle.mt20, gStyle.block320]}>
-                <TouchableOpacity
-                    style={[gStyle.panelRowLeft, gStyle.mb15]}
-                    activeOpacity={0.7}
-                    onPress={() => setReason(1)}
-                >
-                    <View style={gStyle.radioBoxOuter}>
-                        {
-                            (reason == 1) ?
-                            <View style={gStyle.radioBoxInner}></View>
-                            : null
-                        }
+        <View style={mainStyle.container}>
+            <Text style={mainStyle.titleMain}>Пропустить задание?</Text>
+            <Text style={mainStyle.formSubtitle}>Пожалуйста, укажите причину:</Text>
 
-                    </View>
-                    <Text style={[gStyle.smallText, gStyle.ml10]}>Я не знаю правильный ответ</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity
-                    style={[gStyle.panelRowLeft, gStyle.mb15]}
-                    activeOpacity={0.7}
-                    onPress={() => setReason(2)}
-                >
-                    <View style={gStyle.radioBoxOuter}>
-                        {
-                            (reason == 2) ?
-                            <View style={gStyle.radioBoxInner}></View>
-                            : null
-                        }
-                    </View>
-                    <Text style={[gStyle.smallText, gStyle.ml10]}>Я знаю правильный ответ, но он не подходит</Text>
-                </TouchableOpacity>
-                
-                <TouchableOpacity
-                    style={[gStyle.panelRowLeft, gStyle.mb15]}
-                    activeOpacity={0.7}
-                    onPress={() => setReason(3)}
-                >
-                    <View style={gStyle.radioBoxOuter}>
-                        {
-                            (reason == 3) ?
-                            <View style={gStyle.radioBoxInner}></View>
-                            : null
-                        }
-                    </View>
-                    <Text style={[gStyle.smallText, gStyle.ml10]}>Другая причина</Text>
-                </TouchableOpacity>
+            <View style={mainStyle.mt20}>
+                {renderRadioItem(1, "Я не знаю правильный ответ")}
+                {renderRadioItem(2, "Я знаю правильный ответ, но он не подходит")}
+                {renderRadioItem(3, "Другая причина")}
 
-                <View style={gStyle.mt10}>
-                    <TextInput 
-                        placeholder="Причина"
-                        style={[gStyle.textarea, gStyle.mt5]}
-                        placeholderTextColor={'#C4C4C4'}
+                {reason === 3 && (
+                    <TextInput
+                        placeholder="Напишите причину"
+                        style={mainStyle.modernTextarea}
+                        placeholderTextColor={'#BDC3C7'}
                         multiline
                         numberOfLines={3}
                         onChangeText={(value) => setComment(value)}
                     />
-                </View>
-            
+                )}
             </View>
 
-          
-            <View style={gStyle.center}>
+            {error && <View style={mainStyle.mb15}><Error text={error} /></View>}
+
+            <View style={[mainStyle.textCenter, mainStyle.mt15]}>
                 <TouchableOpacity
-                    style={[gStyle.button, gStyle.mt20]}
+                    style={mainStyle.primaryButton}
                     activeOpacity={0.7}
                     onPress={() => {
                         getSkip()
                         setModal(null)
                     }}
                 >
-                    <Text style={gStyle.buttonText}>Пропуск</Text>
+                    <Text style={mainStyle.primaryButtonText}>Пропустить</Text>
                 </TouchableOpacity>
             </View>
         </View>
-
     )
 }
-

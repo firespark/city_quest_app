@@ -1,16 +1,13 @@
 import { View, Text } from 'react-native'
 
-import { gStyle } from '../../styles/style'
+import { mainStyle } from '../../styles/mainStyle'
 
 
 export const ProfileSuccess = ({ text }) => {
-	
-    return (
-    	<View style={gStyle.p}>
-			<Text selectable style={gStyle.blue}>{ text }</Text>
-    	</View>
 
-
-    )
+	return (
+		<View style={mainStyle.p}>
+			<Text selectable style={mainStyle.blue}>{text}</Text>
+		</View>
+	)
 }
-
