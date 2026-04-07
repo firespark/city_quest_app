@@ -53,7 +53,7 @@ export const Code = ({ email, setTemplate, setError, setCode, setLoader, token }
             />
 
             <TouchableOpacity
-                style={mainStyle.primaryButton}
+                style={[mainStyle.primaryButton, mainStyle.mt15]}
                 activeOpacity={0.7}
                 onPress={() => checkCode()}
             >

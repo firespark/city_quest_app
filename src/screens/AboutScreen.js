@@ -4,7 +4,7 @@ import { View, ScrollView } from 'react-native'
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
-import { RichQuestContent } from '../components/quests/RichQuestContent'
+import { FormattedContent } from '../components/common/FormattedContent'
 import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
@@ -83,7 +83,7 @@ export const AboutScreen = () => {
                             />
                             :
                             <View>
-                                <RichQuestContent text={data.content} />
+                                <FormattedContent text={data.content} />
                             </View>
                     }
                 </View>

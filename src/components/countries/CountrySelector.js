@@ -2,7 +2,7 @@ import { useContext, useState, useEffect } from 'react'
 import { View, Text, TouchableOpacity, Modal, FlatList } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
 
-import { countriesStyle } from '../../styles/countriesStyle'
+import { modalStyle } from '../../styles/modalStyle'
 import { MainContext } from '../../context/mainContext'
 
 const getFlagEmoji = (countryCode) => {
@@ -32,14 +32,14 @@ export const CountrySelector = () => {
     }
 
     return (
-        <View style={countriesStyle.countriesWrapper}>
+        <View style={modalStyle.countriesWrapper}>
             <TouchableOpacity
-                style={countriesStyle.countriesPremiumSelector}
+                style={modalStyle.countriesPremiumSelector}
                 activeOpacity={0.7}
                 onPress={() => setModalVisible(true)}
             >
-                <View style={countriesStyle.countriesSelectorLeft}>
-                    <View style={countriesStyle.countriesIconCircle}>
+                <View style={modalStyle.countriesSelectorLeft}>
+                    <View style={modalStyle.countriesIconCircle}>
 
                         {selectedCountry && selectedCountry.flag ? (
                             <Text style={{ fontSize: 18, includeFontPadding: false }}>
@@ -54,8 +54,8 @@ export const CountrySelector = () => {
                         )}
                     </View>
                     <View>
-                        <Text style={countriesStyle.countriesLabel}>Страна</Text>
-                        <Text style={countriesStyle.countryName}>
+                        <Text style={modalStyle.countriesLabel}>Страна</Text>
+                        <Text style={modalStyle.countryName}>
                             {selectedCountry ? selectedCountry.title : 'Выберите страну'}
                         </Text>
                     </View>
@@ -64,7 +64,7 @@ export const CountrySelector = () => {
                     name="chevron-down-outline" 
                     size={16} 
                     color="#7F8C8D" 
-                    style={countriesStyle.countriesChevron} 
+                    style={modalStyle.countriesChevron} 
                 />
             </TouchableOpacity>
 
@@ -77,14 +77,14 @@ export const CountrySelector = () => {
                 }}
             >
                 <TouchableOpacity
-                    style={countriesStyle.countriesModalOverlay}
+                    style={modalStyle.countriesModalOverlay}
                     activeOpacity={1}
                     onPress={() => { if (countryId) setModalVisible(false) }}
                 >
-                    <View style={countriesStyle.countriesBottomSheet} onStartShouldSetResponder={() => true}>
-                        <View style={countriesStyle.countriesDragIndicator} />
+                    <View style={modalStyle.countriesBottomSheet} onStartShouldSetResponder={() => true}>
+                        <View style={modalStyle.countriesDragIndicator} />
 
-                        <Text style={countriesStyle.countriesSheetTitle}>Выберите страну</Text>
+                        <Text style={modalStyle.countriesSheetTitle}>Выберите страну</Text>
 
                         <FlatList
                             data={countries}
@@ -94,17 +94,17 @@ export const CountrySelector = () => {
                                 const isSelected = item.id === countryId;
                                 return (
                                     <TouchableOpacity
-                                        style={[countriesStyle.countriesItemRow, isSelected && countriesStyle.countriesItemRowActive]}
+                                        style={[modalStyle.countriesItemRow, isSelected && modalStyle.countriesItemRowActive]}
                                         onPress={() => onSelect(item.id)}
                                     >
-                                        <Text style={[countriesStyle.countriesItemText, isSelected && countriesStyle.countriesItemTextActive]}>
+                                        <Text style={[modalStyle.countriesItemText, isSelected && modalStyle.countriesItemTextActive]}>
                                             {item.flag ? `${getFlagEmoji(item.flag)}  ` : ''}{item.title}
                                         </Text>
                                         {isSelected && (
                                             <Ionicons 
                                                 name="checkmark-outline" 
                                                 size={20} 
-                                                style={countriesStyle.countriesCheckMark} 
+                                                style={modalStyle.countriesCheckMark} 
                                             />
                                         )}
                                     </TouchableOpacity>
@@ -115,9 +115,9 @@ export const CountrySelector = () => {
                         {countryId && (
                             <TouchableOpacity
                                 onPress={() => setModalVisible(false)}
-                                style={countriesStyle.countriesCancelButton}
+                                style={modalStyle.countriesCancelButton}
                             >
-                                <Text style={countriesStyle.countriesCancelText}>Закрыть</Text>
+                                <Text style={modalStyle.countriesCancelText}>Закрыть</Text>
                             </TouchableOpacity>
                         )}
                     </View>

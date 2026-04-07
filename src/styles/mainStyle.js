@@ -163,6 +163,13 @@ export const mainStyle = StyleSheet.create({
 		marginTop: 16,
 		marginBottom: 12,
 	},
+	thirdTitle: {
+		fontSize: 16,
+		fontWeight: '600',
+		color: '#2C3E50',
+		marginTop: 16,
+		marginBottom: 12,
+	},
 	formSubtitle: {
 		fontSize: 14,
 		color: '#7F8C8D',
@@ -220,7 +227,7 @@ export const mainStyle = StyleSheet.create({
 		color: '#5A6A7A',
 	},
 	textBold: {
-		fontWeight: 'bold',
+		fontWeight: '900',
 	},
 	textCenter: {
 		textAlign: 'center',
@@ -461,13 +468,11 @@ export const mainStyle = StyleSheet.create({
 		backgroundColor: '#F1F5F9',
 		borderRadius: 16,
 		paddingHorizontal: 20,
-		fontSize: 22,
-		fontWeight: '700',
+		fontSize: 18,
 		color: '#2C3E50',
 		borderWidth: 1,
 		borderColor: '#F1F5F9',
 		textAlign: 'center',
-		letterSpacing: 5,
 	},
 	modernInput: {
 		width: '100%',
@@ -658,7 +663,6 @@ export const mainStyle = StyleSheet.create({
         flex: 1,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#FFFFFF',
     },
     loaderText: {
         marginTop: 20,

@@ -45,9 +45,10 @@ export const MainState = ({ children }) => {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/countries/all`)
 
             if (output.success == 1) {
-                dispatch({ type: SET_COUNTRIES, countries: output.data })
 
                 const savedCountryId = await AsyncStorage.getItem('APP_COUNTRY_ID')
+
+                dispatch({ type: SET_COUNTRIES, countries: output.data })
 
                 if (savedCountryId) {
                     dispatch({ type: SET_COUNTRY_ID, countryId: parseInt(savedCountryId) })

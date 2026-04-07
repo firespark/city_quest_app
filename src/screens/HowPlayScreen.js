@@ -114,8 +114,7 @@ export const HowPlayScreen = () => {
                 keyboardDismissMode="interactive"
             >
                 <View style={mainStyle.container}>
-                    {/* <ContentTitle title="Как играть?" /> */}
-
+                    
                     <HowPlayBlockBlue
                         number="1"
                         title={data.playTitle1}

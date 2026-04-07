@@ -98,7 +98,7 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader, to
             />
 
             <TouchableOpacity
-                style={[mainStyle.button, mainStyle.mt20]}
+                style={[mainStyle.button, mainStyle.mt15]}
                 activeOpacity={0.7}
                 onPress={() => changePassword()}
             >

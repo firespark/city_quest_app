@@ -7,7 +7,7 @@ import { gameStyle } from '../../../styles/gameStyle'
 import { MainContext } from '../../../context/mainContext'
 import { Ionicons } from '@expo/vector-icons'
 
-import { RichQuestContent } from '../../quests/RichQuestContent'
+import { FormattedContent } from '../../common/FormattedContent'
 
 export const ModalAnswer1 = ({ title, image, address, location, description, setModal }) => {
 
@@ -68,7 +68,7 @@ export const ModalAnswer1 = ({ title, image, address, location, description, set
 
             {description ? (
                 <View style={[mainStyle.card, mainStyle.mt15]}>
-                    <RichQuestContent text={description} />
+                    <FormattedContent text={description} />
                 </View>
             ) : null}
 

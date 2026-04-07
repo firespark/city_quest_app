@@ -8,7 +8,7 @@ import { questsStyle } from '../styles/questsStyle'
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
-import { RichQuestContent } from '../components/quests/RichQuestContent'
+import { FormattedContent } from '../components/common/FormattedContent'
 import { QuestTitle } from '../components/quests/QuestTitle'
 import { QuestImage } from '../components/quests/QuestImage'
 import { StartFinish } from '../components/quests/StartFinish'
@@ -94,8 +94,37 @@ export const QuestScreen = () => {
                     </View>
 
                     <View style={[mainStyle.card, mainStyle.mt15]}>
-                        <RichQuestContent text={data.content} />
+                        <FormattedContent text={data.content} />
                     </View>
+
+                    {data.content2 && (
+                        <View>
+                            <View style={mainStyle.mt20}>
+                                {!data.available ? (
+                                    data.is_auth ? (
+                                        <BuyButton
+                                            questId={data.id}
+                                            onSuccess={fetchData}
+                                        />
+                                    ) : (
+                                        <RegisterButton />
+                                    )
+                                ) : (
+                                    <>
+                                        <StartButton
+                                            changeScreen={changeScreen}
+                                            progress={progress}
+                                        />
+                                    </>
+                                )}
+                            </View>
+                            <View style={[mainStyle.card, mainStyle.mt30]}>
+                                <FormattedContent text={data.content2} />
+                            </View>
+                        </View>
+                    )}
+
+
 
                     <View style={mainStyle.mt20}>
                         {!data.available ? (

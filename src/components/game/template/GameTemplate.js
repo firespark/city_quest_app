@@ -29,11 +29,12 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
         />
     }
 
-    if (game.step == 0) {
+
+    /*if (game.step == 0) {
         template = <ModeTemplate
             setGame={setGame}
         />
-    }
+    }*/
 
     return (
         <View style={mainStyle.pageBackground}>
@@ -48,11 +49,13 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
                         skips={game.skips_number}
                         showSkip={game.show_skip}
                         setModal={setModal}
+                        setGame={setGame}
                     />
                     <Hints
                         hints={game.hints_number}
                         showHint={game.show_hint}
                         setModal={setModal}
+                        setGame={setGame}
                     />
                 </View>
             </View>

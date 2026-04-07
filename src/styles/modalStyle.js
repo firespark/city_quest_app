@@ -1,6 +1,6 @@
 import { StyleSheet } from 'react-native'
 
-export const countriesStyle = StyleSheet.create({
+export const modalStyle = StyleSheet.create({
     countriesWrapper: {
         padding: 10,
         paddingTop: 20,

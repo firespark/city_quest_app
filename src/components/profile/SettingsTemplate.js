@@ -10,7 +10,6 @@ import { Menu } from '../common/Menu'
 
 import { ProfileEmail } from '../profile/ProfileEmail'
 import { ProfileName } from '../profile/ProfileName'
-import { ProfileNotes } from '../profile/ProfileNotes'
 import { ProfilePassword } from '../profile/ProfilePassword'
 import { ProfileSuccess } from '../profile/ProfileSuccess'
 import { Logout } from '../profile/Logout'
@@ -27,18 +26,13 @@ export const SettingsTemplate = ({ user, setUser, setTemplate, success, setSucce
                 <View style={mainStyle.container}>
                     {success && <ProfileSuccess text={success} />}
 
-                    <View style={profileStyle.card}>
-                        {user.email != null ? (
-                            <>
-                                <ProfileEmail email={user.email} />
-                                <ProfileName name={user.name} setTemplate={setTemplate} setSuccess={setSuccess} />
-                                <ProfilePassword setTemplate={setTemplate} setSuccess={setSuccess} />
-                                <ProfileNotes user={user} setUser={setUser} />
-                            </>
-                        ) : (
-                            <ProfileNotes user={user} setUser={setUser} />
-                        )}
-                    </View>
+                    {user.email != null && (
+                        <View style={profileStyle.card}>
+                            <ProfileEmail email={user.email} />
+                            <ProfileName name={user.name} setTemplate={setTemplate} setSuccess={setSuccess} />
+                            <ProfilePassword setTemplate={setTemplate} setSuccess={setSuccess} />
+                        </View>
+                    )}
 
                     {user.email != null && <Logout />}
                 </View>

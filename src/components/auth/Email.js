@@ -60,7 +60,11 @@ export const Email = ({ setEmail, setTemplate, setError, setLoader }) => {
 
             <Agreement agree={agree} setAgree={setAgree} />
 
-            <TouchableOpacity style={mainStyle.primaryButton} activeOpacity={0.7} onPress={checkEmail}>
+            <TouchableOpacity 
+                style={[mainStyle.primaryButton, mainStyle.mt15]} 
+                activeOpacity={0.7} 
+                onPress={checkEmail}
+            >
                 <Text style={mainStyle.primaryButtonText}>Дальше</Text>
             </TouchableOpacity>
         </View>

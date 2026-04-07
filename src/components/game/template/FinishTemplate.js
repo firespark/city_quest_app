@@ -1,4 +1,4 @@
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 
 import { mainStyle } from '../../../styles/mainStyle'
 import { gameStyle } from '../../../styles/gameStyle'
@@ -29,7 +29,8 @@ export const FinishTemplate = ({ title, content, game, setModal }) => {
             />
 
             <View style={mainStyle.mt30}>
-                <Quests />
+                <Text style={[mainStyle.subtitle, mainStyle.textCenter, mainStyle.mb20]}>Еще квесты в г. {game.quest_city}</Text>
+                <Quests cityId={game.quest_city_id} />
             </View>
         </View>
     )

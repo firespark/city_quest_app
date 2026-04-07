@@ -2,7 +2,7 @@ import { View, Text } from 'react-native'
 
 import { mainStyle } from '../../styles/mainStyle'
 
-export const RichQuestContent = ({ text }) => {
+export const FormattedContent = ({ text }) => {
     if (!text) return null;
 
     const normalizedText = Array.isArray(text) ? text.join('\n') : String(text);
@@ -15,7 +15,6 @@ export const RichQuestContent = ({ text }) => {
                 const trimmed = line.trim();
 
                 if (/^[-—–]\s*/.test(trimmed)) {
-
                     const cleanText = trimmed.replace(/^[-—–]\s*/, '');
                     return (
                         <View key={index} style={mainStyle.bulletRow}>
@@ -27,10 +26,20 @@ export const RichQuestContent = ({ text }) => {
                     );
                 }
 
-                if (trimmed.endsWith(':')) {
+                if (trimmed.startsWith('<h2>') || trimmed.endsWith('</h2>')) {
+                    const cleanText = trimmed.replace(/<\/?h2>/g, '');
                     return (
                         <Text key={index} style={mainStyle.subtitle}>
-                            {trimmed}
+                            {cleanText}
+                        </Text>
+                    );
+                }
+
+                if (trimmed.startsWith('<h3>') || trimmed.endsWith('</h3>')) {
+                    const cleanText = trimmed.replace(/<\/?h3>/g, '');
+                    return (
+                        <Text key={index} style={mainStyle.thirdTitle}>
+                            {cleanText}
                         </Text>
                     );
                 }

@@ -12,7 +12,7 @@ import { TaskSign } from './TaskSign'
 import { ResetButton } from '../quests/ResetButton'
 import { ResetModal } from '../quests/ResetModal'
 
-import { RichQuestContent } from '../quests/RichQuestContent'
+import { FormattedContent } from '../common/FormattedContent'
 
 export const Finish = ({ text, game, setModal }) => {
     const { changeScreen, setCityData } = useContext(MainContext)
@@ -21,7 +21,7 @@ export const Finish = ({ text, game, setModal }) => {
     return (
         <View style={mainStyle.card}>
 
-            <RichQuestContent text={text} />
+            <FormattedContent text={text} />
 
             <View style={[mainStyle.divider, mainStyle.mb20]} />
 

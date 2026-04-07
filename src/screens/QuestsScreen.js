@@ -31,12 +31,15 @@ export const QuestsScreen = () => {
 					<Text style={mainStyle.welcomeTitle}>
 						{cityData.title}
 					</Text>
-					<Text style={mainStyle.welcomeSubtitle}>
+					{/*<Text style={mainStyle.welcomeSubtitle}>
 						Доступные квест-экскурсии
-					</Text>
+					</Text>*/}
 				</View>
 
-				<Quests cityId={cityData.id} />
+				<Quests 
+					cityId={cityData.id} 
+					showFilters={true} 
+				/>
 			</ScrollView>
 			<Footer />
 		</View>

@@ -59,7 +59,7 @@ export const EmailReset = ({ setEmail, setTemplate, setError, setLoader }) => {
             />
 
             <TouchableOpacity
-                style={mainStyle.primaryButton}
+                style={[mainStyle.primaryButton, mainStyle.mt15]}
                 activeOpacity={0.7}
                 onPress={() => checkEmail()}
             >

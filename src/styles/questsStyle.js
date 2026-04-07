@@ -40,9 +40,9 @@ export const questsStyle = StyleSheet.create({
         elevation: 10,
     },
     questSheet: {
-        flex: 1, 
-        marginTop: -30, 
-        paddingHorizontal: 10, 
+        flex: 1,
+        marginTop: -30,
+        paddingHorizontal: 10,
         paddingBottom: 40
     },
     countryBlock: {
@@ -321,7 +321,7 @@ export const questsStyle = StyleSheet.create({
         justifyContent: 'center',
         flex: 1,
     },
-    
+
     // Buttons
     payBtn: {
         backgroundColor: '#027900',
@@ -356,5 +356,35 @@ export const questsStyle = StyleSheet.create({
     resetCancelLink: {
         paddingVertical: 10,
     },
+
+    // Filter
+    filterContainer: {
+        marginBottom: 20,
+        marginHorizontal: -10,
+    },
+    filterScroll: {
+        paddingHorizontal: 10,
+        gap: 10,
+    },
+    filterPill: {
+        paddingHorizontal: 16,
+        paddingVertical: 10,
+        backgroundColor: '#F1F5F9',
+        borderRadius: 20,
+        borderWidth: 1,
+        borderColor: '#F1F5F9',
+    },
+    filterPillActive: {
+        backgroundColor: '#17A2B8',
+        borderColor: '#17A2B8',
+    },
+    filterText: {
+        fontSize: 14,
+        fontWeight: '600',
+        color: '#5A6A7A',
+    },
+    filterTextActive: {
+        color: '#FFFFFF',
+    }
 
 });

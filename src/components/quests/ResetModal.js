@@ -2,7 +2,7 @@ import { useState, useContext } from 'react'
 import { View, TouchableOpacity, Text, TextInput, Modal } from 'react-native'
 
 import { mainStyle } from '../../styles/mainStyle'
-import { questsStyle } from '../../styles/questsStyle'
+import { modalStyle } from '../../styles/modalStyle'
 
 import { Loader } from '../common/Loader'
 import { Error } from '../common/Error'
@@ -18,6 +18,12 @@ export const ResetModal = ({ modalVisible, setModalVisible, onSuccess }) => {
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
 
+    const closeModal = () => {
+        setModalVisible(false);
+        setError(null);
+        setComment('');
+    }
+
     const resetProgress = async () => {
         if (comment.trim().toLowerCase() === 'подтверждаю') {
             const postdata = {}
@@ -28,9 +34,7 @@ export const ResetModal = ({ modalVisible, setModalVisible, onSuccess }) => {
                 const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/reset/${questId}`, postdata, token)
 
                 if (output.success == 1) {
-                    setModalVisible(false);
-                    setComment('');
-
+                    closeModal();
                     if (onSuccess) {
                         onSuccess();
                     }
@@ -52,25 +56,36 @@ export const ResetModal = ({ modalVisible, setModalVisible, onSuccess }) => {
     }
 
     return (
-        <Modal visible={modalVisible} animationType="fade" transparent={true}>
-            <View style={mainStyle.modalOverlay}>
-                <View style={mainStyle.card}>
+        <Modal
+            visible={modalVisible}
+            animationType="fade"
+            transparent={true}
+            onRequestClose={closeModal}
+        >
+            <TouchableOpacity
+                style={modalStyle.countriesModalOverlay}
+                activeOpacity={1}
+                onPress={closeModal}
+            >
+                <View style={modalStyle.countriesBottomSheet} onStartShouldSetResponder={() => true}>
+                    <View style={modalStyle.countriesDragIndicator} />
+
                     {loader ? (
-                        <Loader />
+                        <View style={{ paddingVertical: 40 }}>
+                            <Loader />
+                        </View>
                     ) : (
-                        <View style={[mainStyle.mt15, mainStyle.mb15]}>
-                            <View style={mainStyle.center}>
-                                <Text style={mainStyle.titleMain}>Сброс прогресса</Text>
-                            </View>
+                        <>
+                            <Text style={modalStyle.countriesSheetTitle}>Сброс прогресса</Text>
 
                             <View style={mainStyle.mb25}>
-                                <Text style={mainStyle.errorText}>
+                                <Text style={[mainStyle.errorText, mainStyle.mb15]}>
                                     Это действие нельзя отменить. Если вы действительно хотите сбросить прогресс и начать квест заново, введите слово <Text style={mainStyle.textBold}>Подтверждаю</Text> в поле ниже.
                                 </Text>
 
                                 <TextInput
                                     placeholder="Подтверждаю"
-                                    style={[mainStyle.modernInput, mainStyle.mt25]}
+                                    style={mainStyle.modernInput}
                                     placeholderTextColor={'#BDC3C7'}
                                     onChangeText={(value) => {
                                         setComment(value);
@@ -79,34 +94,29 @@ export const ResetModal = ({ modalVisible, setModalVisible, onSuccess }) => {
                                     value={comment}
                                     autoCapitalize="none"
                                 />
+                                {error && <View style={mainStyle.mt10}><Error text={error} /></View>}
                             </View>
 
                             <View style={mainStyle.center}>
                                 <TouchableOpacity
-                                    style={mainStyle.dangerButton}
+                                    style={[mainStyle.dangerButton, mainStyle.mb15]}
                                     activeOpacity={0.7}
                                     onPress={resetProgress}
                                 >
                                     <Text style={mainStyle.dangerButtonText}>Сбросить прогресс</Text>
                                 </TouchableOpacity>
-
-                                <TouchableOpacity
-                                    style={[questsStyle.resetCancelLink, mainStyle.mt10]}
-                                    onPress={() => {
-                                        setModalVisible(false);
-                                        setError(null);
-                                        setComment('');
-                                    }}
-                                >
-                                    <Text style={mainStyle.description}>Отмена</Text>
-                                </TouchableOpacity>
                             </View>
 
-                            {error && <View style={mainStyle.mt15}><Error text={error} /></View>}
-                        </View>
+                            <TouchableOpacity
+                                onPress={closeModal}
+                                style={modalStyle.countriesCancelButton}
+                            >
+                                <Text style={modalStyle.countriesCancelText}>Отмена</Text>
+                            </TouchableOpacity>
+                        </>
                     )}
                 </View>
-            </View>
+            </TouchableOpacity>
         </Modal>
     )
 }

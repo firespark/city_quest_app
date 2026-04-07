@@ -31,7 +31,7 @@ export const CreateProfile = ({ email, setTemplate, setError, setLoader }) => {
             </Text>
 
             <TouchableOpacity
-                style={mainStyle.primaryButton}
+                style={[mainStyle.primaryButton, mainStyle.mt15]}
                 activeOpacity={0.7}
                 onPress={() => sendCode()}
             >
@@ -41,7 +41,7 @@ export const CreateProfile = ({ email, setTemplate, setError, setLoader }) => {
             <TouchableOpacity
                 activeOpacity={0.7}
                 onPress={() => setTemplate(null)}
-                style={mainStyle.secondButton}
+                style={[mainStyle.secondButton, mainStyle.mt15]}
             >
                 <Text style={mainStyle.secondButtonText}>Ввести другой емейл</Text>
             </TouchableOpacity>

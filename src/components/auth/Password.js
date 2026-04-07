@@ -62,13 +62,13 @@ export const Password = ({ email, setError, changeScreen, token, screen, setLoad
             <TextInput
                 placeholder="Повтори пароль"
                 secureTextEntry
-                style={[mainStyle.input, { marginTop: 15 }, errorStyle && mainStyle.inputError]}
+                style={[mainStyle.input, mainStyle.mt15, errorStyle && mainStyle.inputError]}
                 placeholderTextColor={'#BDC3C7'}
                 onChangeText={setConfirmInput}
                 autoCapitalize="none"
             />
 
-            <TouchableOpacity style={mainStyle.primaryButton} activeOpacity={0.7} onPress={checkPassword}>
+            <TouchableOpacity style={[mainStyle.primaryButton, mainStyle.mt15]} activeOpacity={0.7} onPress={checkPassword}>
                 <Text style={mainStyle.primaryButtonText}>Войти</Text>
             </TouchableOpacity>
 

@@ -389,16 +389,31 @@ export const gameStyle = StyleSheet.create({
         paddingVertical: 6,
         borderRadius: 20,
         borderWidth: 1,
+        position: 'relative',
     },
     pillActive: {
         backgroundColor: '#F1F5F9',
-        //borderColor: '#E67E22',
         borderColor: '#17A2B8',
+    },
+    pillActiveOrange: {
+        backgroundColor: '#F1F5F9',
+        borderColor: '#E67E22',
     },
     pillDisabled: {
         backgroundColor: '#F1F5F9',
         borderColor: '#F1F5F9',
     },
+    pillPremiumSign: {
+        position: 'absolute', 
+        top: -5, 
+        right: -5,
+        backgroundColor: '#8E44AD', 
+        borderRadius: 10, 
+        padding: 3,
+        borderWidth: 1.5, 
+        borderColor: '#FFFFFF'
+    },
+
     hintPill: {
         flexDirection: 'row',
         alignItems: 'center',
@@ -409,6 +424,7 @@ export const gameStyle = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#E67E22',
     },
+
     gameAnswerCard: {
         backgroundColor: '#FFFFFF',
         borderRadius: 20,
@@ -437,6 +453,7 @@ export const gameStyle = StyleSheet.create({
         color: '#FFFFFF',
         fontWeight: 'bold',
     },
+
 
     // Progress
     progressGrid: {
