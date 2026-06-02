@@ -2,6 +2,10 @@ import { StyleSheet } from 'react-native'
 
 export const authStyle = StyleSheet.create({
 
+    authCardContent: {
+        paddingHorizontal: 10,
+        paddingVertical: 25,
+    },
     authScrollContent: {
         flexGrow: 1,
         justifyContent: 'center',
@@ -59,6 +63,15 @@ export const authStyle = StyleSheet.create({
         flex: 1,
         height: 1,
         backgroundColor: '#F1F5F9'
+    },
+    eyePadding: {
+        paddingRight: 50,
+    },
+    eyeSign: {
+        position: 'absolute',
+        right: 15,
+        height: 56,
+        justifyContent: 'center',
     },
 
 });

@@ -70,12 +70,6 @@ export const OpenQuest = ({ quest }) => {
                     <Text style={questsStyle.progressText}>
                         Уровень {quest.step} из {quest.levels}
                     </Text>
-                    <Text style={[
-                        questsStyle.modeText,
-                        quest.mode_text === 'Пройден' ? questsStyle.textSuccess : questsStyle.textWarning
-                    ]}>
-                        {quest.mode_text}
-                    </Text>
                 </View>
             </View>
         </TouchableOpacity>

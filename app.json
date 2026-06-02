@@ -35,12 +35,21 @@
     },
     "extra": {
       "eas": {
-        "projectId": "ca583a78-1f74-4b4b-bcc3-28eafb89a6fa"
+        "projectId": "ba2f4987-6d2f-4aaf-a91c-e216fa653e6d"
       }
     },
     "plugins": [
       "expo-asset",
-      "expo-font"
+      "expo-font",
+      [
+        "expo-build-properties",
+        {
+          "android": {
+            "kotlinVersion": "1.9.25",
+            "compileSdkVersion": 34
+                    }
+        }
+      ]
     ]
   }
 }

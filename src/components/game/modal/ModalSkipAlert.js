@@ -10,7 +10,7 @@ import { Http } from '../../../scripts/http'
 
 export const ModalSkipAlert = ({ setModal, setGame }) => {
 
-    const { questId, token } = useContext(MainContext)
+    const { questId, token, setAnswersState } = useContext(MainContext)
 
     const [reason, setReason] = useState(1);
     const [comment, setComment] = useState(null);
@@ -28,6 +28,7 @@ export const ModalSkipAlert = ({ setModal, setGame }) => {
             const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/getSkip/${questId}`, postdata, token)
 
             if (output.success == 1) {
+                setAnswersState([]);
                 setGame(output.data)
             }
             else {

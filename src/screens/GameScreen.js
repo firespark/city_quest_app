@@ -48,6 +48,7 @@ export const GameScreen = () => {
 
             if (output.success == 1) {
                 setGame(output.data)
+                //console.log(output.data)
             } else {
                 if (output.error) {
                     setError(output.error)

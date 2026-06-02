@@ -7,7 +7,7 @@ export const Agreement = ({ agree, setAgree }) => {
 
     return (
         <TouchableOpacity
-            style={authStyle.authContainer}
+            style={[authStyle.authContainer, mainStyle.mt10]}
             activeOpacity={0.7}
             onPress={() => setAgree(!agree)}
             hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}

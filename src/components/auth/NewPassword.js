@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import { View, Text, TextInput, TouchableOpacity } from 'react-native'
+import { Ionicons } from '@expo/vector-icons'
 
 import { mainStyle } from '../../styles/mainStyle'
 
 import { PROFILE_SCREEN } from '../../context/types'
 
 import { Http } from '../../scripts/http'
+import { authStyle } from '../../styles/authStyle'
 
 export const NewPassword = ({ email, code, setError, changeScreen, setLoader, token }) => {
 
@@ -14,6 +16,9 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader, to
 
     const [style, setStyle] = useState(null)
     const [confirmStyle, setConfirmStyle] = useState(null)
+
+    const [showPassword, setShowPassword] = useState(false)
+    const [showConfirmPassword, setShowConfirmPassword] = useState(false)
 
     const changePassword = async () => {
 
@@ -77,32 +82,50 @@ export const NewPassword = ({ email, code, setError, changeScreen, setLoader, to
 
     return (
         <View style={mainStyle.center}>
-            <Text style={[mainStyle.formTtitle, mainStyle.mb10]}>А теперь задай пароль (минимум 8 символов)</Text>
+            <Text style={[mainStyle.subtitle, mainStyle.mb10, mainStyle.textCenter]}>А теперь задай пароль (минимум 8 символов)</Text>
 
-            <TextInput
-                placeholder="Новый пароль"
-                secureTextEntry={true}
-                style={[mainStyle.input, mainStyle.mt15, mainStyle.mb10, style]}
-                placeholderTextColor={'#F1F5F9'}
-                onChangeText={(value) => setInput(value)}
-                autoCapitalize="none"
-            />
+            <View style={[mainStyle.blockRelative, mainStyle.mt15, mainStyle.mb10]}>
+                <TextInput
+                    placeholder="Новый пароль"
+                    secureTextEntry={!showPassword}
+                    style={[mainStyle.input, style, authStyle.eyePadding]}
+                    placeholderTextColor={'#BDC3C7'}
+                    onChangeText={(value) => setInput(value)}
+                    autoCapitalize="none"
+                />
+                <TouchableOpacity
+                    style={authStyle.eyeSign}
+                    activeOpacity={0.7}
+                    onPress={() => setShowPassword(!showPassword)}
+                >
+                    <Ionicons name={showPassword ? "eye-off-outline" : "eye-outline"} size={22} color="#BDC3C7" />
+                </TouchableOpacity>
+            </View>
 
-            <TextInput
-                placeholder="Повторите пароль"
-                secureTextEntry={true}
-                style={[mainStyle.input, mainStyle.mb10, confirmStyle]}
-                placeholderTextColor={'#F1F5F9'}
-                onChangeText={(value) => setConfirmInput(value)}
-                autoCapitalize="none"
-            />
+            <View style={[mainStyle.blockRelative, mainStyle.mb10]}>
+                <TextInput
+                    placeholder="Повторите пароль"
+                    secureTextEntry={!showConfirmPassword}
+                    style={[mainStyle.input, confirmStyle, authStyle.eyePadding]}
+                    placeholderTextColor={'#BDC3C7'}
+                    onChangeText={(value) => setConfirmInput(value)}
+                    autoCapitalize="none"
+                />
+                <TouchableOpacity
+                    style={authStyle.eyeSign}
+                    activeOpacity={0.7}
+                    onPress={() => setShowConfirmPassword(!showConfirmPassword)}
+                >
+                    <Ionicons name={showConfirmPassword ? "eye-off-outline" : "eye-outline"} size={22} color="#BDC3C7" />
+                </TouchableOpacity>
+            </View>
 
             <TouchableOpacity
                 style={[mainStyle.button, mainStyle.mt15]}
                 activeOpacity={0.7}
                 onPress={() => changePassword()}
             >
-                <Text style={mainStyle.buttonText}>Вперед!</Text>
+                <Text style={mainStyle.buttonText}>Задать пароль</Text>
             </TouchableOpacity>
         </View>
     )

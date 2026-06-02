@@ -1,17 +1,15 @@
 import { View, Text, TouchableOpacity, Image } from 'react-native';
-
 import { authStyle } from '../../styles/authStyle'
-
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { Http } from '../../scripts/http';
 
-export const AuthGoogle = ({ token, changeScreen, screen, setError, setLoader }) => {
-    GoogleSignin.configure({
-        webClientId: process.env.EXPO_PUBLIC_WEBCLIENT_ID,
-        offlineAccess: true,
-    });
+GoogleSignin.configure({
+    webClientId: process.env.EXPO_PUBLIC_WEBCLIENT_ID,
+    offlineAccess: true,
+});
 
-    const signIn = async () => {
+export const AuthGoogle = ({ token, changeScreen, screen, setError, setLoader }) => {
+   const signIn = async () => {
         setLoader(true);
         setError(null);
         try {

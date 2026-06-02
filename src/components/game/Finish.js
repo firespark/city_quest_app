@@ -21,7 +21,9 @@ export const Finish = ({ text, game, setModal }) => {
     return (
         <View style={mainStyle.card}>
 
-            <FormattedContent text={text} />
+            <View style={mainStyle.container}>
+                <Text style={[mainStyle.subtitle, mainStyle.textCenter]}>{text}</Text>
+            </View>
 
             <View style={[mainStyle.divider, mainStyle.mb20]} />
 

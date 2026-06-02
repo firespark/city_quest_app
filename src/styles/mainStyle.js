@@ -459,6 +459,10 @@ export const mainStyle = StyleSheet.create({
 		alignItems: 'center',
 		justifyContent: 'flex-end',
 	},
+	blockRelative: {
+		width: '100%',
+		position: 'relative'
+	},
 
 
 	// Forms
@@ -592,7 +596,7 @@ export const mainStyle = StyleSheet.create({
 		color: '#F1F5F9'
 	},
 	arrowContainer: {
-        justifyContent: 'flex-end',
+        justifyContent: 'center',
         paddingBottom: 7,
     },
     pureArrow: {

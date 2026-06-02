@@ -1,8 +1,9 @@
 import { useState, useContext } from 'react'
-import { View } from 'react-native'
+import { View, ScrollView } from 'react-native'
 
 import { mainStyle } from '../styles/mainStyle'
 import { headerStyle } from '../styles/headerStyle'
+import { authStyle } from '../styles/authStyle'
 
 import { Back } from '../components/common/Back'
 import { HeaderTitle } from '../components/common/HeaderTitle'
@@ -18,11 +19,8 @@ import { Error } from '../components/common/Error'
 
 import { MainContext } from '../context/mainContext'
 
-
 export const PasswordResetScreen = () => {
-
-    const { changeScreen } = useContext(MainContext)
-    const { token } = useContext(MainContext)
+    const { changeScreen, token } = useContext(MainContext)
 
     const [template, setTemplate] = useState(null)
     const [email, setEmail] = useState(null)
@@ -33,67 +31,39 @@ export const PasswordResetScreen = () => {
     let content = null
 
     switch (template) {
-
         case 'code':
-            content =
-                <Code
-                    email={email}
-                    setTemplate={setTemplate}
-                    setError={setError}
-                    setCode={setCode}
-                    setLoader={setLoader}
-
-                />
+            content = <Code email={email} setTemplate={setTemplate} setError={setError} setCode={setCode} setLoader={setLoader} token={token} />
             break
-
         case 'newPassword':
-            content =
-                <NewPassword
-                    email={email}
-                    code={code}
-                    setError={setError}
-                    setLoader={setLoader}
-                    changeScreen={changeScreen}
-                    token={token}
-                />
+            content = <NewPassword email={email} code={code} setError={setError} setLoader={setLoader} changeScreen={changeScreen} token={token} />
             break
-
         default:
-            content =
-                <EmailReset
-                    setEmail={setEmail}
-                    setTemplate={setTemplate}
-                    setError={setError}
-                    setLoader={setLoader}
-                />
-
+            content = <EmailReset setEmail={setEmail} setTemplate={setTemplate} setError={setError} setLoader={setLoader} />
             break
-
     }
 
-    if (loader) {
-        return <Loader />
-    }
+    if (loader) return <Loader />
 
     return (
-        <View style={mainStyle.flex}>
+        <View style={mainStyle.pageBackground}>
             <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
                 <Back />
                 <HeaderTitle title="Восстановление пароля" />
                 <Menu />
             </View>
-            <View style={[mainStyle.flex, mainStyle.centerBlock]}>
-                {
-                    (error)
-                        ?
-                        <Error
-                            text={error}
-                        />
-                        : null
-                }
-                {content}
 
-            </View>
+            <ScrollView
+                style={mainStyle.flex}
+                contentContainerStyle={authStyle.authScrollContent}
+                keyboardShouldPersistTaps="handled"
+            >
+                {error && <View style={mainStyle.mb20}><Error text={error} /></View>}
+                
+                <View style={[mainStyle.card, authStyle.authCardContent]}>
+                    {content}
+                </View>
+            </ScrollView>
+
             <Footer />
         </View>
     )

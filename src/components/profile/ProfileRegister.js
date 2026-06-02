@@ -14,7 +14,7 @@ export const ProfileRegister = () => {
         <View style={profileStyle.profileContainer}>
             <View style={mainStyle.mb15}>
                 <Text style={mainStyle.description}>
-                    Хочешь сохранять результаты своих игр навсегда?
+                    Хочешь сохранять результаты своих игр?
                 </Text>
             </View>
 

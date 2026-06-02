@@ -35,7 +35,6 @@ export const gameStyle = StyleSheet.create({
     },
     playTemplateProgressContainer: {
         alignItems: 'center',
-        marginTop: 15,
         marginBottom: 10,
     },
     playTemplateSignsRow: {
@@ -302,6 +301,7 @@ export const gameStyle = StyleSheet.create({
         width: '100%',
         height: '100%',
         resizeMode: 'cover',
+        borderRadius: 15,
     },
     templateImageWrapper: {
         backgroundColor: '#FFFFFF',

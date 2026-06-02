@@ -51,7 +51,7 @@ export const Task2 = ({ game, setGame, setModal }) => {
         try {
             const postdata = { quest_answer: answersState, answer_number: 2 }
             const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/games/checkAnswer/${questId}`, postdata, token)
-            
+            console.log(output);
             if (output.success == 1) {
                 setInputResults(output.data.inputResults || {})
 

@@ -14,6 +14,7 @@ export const FinishTemplate = ({ title, content, game, setModal }) => {
             <GameTitle
                 title={title}
                 description="Финиш!"
+                setModal={setModal}
             />
             <View style={gameStyle.playTemplateProgressContainer}>
                 <ProgressBar

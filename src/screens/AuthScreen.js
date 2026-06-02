@@ -73,7 +73,7 @@ export const AuthScreen = () => {
                 keyboardShouldPersistTaps="handled"
             >
                 {error && <View style={mainStyle.mb20}><Error text={error} /></View>}
-                <View style={mainStyle.card}>
+                <View style={[mainStyle.card, authStyle.authCardContent]}>
                     {content}
                 </View>
             </ScrollView>

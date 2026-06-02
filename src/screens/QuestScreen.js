@@ -37,7 +37,7 @@ export const QuestScreen = () => {
         setLoader(true)
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/get/${questId}`, token)
-            if (output.success == 1) {
+            if (output && output.success == 1) {
                 setData(output.data)
             } else {
                 setLoadError(output.error || 'Ошибка загрузки')

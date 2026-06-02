@@ -38,7 +38,7 @@ export const Code = ({ email, setTemplate, setError, setCode, setLoader, token }
 
     return (
         <View style={mainStyle.center}>
-            <Text style={[mainStyle.formTtitle, mainStyle.mb10]}>Подтверждение</Text>
+            <Text style={[mainStyle.formTitle, mainStyle.mb10]}>Подтверждение</Text>
             <Text style={[mainStyle.formSubtitle, mainStyle.mb25]}>Введите код, отправленный на {email}</Text>
 
             <TextInput

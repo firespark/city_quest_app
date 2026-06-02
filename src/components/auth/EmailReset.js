@@ -43,7 +43,7 @@ export const EmailReset = ({ setEmail, setTemplate, setError, setLoader }) => {
 
     return (
         <View style={mainStyle.container}>
-            <Text style={[mainStyle.formTtitle, mainStyle.mb10]}>Доступ</Text>
+            <Text style={[mainStyle.formTitle, mainStyle.mb10, mainStyle.textCenter]}>Восстановление доступа</Text>
             <Text style={[mainStyle.formSubtitle, mainStyle.mb25]}>Введите ваш Email для восстановления пароля:</Text>
 
             <TextInput

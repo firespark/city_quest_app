@@ -85,7 +85,6 @@ export const questsStyle = StyleSheet.create({
         borderRadius: 12,
     },
     questImagePadding: {
-        paddingTop: 15,
         paddingBottom: 15,
         paddingBottom: 8,
     },
@@ -135,7 +134,7 @@ export const questsStyle = StyleSheet.create({
 
     questBadgeOverlay: {
         position: 'absolute',
-        top: 2,
+        top: 10,
         left: 10,
         right: 10,
         flexDirection: 'row',

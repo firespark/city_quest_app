@@ -17,6 +17,7 @@ export const PlayTemplate = ({ game, setGame, setModal, nextGame }) => {
             <GameTitle
                 title={game.quest_title}
                 description={`Уровень ${game.step}`}
+                setModal={setModal}
             />
 
             <View style={gameStyle.playTemplateProgressContainer}>

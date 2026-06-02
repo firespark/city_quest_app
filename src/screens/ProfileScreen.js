@@ -8,7 +8,6 @@ import { profileStyle } from '../styles/profileStyle'
 import { Back } from '../components/common/Back'
 import { Menu } from '../components/common/Menu'
 import { Settings } from '../components/profile/Settings'
-import { Status } from '../components/profile/Status'
 import { ProfileRegister } from '../components/profile/ProfileRegister'
 import { OpenQuests } from '../components/quests/OpenQuests'
 import { DoneQuests } from '../components/quests/DoneQuests'
@@ -86,7 +85,7 @@ export const ProfileScreen = () => {
                             </Text>
                             {user.email && <Settings />}
                         </View>
-                        <Status token={token} />
+                        
                     </View>
 
                     {!user.email && <ProfileRegister />}
