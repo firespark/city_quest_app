@@ -10,7 +10,7 @@ import { Menu } from '../components/common/Menu'
 
 import { SearchInput } from '../components/common/SearchInput'
 import { CitiesSearch } from '../components/cities/CitiesSearch'
-
+import { ConnectionError } from '../components/common/ConnectionError'
 import { Footer } from '../components/common/Footer'
 import { Error } from '../components/common/Error'
 
@@ -61,19 +61,19 @@ export const SearchScreen = () => {
         }
     }
 
-    if (loadError) {
-        return (
-            <View style={mainStyle.flex}>
-                <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
-                    <Back />
-                    <HeaderTitle title="Ошибка" />
-                    <Menu />
-                </View>
-                <Error text={loadError} />
-                <Footer active="search" />
-            </View>
-        )
-    }
+    // if (loadError) {
+    //     return (
+    //         <View style={mainStyle.flex}>
+    //             <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
+    //                 <Back />
+    //                 <HeaderTitle title="Ошибка" />
+    //                 <Menu />
+    //             </View>
+    //             <Error text={loadError} />
+    //             <Footer active="search" />
+    //         </View>
+    //     )
+    // }
 
     return (
         <View style={mainStyle.flex}>
@@ -91,9 +91,17 @@ export const SearchScreen = () => {
                     <SearchInput
                         searchData={searchData}
                     />
-                    <CitiesSearch
-                        data={data}
-                    />
+                    {
+                        loadError === 'connection_error' ? (
+                            <ConnectionError onRetry={() => searchData(input, true)} />
+                        ) : loadError ? (
+                            <Error text={loadError} />
+                        ) : (
+                            <CitiesSearch
+                                data={data}
+                            />
+                        )
+                    }
                 </View>
             </ScrollView>
             <Footer active="search" />

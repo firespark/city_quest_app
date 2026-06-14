@@ -1,0 +1,1 @@
+npx repomix --ignore "**/.vs/**,**/bin/**,**/obj/**,*.zip,**/*.ico,**/.git/**,**/.gitattributes,**/.gitignore" --style plain   --no-file-summary --remove-empty-lines 

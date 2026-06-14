@@ -30,22 +30,19 @@ export const ModalSkipAlert = ({ setModal, setGame }) => {
             if (output.success == 1) {
                 setAnswersState([]);
                 setGame(output.data)
+                setModal(null);
+           } else {
+                setError(
+                    output.error === 'connection_error' 
+                    ? 'Отсутствует подключение к интернету' 
+                    : (output.error || 'Произошла ошибка')
+                );
             }
-            else {
-                if (output.error) {
-                    setError(output.error)
-                }
-                else {
-                    setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-                }
-            }
-        }
-        catch (e) {
-            console.error('Error:', e)
-            setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-        }
-        finally {
-            setLoader(false)
+        } catch (e) {
+            console.log('Error:', e.message);
+            setError('Отсутствует подключение к интернету');
+        } finally {
+            setLoader(false);
         }
     }
 
@@ -97,7 +94,6 @@ export const ModalSkipAlert = ({ setModal, setGame }) => {
                     activeOpacity={0.7}
                     onPress={() => {
                         getSkip()
-                        setModal(null)
                     }}
                 >
                     <Text style={mainStyle.primaryButtonText}>Пропустить</Text>

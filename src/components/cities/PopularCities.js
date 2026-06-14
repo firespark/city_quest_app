@@ -7,6 +7,7 @@ import { PopularCity } from './PopularCity'
 
 import { Loader } from '../common/Loader'
 import { Error } from '../common/Error'
+import { ConnectionError } from '../common/ConnectionError'
 
 import { Http } from '../../scripts/http'
 import { MainContext } from '../../context/mainContext'
@@ -40,7 +41,7 @@ export const PopularCities = () => {
         }
         catch (e) {
             console.error('Error:', e)
-            setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
+            setError('connection_error')
         }
         finally {
             setLoader(false)
@@ -55,8 +56,15 @@ export const PopularCities = () => {
         return <Loader />
     }
 
+    if (error === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
     if (error) {
-        return <Error text={error} />
+        return (
+            <View style={mainStyle.mb20}>
+                <Text style={mainStyle.errorText}>{error}</Text>
+            </View>
+        )
     }
 
     return (

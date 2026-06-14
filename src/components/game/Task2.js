@@ -60,6 +60,8 @@ export const Task2 = ({ game, setGame, setModal }) => {
                     setAnswersState([])
                     setModal('answer2')
                 }
+            } else {
+                setError(output.error || 'Произошла ошибка при проверке ответа')
             }
 
         } catch (e) {

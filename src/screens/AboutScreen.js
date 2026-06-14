@@ -8,6 +8,7 @@ import { FormattedContent } from '../components/common/FormattedContent'
 import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
+import { ConnectionError } from '../components/common/ConnectionError'
 
 import { mainStyle } from '../styles/mainStyle'
 import { headerStyle } from '../styles/headerStyle'
@@ -76,15 +77,15 @@ export const AboutScreen = () => {
             >
                 <View style={mainStyle.scrollContent}>
                     {
-                        (error)
-                            ?
-                            <Error
-                                text={error}
-                            />
-                            :
+                        error === 'connection_error' ? (
+                            <ConnectionError onRetry={fetchData} />
+                        ) : error ? (
+                            <Error text={error} />
+                        ) : (
                             <View>
                                 <FormattedContent text={data.content} />
                             </View>
+                        )
                     }
                 </View>
             </ScrollView>

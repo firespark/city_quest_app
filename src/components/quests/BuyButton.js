@@ -29,20 +29,21 @@ export const BuyButton = ({ questId, onSuccess }) => {
                 },
                 token
             )
-
             if (output.success === 1) {
                 setIsSuccess(true)
-
                 setTimeout(async () => {
                     setShowGoogleModal(false)
                     questScreenCleanup()
                     if (onSuccess) await onSuccess()
                 }, 1500)
             } else {
+                // Добавили оповещение
+                alert('Проверьте подключение к интернету и попробуйте снова');
                 setShowGoogleModal(false)
             }
         } catch (e) {
             console.error('Error:', e)
+            alert('Проверьте подключение к интернету и попробуйте снова');
             setShowGoogleModal(false)
         } finally {
             setLoading(false)

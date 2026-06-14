@@ -20,7 +20,7 @@ import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
 import { ResetModal } from '../components/quests/ResetModal'
-
+import { ConnectionError } from '../components/common/ConnectionError'
 import { MainContext } from '../context/mainContext'
 import { Http } from '../scripts/http'
 
@@ -55,6 +55,9 @@ export const QuestScreen = () => {
     }, [questId])
 
     if (loader) return <Loader />
+    if (loadError === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
     if (loadError) return <Error text={loadError} />
 
     let progress = "Начать приключение";

@@ -10,6 +10,7 @@ import { HeaderTitle } from '../components/common/HeaderTitle'
 import { Menu } from '../components/common/Menu'
 //import { ContentTitle } from '../components/common/ContentTitle'
 //import { ContentText } from '../components/common/ContentText'
+import { ConnectionError } from '../components/common/ConnectionError'
 import { HowPlayBlockBlue } from '../components/howPlay/HowPlayBlockBlue'
 import { HowPlayBlock } from '../components/howPlay/HowPlayBlock'
 import { Footer } from '../components/common/Footer'
@@ -76,6 +77,9 @@ export const HowPlayScreen = () => {
         return <Loader />
     }
 
+    if (loadError === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
     if (loadError) {
         return <Error text={loadError} />
     }

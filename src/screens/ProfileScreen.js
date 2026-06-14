@@ -35,12 +35,10 @@ export const ProfileScreen = () => {
             setLoader(false)
             return
         }
-
         setLoadError(null)
         setLoader(true)
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/users/get`, token)
-
             if (output.success == 1) {
                 setUser(prev => ({
                     ...output.data,
@@ -48,10 +46,15 @@ export const ProfileScreen = () => {
                         ? output.data.name
                         : prev.name
                 }))
+            } else if (output.error === 'connection_error') {
+                // Включаем ошибку на экране ТОЛЬКО если реально нет интернета
+                setLoadError('connection_error')
             }
+            // Если успех 0 и это обычная ошибка авторизации сервера — ничего не делаем,
+            // страница загрузится штатно, и гость увидит кнопку "Войти"
         } catch (e) {
             console.error('Error:', e)
-            console.log('Profile load error')
+            setLoadError('connection_error')
         } finally {
             setLoader(false)
         }
@@ -62,6 +65,7 @@ export const ProfileScreen = () => {
     }, [token])
 
     if (loader) return <Loader />
+    if (loadError === 'connection_error') return <ConnectionError onRetry={fetchData} />
     if (loadError) return <Error text={loadError} />
 
     return (

@@ -7,7 +7,7 @@ import { gameStyle } from '../../../styles/gameStyle'
 import { Modes } from '../modes/Modes'
 import { Loader } from '../../common/Loader'
 import { Error } from '../../common/Error'
-
+import { ConnectionError } from '../../common/ConnectionError'
 import { MainContext } from '../../../context/mainContext'
 import { Http } from '../../../scripts/http'
 
@@ -73,7 +73,9 @@ export const ModeTemplate = ({ setGame }) => {
     if (loader) {
         return <Loader />
     }
-
+    if (error === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
     return (
         <View style={gameStyle.modeTemplateContainer}>
             <View style={[mainStyle.center]}>

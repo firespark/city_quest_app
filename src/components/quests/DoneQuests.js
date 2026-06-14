@@ -8,6 +8,7 @@ import { mainStyle } from '../../styles/mainStyle'
 import { OpenQuest } from './OpenQuest'
 import { Loader } from '../common/Loader'
 import { Error } from '../common/Error'
+import { ConnectionError } from '../common/ConnectionError'
 
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
@@ -38,7 +39,7 @@ export const DoneQuests = () => {
             }
         } catch (e) {
             console.error('Error:', e)
-            setError('Не удалось загрузить пройденные туры');
+            setError('connection_error');
         } finally {
             setLoader(false)
         }
@@ -49,8 +50,11 @@ export const DoneQuests = () => {
     }, [])
 
     if (loader) return <Loader />
+    if (error === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
+    
     if (error) return <Error text={error} />
-
     return (
         <View>
             <Text style={questsStyle.blockTitle}>Пройденные туры</Text>

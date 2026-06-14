@@ -3,6 +3,7 @@ import { View, Text } from 'react-native'
 
 import { questsStyle } from '../../styles/questsStyle'
 import { mainStyle } from '../../styles/mainStyle'
+import { ConnectionError } from '../common/ConnectionError'
 
 import { PurchasedQuest } from './PurchasedQuest';
 import { Loader } from '../common/Loader'
@@ -28,7 +29,7 @@ export const PurchasedQuests = () => {
             }
         } catch (e) {
             console.error('Error:', e)
-            setError('Возникли ошибки при загрузке купленных туров')
+            setError('connection_error')
         } finally {
             setLoader(false)
         }
@@ -39,7 +40,9 @@ export const PurchasedQuests = () => {
     }, [])
 
     if (loader) return <Loader />
-
+    if (error === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
     return (
         <View>
             <Text style={questsStyle.blockTitle}>Купленные туры</Text>

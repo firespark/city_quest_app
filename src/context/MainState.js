@@ -134,6 +134,7 @@ export const MainState = ({ children }) => {
                     questScreenCleanup,
                     answersState,
                     setAnswersState,
+                    getCountries
                 }}
             >
                 {children}

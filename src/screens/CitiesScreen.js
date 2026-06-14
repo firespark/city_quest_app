@@ -10,6 +10,7 @@ import { Menu } from '../components/common/Menu'
 
 //import { Search } from '../components/common/Search'
 import { Cities } from '../components/cities/Cities'
+import { ConnectionError } from '../components/common/ConnectionError'
 
 import { Footer } from '../components/common/Footer'
 
@@ -76,17 +77,16 @@ export const CitiesScreen = () => {
                 keyboardDismissMode="interactive"
             >
                 {
-                    (error)
-                        ?
+                    error === 'connection_error' ? (
+                        <ConnectionError onRetry={fetchData} />
+                    ) : error ? (
                         <Error text={error} />
-                        :
+                    ) : (
                         <View style={mainStyle.container}>
                             {/* <Search /> */}
-
-                            <Cities
-                                cities={data}
-                            />
+                            <Cities cities={data} />
                         </View>
+                    )
                 }
             </ScrollView>
             <Footer />

@@ -8,6 +8,7 @@ import { ModalTemplate } from '../components/game/template/ModalTemplate'
 
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
+import { ConnectionError } from '../components/common/ConnectionError'
 
 import { MainContext } from '../context/mainContext'
 import { Http } from '../scripts/http'
@@ -107,6 +108,9 @@ export const GameScreen = () => {
         return <Loader />
     }
 
+    if (error === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
     if (error) {
         return <Error text={error} />
     }

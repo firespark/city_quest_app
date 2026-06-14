@@ -25,22 +25,23 @@ export const ModalHintAlert = ({ setModal, setGame }) => {
 
             if (output.success == 1) {
                 setGame(output.data)
-            }
-            else {
-                if (output.error) {
-                    setError(output.error)
+                setModal(null); // <-- Перенесли сюда
+                
+                if (scrollViewRef) { // <-- И скролл перенесли сюда
+                    scrollViewRef.current?.scrollToEnd({ animated: true });
                 }
-                else {
-                    setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-                }
+            } else {
+                setError(
+                    output.error === 'connection_error' 
+                    ? 'Отсутствует подключение к интернету' 
+                    : (output.error || 'Произошла ошибка')
+                );
             }
-        }
-        catch (e) {
-            console.error('Error:', e)
-            setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
-        }
-        finally {
-            setLoader(false)
+        } catch (e) {
+            console.log('Error:', e.message);
+            setError('Отсутствует подключение к интернету');
+        } finally {
+            setLoader(false);
         }
     }
 
@@ -60,7 +61,6 @@ export const ModalHintAlert = ({ setModal, setGame }) => {
                     activeOpacity={0.7}
                     onPress={() => {
                         getHint()
-                        setModal(null)
 
                         if (scrollViewRef)
                             scrollViewRef.current?.scrollToEnd({ animated: true })

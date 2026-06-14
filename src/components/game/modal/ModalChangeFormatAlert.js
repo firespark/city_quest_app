@@ -32,13 +32,17 @@ export const ModalChangeFormatAlert = ({ game, setModal, setGame }) => {
                 setGame(output.data);
                 setModal(null);
             } else {
-                setError(output.error || 'Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
+                setError(
+                    output.error === 'connection_error' 
+                    ? 'Отсутствует подключение к интернету' 
+                    : (output.error || 'Произошла ошибка')
+                );
             }
         } catch (e) {
-            console.error('Error:', e)
-            setError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
+            console.log('Error:', e.message);
+            setError('Отсутствует подключение к интернету');
         } finally {
-            setLoader(false)
+            setLoader(false);
         }
     }
 

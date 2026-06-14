@@ -12,14 +12,17 @@ export const ProfileNotes = ({ user, setUser }) => {
     const saveNotes = async (newValue) => {
         const postdata = { notes: newValue }
         setLoader(true)
-
         try {
             const output = await Http.post(`${process.env.EXPO_PUBLIC_API_URL}/users/saveNotes`, postdata, token)
             if (output.success == 1) {
                 setUser({ ...user, 'notes': newValue })
+            } else {
+                // Оповещаем об ошибке
+                alert('Не удалось сохранить настройки. Проверьте подключение к интернету.');
             }
         } catch (e) {
             console.error('Error:', e)
+            alert('Не удалось сохранить настройки. Проверьте подключение к интернету.');
         } finally {
             setLoader(false)
         }

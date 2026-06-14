@@ -6,6 +6,7 @@ import { QuestFilters } from './QuestFilters'
 import { Loader } from '../common/Loader'
 
 import { mainStyle } from '../../styles/mainStyle'
+import { ConnectionError } from '../common/ConnectionError'
 
 import { Http } from '../../scripts/http'
 import { MainContext } from '../../context/mainContext'
@@ -62,6 +63,9 @@ export const Quests = ({ cityId, showFilters = false }) => {
         return <Loader />
     }
 
+    if (error === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
     if (error) {
         return (
             <View style={mainStyle.mb20}>

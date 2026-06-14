@@ -11,6 +11,7 @@ import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
 
 import { MainContext } from '../context/mainContext'
+import { ConnectionError } from '../components/common/ConnectionError'
 
 import { Http } from '../scripts/http'
 
@@ -73,6 +74,9 @@ export const ProfileSettingsScreen = () => {
         return <Loader />
     }
 
+    if (loadError === 'connection_error') {
+        return <ConnectionError onRetry={fetchData} />
+    }
     if (loadError) {
         return <Error text={loadError} />
     }
