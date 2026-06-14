@@ -119,7 +119,7 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
     return (
         <View style={[mainStyle.container, mainStyle.center]}>
             <View style={mainStyle.mb20}>
-                <Text style={mainStyle.titleMain}>Карта квеста</Text>
+                <Text style={mainStyle.titleMain}>Карта тура</Text>
             </View>
             {error && <View style={mainStyle.mb15}><Error text={error} /></View>}
 

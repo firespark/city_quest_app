@@ -15,6 +15,7 @@ import { ModalHintAlert } from '../modal/ModalHintAlert'
 import { ModalSkipAlert } from '../modal/ModalSkipAlert'
 import { ModalBackAlert } from '../modal/ModalBackAlert'
 import { ModalProgress } from '../modal/ModalProgress'
+import { ModalChangeFormatAlert } from '../modal/ModalChangeFormatAlert'
 
 export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
 
@@ -56,12 +57,20 @@ export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
         case 'full_task':
             content = <ModalFullTask task={game.show_full_task} />
             break
-            
+
         case 'hint':
             content = <ModalHintAlert game={game} setGame={setGame} setModal={setModal} />
             break
         case 'skip':
             content = <ModalSkipAlert setGame={setGame} setModal={setModal} />
+            break
+        case 'changeFormat':
+            content = 
+                <ModalChangeFormatAlert 
+                    game={game} 
+                    setGame={setGame} 
+                    setModal={setModal}
+                />
             break
         case 'back':
             content = <ModalBackAlert setModal={setModal} />

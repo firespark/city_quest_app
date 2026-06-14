@@ -52,7 +52,7 @@ export const BuyButton = ({ questId, onSuccess }) => {
     return (
         <View style={mainStyle.center}>
             <TouchableOpacity style={mainStyle.buttonBuy} onPress={startPurchase} disabled={loading}>
-                {loading ? <ActivityIndicator color="#fff" /> : <Text style={mainStyle.buttonText}>Купить квест</Text>}
+                {loading ? <ActivityIndicator color="#fff" /> : <Text style={mainStyle.buttonText}>Купить тур</Text>}
             </TouchableOpacity>
 
             <Modal visible={showGoogleModal} transparent={true} animationType="slide">

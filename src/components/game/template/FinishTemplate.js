@@ -30,7 +30,7 @@ export const FinishTemplate = ({ title, content, game, setModal }) => {
             />
 
             <View style={mainStyle.mt30}>
-                <Text style={[mainStyle.subtitle, mainStyle.textCenter, mainStyle.mb20]}>Еще квесты в г. {game.quest_city}</Text>
+                <Text style={[mainStyle.subtitle, mainStyle.textCenter, mainStyle.mb20]}>Еще туры в г. {game.quest_city}</Text>
                 <Quests cityId={game.quest_city_id} />
             </View>
         </View>

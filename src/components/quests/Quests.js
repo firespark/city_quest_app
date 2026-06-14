@@ -74,7 +74,7 @@ export const Quests = ({ cityId, showFilters = false }) => {
         return (
             <View style={mainStyle.wrapper}>
                 <Text style={[mainStyle.description, mainStyle.textCenter, mainStyle.mt20]}>
-                    В этом городе пока нет доступных квестов.
+                    В этом городе пока нет доступных квест-туров.
                 </Text>
             </View>
         )
@@ -101,7 +101,7 @@ export const Quests = ({ cityId, showFilters = false }) => {
                 ))
             ) : (
                 <Text style={[mainStyle.description, mainStyle.textCenter, mainStyle.mt20]}>
-                    В этой категории пока нет квестов.
+                    В этой категории пока нет квест-туров.
                 </Text>
             )}
 

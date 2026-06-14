@@ -80,7 +80,7 @@ export const ResetModal = ({ modalVisible, setModalVisible, onSuccess }) => {
 
                             <View style={mainStyle.mb25}>
                                 <Text style={[mainStyle.errorText, mainStyle.mb15]}>
-                                    Это действие нельзя отменить. Если вы действительно хотите сбросить прогресс и начать квест заново, введите слово <Text style={mainStyle.textBold}>Подтверждаю</Text> в поле ниже.
+                                    Это действие нельзя отменить. Если вы действительно хотите сбросить прогресс и начать квест-тур заново, введите слово <Text style={mainStyle.textBold}>Подтверждаю</Text> в поле ниже.
                                 </Text>
 
                                 <TextInput

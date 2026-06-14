@@ -38,7 +38,7 @@ export const DoneQuests = () => {
             }
         } catch (e) {
             console.error('Error:', e)
-            setError('Не удалось загрузить пройденные квесты');
+            setError('Не удалось загрузить пройденные туры');
         } finally {
             setLoader(false)
         }
@@ -53,7 +53,7 @@ export const DoneQuests = () => {
 
     return (
         <View>
-            <Text style={questsStyle.blockTitle}>Пройденные квесты</Text>
+            <Text style={questsStyle.blockTitle}>Пройденные туры</Text>
 
             {data && Object.keys(data).length > 0 ? (
                 Object.keys(data).map((countryName) => (
@@ -77,7 +77,7 @@ export const DoneQuests = () => {
                     </View>
                 ))
             ) : (
-                <Text style={questsStyle.emptyText}>Нет пройденных квестов</Text>
+                <Text style={questsStyle.emptyText}>Нет пройденных туров</Text>
             )}
         </View>
     )

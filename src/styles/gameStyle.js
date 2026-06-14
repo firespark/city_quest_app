@@ -354,6 +354,10 @@ export const gameStyle = StyleSheet.create({
         resizeMode: 'contain',
         marginRight: 6,
     },
+    formatIcon: {
+        textAlign: 'center',
+    },
+    
     gameIconWrapper: {
         width: 22,
         alignItems: 'center',
@@ -391,6 +395,10 @@ export const gameStyle = StyleSheet.create({
         borderWidth: 1,
         position: 'relative',
     },
+    formatPill: {
+        width: 56,
+        justifyContent: 'center',
+    },
     pillActive: {
         backgroundColor: '#F1F5F9',
         borderColor: '#17A2B8',
@@ -398,6 +406,10 @@ export const gameStyle = StyleSheet.create({
     pillActiveOrange: {
         backgroundColor: '#F1F5F9',
         borderColor: '#E67E22',
+    },
+    pillActiveGreen: {
+        backgroundColor: '#F1F5F9',
+        borderColor: '#027900',
     },
     pillDisabled: {
         backgroundColor: '#F1F5F9',

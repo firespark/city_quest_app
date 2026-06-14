@@ -28,7 +28,7 @@ export const PurchasedQuests = () => {
             }
         } catch (e) {
             console.error('Error:', e)
-            setError('Возникли ошибки при загрузке купленных квестов')
+            setError('Возникли ошибки при загрузке купленных туров')
         } finally {
             setLoader(false)
         }
@@ -42,7 +42,7 @@ export const PurchasedQuests = () => {
 
     return (
         <View>
-            <Text style={questsStyle.blockTitle}>Купленные квесты</Text>
+            <Text style={questsStyle.blockTitle}>Купленные туры</Text>
 
             {error && (
                 <View style={mainStyle.mb20}>
@@ -58,7 +58,7 @@ export const PurchasedQuests = () => {
                 ))}
 
                 {data.length === 0 && !error && (
-                    <Text style={questsStyle.emptyText}>Нет купленных квестов</Text>
+                    <Text style={questsStyle.emptyText}>Нет купленных туров</Text>
                 )}
             </View>
         </View>

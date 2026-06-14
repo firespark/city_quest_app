@@ -1,11 +1,14 @@
 import { View, ScrollView } from 'react-native'
 
 import { BackQuest } from '../BackQuest'
+import { ChangeGameFormat } from '../ChangeGameFormat'
 import { Skips } from '../Skips'
 import { Hints } from '../Hints'
 
 import { FinishTemplate } from './FinishTemplate'
-import { ModeTemplate } from './ModeTemplate'
+//import { ModeTemplate } from './ModeTemplate'
+import { TourTemplate } from './TourTemplate'
+import { GameFormatTemplate } from './GameFormatTemplate'
 import { PlayTemplate } from './PlayTemplate'
 
 import { mainStyle } from '../../../styles/mainStyle'
@@ -13,12 +16,21 @@ import { headerStyle } from '../../../styles/headerStyle'
 
 export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
 
-    let template = <PlayTemplate
-        game={game}
-        setGame={setGame}
-        setModal={setModal}
-        nextGame={nextGame}
-    />
+    let template = game.format_id === 2 ? (
+        <TourTemplate
+            game={game}
+            setGame={setGame}
+            setModal={setModal}
+            nextGame={nextGame}
+        />
+    ) : (
+        <PlayTemplate
+            game={game}
+            setGame={setGame}
+            setModal={setModal}
+            nextGame={nextGame}
+        />
+    )
 
     if (game.finish && game.step == game.step_total) {
         template = <FinishTemplate
@@ -29,6 +41,10 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
         />
     }
 
+    if (game.step == 0) {
+        template = <GameFormatTemplate setGame={setGame} />
+    }
+    
 
     /*if (game.step == 0) {
         template = <ModeTemplate
@@ -45,18 +61,29 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
                 />
 
                 <View style={headerStyle.headerActions}>
-                    <Skips
-                        skips={game.skips_number}
-                        showSkip={game.show_skip}
-                        setModal={setModal}
-                        setGame={setGame}
-                    />
-                    <Hints
-                        hints={game.hints_number}
-                        showHint={game.show_hint}
-                        setModal={setModal}
-                        setGame={setGame}
-                    />
+                    {game.step > 0 && (
+                        <ChangeGameFormat
+                            formatId={game.format_id}
+                            setModal={setModal}
+                        />
+                    )}
+
+                    {game.format_id == 1 && (
+                        <Skips
+                            skips={game.skips_number}
+                            showSkip={game.show_skip}
+                            setModal={setModal}
+                            setGame={setGame}
+                        />
+                    )}
+                    {game.format_id == 1 && (
+                        <Hints
+                            hints={game.hints_number}
+                            showHint={game.show_hint}
+                            setModal={setModal}
+                            setGame={setGame}
+                        />
+                    )}
                 </View>
             </View>
 

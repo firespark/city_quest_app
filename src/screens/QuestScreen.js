@@ -68,7 +68,7 @@ export const QuestScreen = () => {
         <View style={mainStyle.flex}>
             <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
                 <Back />
-                <HeaderTitle title="Квест-экскурсия" />
+                <HeaderTitle title="Квест-Туры" />
                 <Menu />
             </View>
 

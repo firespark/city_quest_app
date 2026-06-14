@@ -11,7 +11,7 @@ export const RegisterButton = () => {
     return (
         <View style={mainStyle.center}>
             <Text style={[mainStyle.textCenter, mainStyle.mb20, mainStyle.textRed]}>
-                Чтобы приобрести этот квест, необходимо авторизоваться.
+                Чтобы приобрести этот квест-тур, необходимо авторизоваться.
                 Иначе мы не сможем сохранить вашу покупку.
             </Text>
             <TouchableOpacity

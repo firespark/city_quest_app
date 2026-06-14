@@ -7,7 +7,7 @@ export const Logo = () => {
     return (
         <View style={mainStyle.panelRowLeft}>
             <Image source={require('../../../assets/img/logo-fun-black.png')} style={headerStyle.logoImage} />
-            <Text style={headerStyle.logoTitle}>Квест-Туры</Text>
+            <Text style={headerStyle.logoTitle}>Гагара Тур</Text>
         </View>
     )
 }

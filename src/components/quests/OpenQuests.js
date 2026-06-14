@@ -50,7 +50,7 @@ export const OpenQuests = () => {
 
     return (
         <View>
-            <Text style={questsStyle.blockTitle}>Открытые квесты</Text>
+            <Text style={questsStyle.blockTitle}>Открытые туры</Text>
 
             {data && Object.keys(data).length > 0 ? (
                 Object.keys(data).map((countryName) => (
@@ -74,7 +74,7 @@ export const OpenQuests = () => {
                     </View>
                 ))
             ) : (
-                <Text style={questsStyle.emptyText}>Нет открытых квестов</Text>
+                <Text style={questsStyle.emptyText}>Нет открытых туров</Text>
             )}
 
             {error && <Error text={error} />}

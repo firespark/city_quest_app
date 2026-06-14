@@ -19,7 +19,7 @@ export const QuestsScreen = () => {
 		<View style={mainStyle.flex}>
 			<View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
 				<Back />
-				<HeaderTitle title="Квесты" />
+				<HeaderTitle title="Квест-Туры" />
 				<Menu />
 			</View>
 			<ScrollView
@@ -32,7 +32,7 @@ export const QuestsScreen = () => {
 						{cityData.title}
 					</Text>
 					{/*<Text style={mainStyle.welcomeSubtitle}>
-						Доступные квест-экскурсии
+						Доступные квест-Туры
 					</Text>*/}
 				</View>
 
