@@ -37,7 +37,6 @@ export const BuyButton = ({ questId, onSuccess }) => {
                     if (onSuccess) await onSuccess()
                 }, 1500)
             } else {
-                // Добавили оповещение
                 alert('Проверьте подключение к интернету и попробуйте снова');
                 setShowGoogleModal(false)
             }

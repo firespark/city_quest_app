@@ -17,7 +17,6 @@ export const ProfileNotes = ({ user, setUser }) => {
             if (output.success == 1) {
                 setUser({ ...user, 'notes': newValue })
             } else {
-                // Оповещаем об ошибке
                 alert('Не удалось сохранить настройки. Проверьте подключение к интернету.');
             }
         } catch (e) {

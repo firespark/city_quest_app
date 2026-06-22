@@ -8,10 +8,10 @@ import { CountrySelector } from '../components/countries/CountrySelector'
 import { PopularCities } from '../components/cities/PopularCities'
 import { Footer } from '../components/common/Footer'
 import { MainContext } from '../context/mainContext'
-import { ConnectionError } from '../components/common/ConnectionError' // <-- Добавили
+import { ConnectionError } from '../components/common/ConnectionError'
 
 export const MainScreen = () => {
-    // Достаем getCountries и countries из контекста
+
     const { countryId, countries, getCountries } = useContext(MainContext) 
     
     return (
@@ -41,7 +41,7 @@ export const MainScreen = () => {
                         <PopularCities />
                     </>
                 ) : (
-                    /* Если стран нет вообще (ошибка сети), выводим кнопку */
+
                     countries.length === 0 ? (
                         <ConnectionError onRetry={getCountries} />
                     ) : null

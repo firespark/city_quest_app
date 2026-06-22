@@ -47,11 +47,10 @@ export const ProfileScreen = () => {
                         : prev.name
                 }))
             } else if (output.error === 'connection_error') {
-                // Включаем ошибку на экране ТОЛЬКО если реально нет интернета
+
                 setLoadError('connection_error')
             }
-            // Если успех 0 и это обычная ошибка авторизации сервера — ничего не делаем,
-            // страница загрузится штатно, и гость увидит кнопку "Войти"
+
         } catch (e) {
             console.error('Error:', e)
             setLoadError('connection_error')

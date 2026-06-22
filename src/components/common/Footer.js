@@ -11,7 +11,7 @@ export const Footer = ({ active }) => {
     const { changeScreen } = useContext(MainContext)
 
     const imageHome = (active == 'home') ? require('../../../assets/img/home-blue.png') : require('../../../assets/img/home.png')
-    // const imageSearch = (active == 'search') ? require('../../../assets/img/loupe-blue.png') : require('../../../assets/img/loupe.png')
+
     const imageQuestion = (active == 'question') ? require('../../../assets/img/question-blue.png') : require('../../../assets/img/question.png')
     const imageProfile = (active == 'profile') ? require('../../../assets/img/user-blue.png') : require('../../../assets/img/user.png')
 

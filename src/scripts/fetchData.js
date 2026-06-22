@@ -6,13 +6,13 @@ export function fetchData(url, token = '', method = 'GET', postData = {}) {
     const [data, setData] = useState([]);
     const [output, setOutput] = useState(null);
 
-    const { /*showLoader,*/ showError } = useContext(MainContext)
+    const { showError } = useContext(MainContext)
 
 
     const fetchQuests = async () => {
 
         showError(null)
-        //showLoader(true)
+
         try {
             const data = (method == 'GET') ? await get(url, token) : await post(url, postData, token)
             if (data.success == 1) {
@@ -20,7 +20,7 @@ export function fetchData(url, token = '', method = 'GET', postData = {}) {
             }
             else {
                 setOutput(data.error)
-                //setError(data.error)
+
             }
 
         }
@@ -28,9 +28,7 @@ export function fetchData(url, token = '', method = 'GET', postData = {}) {
             console.error('Error:', e)
             showError('Возникли ошибки. Пожалуйста, сообщите разработчикам об этом')
         }
-        finally {
-            //showLoader(false)
-        }
+        
 
     }
 

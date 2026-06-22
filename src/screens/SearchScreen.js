@@ -61,20 +61,6 @@ export const SearchScreen = () => {
         }
     }
 
-    // if (loadError) {
-    //     return (
-    //         <View style={mainStyle.flex}>
-    //             <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
-    //                 <Back />
-    //                 <HeaderTitle title="Ошибка" />
-    //                 <Menu />
-    //             </View>
-    //             <Error text={loadError} />
-    //             <Footer active="search" />
-    //         </View>
-    //     )
-    // }
-
     return (
         <View style={mainStyle.flex}>
             <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>

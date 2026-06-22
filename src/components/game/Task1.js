@@ -34,17 +34,10 @@ export const Task1 = ({ game, setGame, setModal }) => {
                     value={answersState[i] || ''}
                     onChangeText={(value) => answersHandler(i, value)}
                     autoCapitalize="none"
-                    // --- БЛОКИРОВКА АВТОЗАПОЛНЕНИЯ ---
-        
-                    // Для Android (включая Samsung)
                     importantForAutofill="no"
                     autoComplete="off"
-                    
-                    // Для iOS
                     textContentType="none"
                     dataDetectorTypes="none"
-                    
-                    // Отключаем словари и проверку (они часто триггерят подсказки)
                     autoCorrect={false}
                     spellCheck={false}
                 />

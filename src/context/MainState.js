@@ -40,7 +40,6 @@ export const MainState = ({ children }) => {
 
     const getCountries = async () => {
         try {
-            //await AsyncStorage.clear();
 
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/countries/all`)
 

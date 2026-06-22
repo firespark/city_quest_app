@@ -25,9 +25,9 @@ export const ModalHintAlert = ({ setModal, setGame }) => {
 
             if (output.success == 1) {
                 setGame(output.data)
-                setModal(null); // <-- Перенесли сюда
+                setModal(null);
                 
-                if (scrollViewRef) { // <-- И скролл перенесли сюда
+                if (scrollViewRef) {
                     scrollViewRef.current?.scrollToEnd({ animated: true });
                 }
             } else {
