@@ -1,26 +1,15 @@
-import { useContext, useState } from 'react'
-import { View, Text, TouchableOpacity } from 'react-native'
-import { MainContext } from '../../context/mainContext'
-import { QUESTS_SCREEN, QUEST_SCREEN } from '../../context/types'
+import { View, Text } from 'react-native'
 
 import { mainStyle } from '../../styles/mainStyle'
 import { gameStyle } from '../../styles/gameStyle'
 
 import { Sight } from './Sight'
 import { TaskSign } from './TaskSign'
-
 import { ResetButton } from '../quests/ResetButton'
-import { ResetModal } from '../quests/ResetModal'
 
-import { FormattedContent } from '../common/FormattedContent'
-
-export const Finish = ({ text, game, setModal }) => {
-    const { changeScreen, setCityData } = useContext(MainContext)
-    const [resetModalVisible, setResetModalVisible] = useState(false)
-
+export const FinishQuest = ({ text, game, setModal, setResetModalVisible }) => {
     return (
         <View style={mainStyle.card}>
-
             <View style={mainStyle.container}>
                 <Text style={[mainStyle.subtitle, mainStyle.textCenter]}>{text}</Text>
             </View>
@@ -45,31 +34,9 @@ export const Finish = ({ text, game, setModal }) => {
 
             <View style={[mainStyle.divider, mainStyle.mt20]} />
 
-
-
             <View style={mainStyle.mb30}>
                 <ResetButton setModalVisible={setResetModalVisible} />
             </View>
-
-            <ResetModal
-                modalVisible={resetModalVisible}
-                setModalVisible={setResetModalVisible}
-                onSuccess={() => {
-                    changeScreen(QUEST_SCREEN);
-                }}
-            />
-
-            {/*<View style={[mainStyle.center, mainStyle.mb15]}>
-                <TouchableOpacity
-                    activeOpacity={0.7}
-                    onPress={() => {
-                        changeScreen(QUESTS_SCREEN)
-                        setCityData({ id: game.quest_city_id, title: game.quest_city })
-                    }}
-                >
-                    <Text style={mainStyle.link}>Еще квесты в г. {game.quest_city}</Text>
-                </TouchableOpacity>
-            </View>*/}
         </View>
     )
 }

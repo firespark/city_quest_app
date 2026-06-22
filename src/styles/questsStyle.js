@@ -95,7 +95,7 @@ export const questsStyle = StyleSheet.create({
     },
     questCardImage: {
         width: '100%',
-        height: 280,
+        aspectRatio: 1.5,
         backgroundColor: '#F1F5F9',
     },
     questImageWrapper: {

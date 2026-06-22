@@ -52,10 +52,10 @@ export const ModalChangeFormatAlert = ({ game, setModal, setGame }) => {
         <View style={[mainStyle.container, mainStyle.center]}>
              <Text style={mainStyle.titleMain}>Переключиться на формат {newFormatName}?</Text>
             <Text style={[mainStyle.formSubtitle, mainStyle.mb20]}>
-                Вы уверены, что хотите сменить формат? 
-                {newFormatId === 2 
-                    ? ' Текущие загадки будут пропущены.' 
-                    : ' Вам нужно будет разгадать загадку.'}
+                Вы уверены, что хотите сменить формат? Текущий прогресс будет сброшен.
+                {/*newFormatId === 2 
+                    ? ' Текущий прогресс будет сброшен.' 
+                    : ' Вам нужно будет разгадать загадку.'*/}
             </Text>
 
             {error && <View style={mainStyle.mb20}><Error text={error} /></View>}

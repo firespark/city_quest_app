@@ -38,6 +38,7 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
             content={game.finish_content}
             game={game}
             setModal={setModal}
+            formatId={game.format_id}
         />
     }
 

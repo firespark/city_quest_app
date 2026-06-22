@@ -25,7 +25,7 @@ export const citiesStyle = StyleSheet.create({
 
     cityCardImage: {
         width: '100%',
-        aspectRatio: 1.4,
+        aspectRatio: 1.5,
         borderTopLeftRadius: 24,
         borderTopRightRadius: 24,
     },
