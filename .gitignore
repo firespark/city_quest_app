@@ -37,4 +37,7 @@ yarn-error.*
 .env
 .gitignore
 
+repomix-output.txt
+pack.bat
+
 android/
