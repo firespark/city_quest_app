@@ -13,6 +13,14 @@
     },
     "production": {
       "autoIncrement": true
+    },
+    "production-apk": {
+      "extends": "production",
+      "distribution": "internal", 
+      "credentialsSource": "remote", 
+      "android": {
+        "buildType": "apk"
+      }
     }
   },
   "submit": {

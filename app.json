@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "quest",
+    "name": "Квест-Экскурсии",
     "slug": "quest",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -21,6 +21,11 @@
         "backgroundColor": "#ffffff"
       },
       "package": "com.gagara.quest",
+      "blockedPermissions": [
+        "android.permission.SYSTEM_ALERT_WINDOW",
+        "android.permission.READ_EXTERNAL_STORAGE",
+        "android.permission.WRITE_EXTERNAL_STORAGE"
+      ],
       "plugins": [
         [
           "@react-native-google-signin/google-signin",
@@ -47,7 +52,14 @@
           "android": {
             "kotlinVersion": "1.9.25",
             "compileSdkVersion": 34
-                    }
+          }
+        }
+      ],
+      [
+        "./RuStore.js",
+        {
+          "scheme": "gagaraquest",
+          "appId": "2063731494"
         }
       ]
     ]
