@@ -24,8 +24,16 @@ export const TaskTemplate = ({ tasks, game, setGame, setModal, taskNumber, isMod
         <View style={[mainStyle.mt10, isGrid && gameStyle.taskGridWrapper]}>
             {tasks.map((task, index) => {
 
-                const taskText = Array.isArray(task.text) ? task.text.join('\n').trim() : (task.text || '').trim();
-                
+                const cleanTaskText = (text) =>
+                    String(text || '')
+                        .replace(/<br\s*\/?>/gi, '\n')
+                        .replace(/<[^>]*>/g, '')
+                        .trim();
+
+                const taskText = Array.isArray(task.text)
+                    ? task.text.map(cleanTaskText).join('\n')
+                    : cleanTaskText(task.text);
+                    
                 const isTextOnlySingle = !isGrid && !task.image && !!taskText;
 
                 const CardWrapper = isTextOnlySingle ? View : TouchableOpacity;
