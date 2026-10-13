@@ -10,7 +10,6 @@ export const Skips = ({ skips, showSkip, setModal, setGame }) => {
     const { token, questId } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
 
-    // Твой Product ID из консоли RuStore
     const productId = 'skips_pack_3'
 
     const buySkips = async () => {

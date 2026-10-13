@@ -8,10 +8,9 @@ const {
 } = require('expo/config-plugins');
 
 const withRuStore = (config, { scheme, appId }) => {
-    // 1. Добавляем репозиторий VK в корневой build.gradle
+
     config = withProjectBuildGradle(config, async config => {
         if (!config.modResults.contents.includes('maven-rustore-exposed')) {
-            // Ищем закрывающую скобку блока allprojects -> repositories и вставляем перед ней
             config.modResults.contents = config.modResults.contents.replace(
                 /(allprojects\s*\{\s*repositories\s*\{[\s\S]*?)(\s*\})/,
                 `$1\n        maven { url = uri("https://artifactory-external.vkpartner.ru/artifactory/maven-rustore-exposed/") }$2`
@@ -20,7 +19,6 @@ const withRuStore = (config, { scheme, appId }) => {
         return config;
     });
 
-    // 2. Добавляем зависимость Pay SDK в app/build.gradle + фикс несовместимости Kotlin
     config = withAppBuildGradle(config, async config => {
         let contents = config.modResults.contents;
 
@@ -31,7 +29,6 @@ const withRuStore = (config, { scheme, appId }) => {
             );
         }
 
-        // Подавляем панику компилятора из-за того, что RuStore собран на Kotlin 2.1+
         if (!contents.includes('-Xskip-metadata-version-check')) {
             contents += `\n\ntasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {\n    kotlinOptions {\n        freeCompilerArgs += ["-Xskip-metadata-version-check"]\n    }\n}\n`;
         }
@@ -40,7 +37,6 @@ const withRuStore = (config, { scheme, appId }) => {
         return config;
     });
 
-    // 3. Добавляем ID в strings.xml
     config = withStringsXml(config, async config => {
         const strings = config.modResults.resources.string || [];
         if (!strings.some(s => s['$'].name === 'CONSOLE_APPLICATION_ID')) {
@@ -50,7 +46,6 @@ const withRuStore = (config, { scheme, appId }) => {
         return config;
     });
 
-    // 4. AndroidManifest: схемы и настройка MainActivity для deeplink
     config = withAndroidManifest(config, async config => {
         const manifest = config.modResults.manifest;
         const app = manifest.application[0];
@@ -63,10 +58,9 @@ const withRuStore = (config, { scheme, appId }) => {
 
         app.activity = app.activity || [];
 
-        // Настраиваем MainActivity: singleTop + intent-filter для deeplink
         const mainActivity = app.activity.find(a => a['$']['android:name'] === '.MainActivity');
         if (mainActivity) {
-            mainActivity['$']['android:launchMode'] = 'singleTop'; // Обязательно для возврата из банка[cite: 6]
+            mainActivity['$']['android:launchMode'] = 'singleTop';
 
             mainActivity['intent-filter'] = mainActivity['intent-filter'] || [];
             const hasScheme = mainActivity['intent-filter'].some(filter =>
@@ -88,11 +82,9 @@ const withRuStore = (config, { scheme, appId }) => {
         return config;
     });
 
-    // 5. MainApplication.kt: регистрация пакета (Kotlin версия)
     config = withMainApplication(config, async config => {
         let contents = config.modResults.contents;
         if (!contents.includes('RuStoreReactPayPackage')) {
-            // Вставляем импорт сразу после объявления package
             contents = contents.replace(
                 /(package .*?\n)/,
                 `$1\nimport ru.rustore.react.pay.RuStoreReactPayPackage\n`
@@ -107,11 +99,9 @@ const withRuStore = (config, { scheme, appId }) => {
         return config;
     });
 
-    // 6. MainActivity.kt: перехват Intent (Kotlin версия)
     config = withMainActivity(config, async config => {
         let contents = config.modResults.contents;
         if (!contents.includes('RuStoreReactPayModule')) {
-            // Вставляем импорты сразу после объявления package
             contents = contents.replace(
                 /(package .*?\n)/,
                 `$1\nimport ru.rustore.react.pay.RuStoreReactPayModule\nimport android.content.Intent\n`

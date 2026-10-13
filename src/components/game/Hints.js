@@ -10,7 +10,6 @@ export const Hints = ({ hints, showHint, setModal, setGame }) => {
     const { token, questId } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
 
-    // Твой Product ID из консоли RuStore
     const productId = 'hints_pack_3'
 
     const buyHints = async () => {
