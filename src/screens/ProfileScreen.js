@@ -1,10 +1,8 @@
 import { useState, useContext, useEffect } from 'react'
 import { View, ScrollView, Text } from 'react-native'
-
 import { mainStyle } from '../styles/mainStyle'
 import { headerStyle } from '../styles/headerStyle'
 import { profileStyle } from '../styles/profileStyle'
-
 import { Back } from '../components/common/Back'
 import { Menu } from '../components/common/Menu'
 import { Settings } from '../components/profile/Settings'
@@ -15,21 +13,20 @@ import { PurchasedQuests } from '../components/quests/PurchasedQuests'
 import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
-
 import { MainContext } from '../context/mainContext'
 import { Http } from '../scripts/http'
-
 export const ProfileScreen = () => {
     const [loader, setLoader] = useState(true)
     const [loadError, setLoadError] = useState(null)
     const { token } = useContext(MainContext)
-
     const [user, setUser] = useState({
         'name': 'Путешественник',
         'email': null,
+        'vk_id': null,
+        'yandex_id': null,
         'notes': 0,
     })
-
+    const isRegistered = !!(user.email || user.vk_id || user.yandex_id)
     const fetchData = async () => {
         if (!token) {
             setLoader(false)
@@ -47,10 +44,8 @@ export const ProfileScreen = () => {
                         : prev.name
                 }))
             } else if (output.error === 'connection_error') {
-
                 setLoadError('connection_error')
             }
-
         } catch (e) {
             console.error('Error:', e)
             setLoadError('connection_error')
@@ -58,50 +53,40 @@ export const ProfileScreen = () => {
             setLoader(false)
         }
     }
-
     useEffect(() => {
         fetchData()
     }, [token])
-
     if (loader) return <Loader />
     if (loadError === 'connection_error') return <ConnectionError onRetry={fetchData} />
     if (loadError) return <Error text={loadError} />
-
     return (
         <View style={mainStyle.pageBackground}>
             <View style={headerStyle.panelHeader}>
                 <Back />
                 <Menu />
             </View>
-
             <ScrollView
                 style={mainStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
             >
                 <View style={mainStyle.container}>
-
                     <View style={[mainStyle.card, profileStyle.profileHeaderCard]}>
                         <View style={profileStyle.profileNameRow}>
                             <Text style={profileStyle.profileUserName} numberOfLines={1}>
                                 {user.name}
                             </Text>
-                            {user.email && <Settings />}
+                            {isRegistered && <Settings />}
                         </View>
-                        
                     </View>
-
-                    {!user.email && <ProfileRegister />}
-
+                    {!isRegistered && <ProfileRegister />}
                     <View style={mainStyle.card}>
                         <OpenQuests />
                     </View>
-
                     <View style={mainStyle.card}>
                         <DoneQuests />
                     </View>
-
-                    {user.email && (
+                    {isRegistered && (
                         <View style={mainStyle.card}>
                             <PurchasedQuests />
                         </View>
@@ -112,3 +97,4 @@ export const ProfileScreen = () => {
         </View>
     )
 }
+

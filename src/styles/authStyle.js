@@ -19,6 +19,51 @@ export const authStyle = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 0,
     },
+    socialContainer: {
+        marginTop: 30,
+        width: '100%',
+        gap: 12,
+    },
+    socialDividerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 13,
+    },
+    socialDividerText: {
+        marginHorizontal: 15,
+        color: '#BDC3C7',
+        fontWeight: '600',
+    },
+    socialLine: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#F1F5F9',
+    },
+    socialButton: {
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        borderRadius: 28,
+    },
+    vkButton: {
+        backgroundColor: '#0077FF',
+    },
+    vkButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '700',
+    },
+    yandexButton: {
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderColor: '#E6E8EB',
+    },
+    yandexButtonText: {
+        color: '#111111',
+        fontSize: 16,
+        fontWeight: '700',
+    },
     googleContainer: {
         marginTop: 30,
         width: '100%'

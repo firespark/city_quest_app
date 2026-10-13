@@ -14,6 +14,9 @@ Done with React Native.
 
 Android version only.
 
+VK/Yandex login setup, environment values, backend migration and account linking:
+[Настройка социального входа](docs/social-auth-setup.md).
+
 ## Changelog
 
 ### 1.0

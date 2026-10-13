@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, Text } from 'react-native'
 
 import { mainStyle } from '../styles/mainStyle'
 import { headerStyle } from '../styles/headerStyle'
@@ -14,6 +14,8 @@ import { Code } from '../components/auth/Code'
 import { Password } from '../components/auth/Password'
 import { CreateProfile } from '../components/auth/CreateProfile'
 import { NewPassword } from '../components/auth/NewPassword'
+import { AuthVK } from '../components/auth/AuthVK'
+import { AuthYandex } from '../components/auth/AuthYandex'
 
 import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
@@ -50,6 +52,27 @@ export const AuthScreen = () => {
             content = (
                 <View>
                     <Email setEmail={setEmail} setTemplate={setTemplate} setError={setError} setLoader={setLoader} />
+                    <View style={authStyle.socialContainer}>
+                        <View style={authStyle.socialDividerRow}>
+                            <View style={authStyle.socialLine} />
+                            <Text style={authStyle.socialDividerText}>или</Text>
+                            <View style={authStyle.socialLine} />
+                        </View>
+                        <AuthVK
+                            token={token}
+                            setLoader={setLoader}
+                            setError={setError}
+                            changeScreen={changeScreen}
+                            screen={PROFILE_SCREEN}
+                        />
+                        <AuthYandex
+                            token={token}
+                            setLoader={setLoader}
+                            setError={setError}
+                            changeScreen={changeScreen}
+                            screen={PROFILE_SCREEN}
+                        />
+                    </View>
                 </View>
             )
             break
