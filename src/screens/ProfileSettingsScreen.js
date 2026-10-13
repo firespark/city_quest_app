@@ -83,7 +83,7 @@ export const ProfileSettingsScreen = () => {
 
 
     return (
-        <View style={mainStyle.flex}>
+        <View style={mainStyle.pageBackground}>
             {
                 (template) ?
                     <EditTemplate

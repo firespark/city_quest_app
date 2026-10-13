@@ -65,14 +65,14 @@ export const CitiesScreen = () => {
     }
 
     return (
-        <View style={mainStyle.flex}>
+        <View style={mainStyle.pageBackground}>
             <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
                 <Back />
                 <HeaderTitle title="Города" />
                 <Menu />
             </View>
             <ScrollView
-                style={mainStyle.flex}
+                style={mainStyle.pageBackground}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
             >

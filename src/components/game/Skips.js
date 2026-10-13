@@ -4,53 +4,50 @@ import { Ionicons } from '@expo/vector-icons'
 import { gameStyle } from '../../styles/gameStyle'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
-import { RuStoreReactPay } from '../../libs/RuStoreReactPay'
+import { useGoogleBilling, ErrorCode } from '../../context/GoogleBillingContext'
 
 export const Skips = ({ skips, showSkip, setModal, setGame }) => {
     const { token, questId } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
+    const { buyProduct, finishConsumable } = useGoogleBilling()
 
-    // Твой Product ID из консоли RuStore
     const productId = 'skips_pack_3'
 
     const buySkips = async () => {
-        if (loading) return;
-        setLoading(true);
+        if (loading) return
+
+        setLoading(true)
+
         try {
-            const check = await RuStoreReactPay.getPurchaseAvailability();
-            if (!check.availability) {
-                alert('Покупки временно недоступны: ' + check.cause);
-                setLoading(false);
-                return;
+            const purchase = await buyProduct('skips_pack_3')
+
+            if (!purchase.purchaseToken) {
+                throw new Error('Google Play не вернул purchaseToken')
             }
 
-            const purchaseResult = await RuStoreReactPay.purchase({
-                productId: productId,
-                preferredPurchaseType: 'ONE_STEP'
-            });
- 
             const output = await Http.post(
                 `${process.env.EXPO_PUBLIC_API_URL}/games/buy-extras/${questId}`,
                 {
                     type: 'skips',
-                    invoice_id: purchaseResult.invoiceId,
-                    purchase_id: purchaseResult.purchaseId,
-                    store: 'rustore'
+                    store: 'google',
+                    purchase_token: purchase.purchaseToken,
                 },
                 token
             )
-                 
+
             if (output.success === 1) {
-                setGame(output.data);
+                await finishConsumable(purchase)
+                setGame(output.data)
             } else {
-                alert(output.error || 'Ошибка при выдаче товара на сервере');
+                alert(output.error || 'Ошибка при выдаче товара на сервере')
             }
         } catch (e) {
-            console.error('Ошибка покупки RuStore:', e);
-            if (RuStoreReactPay.isRuStorePayError(e) && e.code === 'ProductPurchaseCancelled') return;
-            alert('Не удалось завершить покупку. Попробуйте ещё раз.');
+            if (e?.code === ErrorCode.UserCancelled) return
+
+            console.error('Ошибка покупки пропусков Google Play:', e)
+            alert('Не удалось завершить покупку. Попробуйте ещё раз.')
         } finally {
-            setLoading(false);
+            setLoading(false)
         }
     }
 

@@ -4,54 +4,50 @@ import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native'
 import { mainStyle } from '../../styles/mainStyle'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
-import { RuStoreReactPay } from '../../libs/RuStoreReactPay'
+import { useGoogleBilling, ErrorCode } from '../../context/GoogleBillingContext'
 
 export const BuyButton = ({ questId, onSuccess }) => {
     const { token, questScreenCleanup } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
+    const { buyProduct, finishConsumable } = useGoogleBilling()
 
     const handlePurchase = async () => {
         if (loading) return
-        setLoading(true)
-        
-        try {
-            const check = await RuStoreReactPay.getPurchaseAvailability()
-            if (!check.availability) {
-                alert('Покупки временно недоступны: ' + check.cause)
-                setLoading(false)
-                return
-            }
 
-            const purchaseResult = await RuStoreReactPay.purchase({
-                productId: 'quest_ticket',
-                preferredPurchaseType: 'ONE_STEP'
-            })
+        setLoading(true)
+
+        try {
+            const purchase = await buyProduct('quest_ticket')
+
+            if (!purchase.purchaseToken) {
+                throw new Error('Google Play не вернул purchaseToken')
+            }
 
             const output = await Http.post(
                 `${process.env.EXPO_PUBLIC_API_URL}/quests/buy`,
                 {
                     quest_id: questId,
-                    invoice_id: purchaseResult.invoiceId,
-                    purchase_id: purchaseResult.purchaseId,
-                    store: 'rustore'
+                    store: 'google',
+                    purchase_token: purchase.purchaseToken,
                 },
                 token
             )
 
             if (output.success === 1) {
+                await finishConsumable(purchase)
+
                 questScreenCleanup()
-                if (onSuccess) await onSuccess()
+
+                if (onSuccess) {
+                    await onSuccess()
+                }
             } else {
                 alert(output.error || 'Ошибка при активации квеста на сервере')
             }
         } catch (e) {
-            console.error('Ошибка покупки квеста в RuStore:', e)
-            
-            const isUserCancel = RuStoreReactPay.isRuStorePayError(e)
-                ? e.code === 'ProductPurchaseCancelled'
-                : e?.message?.toLowerCase().includes('user cancel') || String(e).toLowerCase().includes('cancel')
-            if (isUserCancel) return
+            if (e?.code === ErrorCode.UserCancelled) return
 
+            console.error('Ошибка покупки квеста Google Play:', e)
             alert('Проверьте подключение к интернету и попробуйте снова')
         } finally {
             setLoading(false)

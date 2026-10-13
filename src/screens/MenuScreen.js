@@ -11,12 +11,12 @@ export const MenuScreen = () => {
 
 
 	return (
-		<View style={mainStyle.flex}>
+		<View style={mainStyle.pageBackground}>
 			<View style={[mainStyle.panelRowRight, headerStyle.panelHeader]}>
 				<Close />
 			</View>
 			<ScrollView
-				style={mainStyle.flex}
+				style={mainStyle.pageBackground}
 				keyboardShouldPersistTaps="handled"
 				keyboardDismissMode="interactive"
 			>

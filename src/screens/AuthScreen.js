@@ -14,6 +14,7 @@ import { Code } from '../components/auth/Code'
 import { Password } from '../components/auth/Password'
 import { CreateProfile } from '../components/auth/CreateProfile'
 import { NewPassword } from '../components/auth/NewPassword'
+import { AuthGoogle } from '../components/auth/AuthGoogle'
 
 import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
@@ -50,6 +51,7 @@ export const AuthScreen = () => {
             content = (
                 <View>
                     <Email setEmail={setEmail} setTemplate={setTemplate} setError={setError} setLoader={setLoader} />
+                    <AuthGoogle token={token} screen={PROFILE_SCREEN} changeScreen={changeScreen} setError={setError} setLoader={setLoader} />
                 </View>
             )
             break
@@ -66,7 +68,7 @@ export const AuthScreen = () => {
             </View>
 
             <ScrollView
-                style={mainStyle.flex}
+                style={mainStyle.pageBackground}
                 contentContainerStyle={authStyle.authScrollContent}
                 keyboardShouldPersistTaps="handled"
             >

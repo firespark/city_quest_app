@@ -25,14 +25,6 @@
         "android.permission.SYSTEM_ALERT_WINDOW",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE"
-      ],
-      "plugins": [
-        [
-          "@react-native-google-signin/google-signin",
-          {
-            "iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
-          }
-        ]
       ]
     },
     "web": {
@@ -47,21 +39,12 @@
       "expo-asset",
       "expo-font",
       [
-        "expo-build-properties",
+        "@react-native-google-signin/google-signin",
         {
-          "android": {
-            "kotlinVersion": "1.9.25",
-            "compileSdkVersion": 34
-          }
+          "iosUrlScheme": "com.googleusercontent.apps.ТВОЙ_ID"
         }
       ],
-      [
-        "./RuStore.js",
-        {
-          "scheme": "gagaraquest",
-          "appId": "2063731494"
-        }
-      ]
+      "expo-iap"
     ]
   }
 }

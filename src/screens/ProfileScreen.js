@@ -75,7 +75,7 @@ export const ProfileScreen = () => {
             </View>
 
             <ScrollView
-                style={mainStyle.flex}
+                style={mainStyle.pageBackground}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
             >

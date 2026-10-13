@@ -115,7 +115,7 @@ export const GameScreen = () => {
     }
 
     return (
-        <View style={mainStyle.flex}>
+        <View style={mainStyle.pageBackground}>
             {
                 (modal) ?
                     <ModalTemplate
