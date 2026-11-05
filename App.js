@@ -10,8 +10,8 @@ import {
 export default function App() {
     return (
         <SafeAreaProvider>
-            <GoogleBillingProvider>
-                <MainState>
+            <MainState>
+                <GoogleBillingProvider>
                     <StatusBar barStyle="dark-content" />
 
                     <SafeAreaView
@@ -20,8 +20,8 @@ export default function App() {
                     >
                         <Layout />
                     </SafeAreaView>
-                </MainState>
-            </GoogleBillingProvider>
+                </GoogleBillingProvider>
+            </MainState>
         </SafeAreaProvider>
     )
 }

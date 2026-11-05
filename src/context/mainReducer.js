@@ -19,6 +19,16 @@ export const mainReducer = (state, action) => {
 
             if (lastScreen == action.screen) return state
 
+            if (lastScreen === 'AUTH_SCREEN' && action.screen === 'PROFILE_SCREEN') {
+                previousScreens.pop()
+                if (previousScreens[previousScreens.length - 1] !== 'PROFILE_SCREEN') previousScreens.push('PROFILE_SCREEN')
+
+                return {
+                    ...state,
+                    screens: previousScreens,
+                }
+            }
+
             if (lastScreen == 'MENU_SCREEN') previousScreens.pop()
 
             if (action.screen == 'MAIN_SCREEN') {

@@ -3,15 +3,12 @@ import { View, Text, TouchableOpacity, Image, ActivityIndicator } from 'react-na
 import { Ionicons } from '@expo/vector-icons'
 import { gameStyle } from '../../styles/gameStyle'
 import { MainContext } from '../../context/mainContext'
-import { Http } from '../../scripts/http'
 import { useGoogleBilling, ErrorCode } from '../../context/GoogleBillingContext'
 
 export const Hints = ({ hints, showHint, setModal, setGame }) => {
     const { token, questId } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
-    const { buyProduct, finishConsumable } = useGoogleBilling()
-
-    const productId = 'hints_pack_3'
+    const { buyProduct } = useGoogleBilling()
 
     const buyHints = async () => {
         if (loading) return
@@ -19,24 +16,9 @@ export const Hints = ({ hints, showHint, setModal, setGame }) => {
         setLoading(true)
 
         try {
-            const purchase = await buyProduct('hints_pack_3')
-
-            if (!purchase.purchaseToken) {
-                throw new Error('Google Play не вернул purchaseToken')
-            }
-
-            const output = await Http.post(
-                `${process.env.EXPO_PUBLIC_API_URL}/games/buy-extras/${questId}`,
-                {
-                    type: 'hints',
-                    store: 'google',
-                    purchase_token: purchase.purchaseToken,
-                },
-                token
-            )
+            const output = await buyProduct('hints', questId, token)
 
             if (output.success === 1) {
-                await finishConsumable(purchase)
                 setGame(output.data)
             } else {
                 alert(output.error || 'Ошибка при выдаче товара на сервере')
@@ -45,7 +27,7 @@ export const Hints = ({ hints, showHint, setModal, setGame }) => {
             if (e?.code === ErrorCode.UserCancelled) return
 
             console.error('Ошибка покупки подсказок Google Play:', e)
-            alert('Не удалось завершить покупку. Попробуйте ещё раз.')
+            alert(e?.message || 'Не удалось завершить покупку. Попробуй ещё раз.')
         } finally {
             setLoading(false)
         }

@@ -20,7 +20,6 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.gagara.quest",
       "blockedPermissions": [
         "android.permission.SYSTEM_ALERT_WINDOW",
         "android.permission.READ_EXTERNAL_STORAGE",
@@ -30,21 +29,10 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "ba2f4987-6d2f-4aaf-a91c-e216fa653e6d"
-      }
-    },
+    "extra": {},
     "plugins": [
       "expo-asset",
-      "expo-font",
-      [
-        "@react-native-google-signin/google-signin",
-        {
-          "iosUrlScheme": "com.googleusercontent.apps.ТВОЙ_ID"
-        }
-      ],
-      "expo-iap"
+      "expo-font"
     ]
   }
 }

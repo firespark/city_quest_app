@@ -1,10 +1,11 @@
-import { View, Text, TouchableOpacity, Image } from 'react-native';
+import { Text, TouchableOpacity, Image } from 'react-native';
 import { authStyle } from '../../styles/authStyle'
 import { GoogleSignin } from '@react-native-google-signin/google-signin';
 import { Http } from '../../scripts/http';
+import { SOCIAL_AUTH } from '../../config/socialAuth';
 
-GoogleSignin.configure({
-    webClientId: process.env.EXPO_PUBLIC_WEBCLIENT_ID,
+if (SOCIAL_AUTH.google) GoogleSignin.configure({
+    webClientId: SOCIAL_AUTH.google,
     offlineAccess: true,
 });
 
@@ -32,17 +33,9 @@ export const AuthGoogle = ({ token, changeScreen, screen, setError, setLoader })
     };
 
     return (
-        <View style={authStyle.googleContainer}>
-            <View style={authStyle.googleDividerRow}>
-                <View style={authStyle.googleLine} />
-                <Text style={authStyle.googleDividerText}>или</Text>
-                <View style={authStyle.googleLine} />
-            </View>
-
-            <TouchableOpacity style={authStyle.googleButton} activeOpacity={0.8} onPress={signIn}>
-                <Image source={require('../../../assets/img/google.png')} style={authStyle.googleIcon} />
-                <Text style={authStyle.googleButtonText}>Войти через Google</Text>
-            </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={[authStyle.socialButton, authStyle.googleButton]} activeOpacity={0.8} onPress={signIn} disabled={!SOCIAL_AUTH.google} accessibilityState={{ disabled: !SOCIAL_AUTH.google }}>
+            <Image source={require('../../../assets/img/google.png')} style={authStyle.googleIcon} resizeMode="contain" />
+            <Text style={authStyle.googleButtonText}>Войти через Google</Text>
+        </TouchableOpacity>
     );
 };

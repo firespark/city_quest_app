@@ -1,5 +1,5 @@
 import { useState, useContext } from 'react'
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, Text } from 'react-native'
 
 import { mainStyle } from '../styles/mainStyle'
 import { headerStyle } from '../styles/headerStyle'
@@ -15,6 +15,8 @@ import { Password } from '../components/auth/Password'
 import { CreateProfile } from '../components/auth/CreateProfile'
 import { NewPassword } from '../components/auth/NewPassword'
 import { AuthGoogle } from '../components/auth/AuthGoogle'
+import { AuthVK } from '../components/auth/AuthVK'
+import { AuthYandex } from '../components/auth/AuthYandex'
 
 import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
@@ -51,7 +53,16 @@ export const AuthScreen = () => {
             content = (
                 <View>
                     <Email setEmail={setEmail} setTemplate={setTemplate} setError={setError} setLoader={setLoader} />
-                    <AuthGoogle token={token} screen={PROFILE_SCREEN} changeScreen={changeScreen} setError={setError} setLoader={setLoader} />
+                    <View style={authStyle.socialContainer}>
+                        <View style={authStyle.socialDividerRow}>
+                            <View style={authStyle.socialLine} />
+                            <Text style={authStyle.socialDividerText}>или</Text>
+                            <View style={authStyle.socialLine} />
+                        </View>
+                        <AuthGoogle token={token} screen={PROFILE_SCREEN} changeScreen={changeScreen} setError={setError} setLoader={setLoader} />
+                        <AuthVK token={token} screen={PROFILE_SCREEN} changeScreen={changeScreen} setError={setError} setLoader={setLoader} />
+                        <AuthYandex token={token} screen={PROFILE_SCREEN} changeScreen={changeScreen} setError={setError} setLoader={setLoader} />
+                    </View>
                 </View>
             )
             break

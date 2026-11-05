@@ -19,6 +19,63 @@ export const authStyle = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 0,
     },
+    socialContainer: {
+        marginTop: 30,
+        width: '100%',
+        gap: 12,
+    },
+    socialDividerRow: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 13,
+    },
+    socialDividerText: {
+        marginHorizontal: 15,
+        color: '#BDC3C7',
+        fontWeight: '600',
+    },
+    socialLine: {
+        flex: 1,
+        height: 1,
+        backgroundColor: '#F1F5F9',
+    },
+    socialButton: {
+        flexDirection: 'row',
+        height: 56,
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        borderRadius: 28,
+    },
+    socialIcon: {
+        width: 24,
+        height: 24,
+        marginRight: 12,
+    },
+    // Белые поля входят в официальный PNG VK; сам знак получается около 24 px.
+    vkIcon: {
+        width: 32,
+        height: 32,
+        marginRight: 8,
+    },
+    vkButton: {
+        backgroundColor: '#0077FF',
+    },
+    vkButtonText: {
+        color: '#FFFFFF',
+        fontSize: 16,
+        fontWeight: '700',
+    },
+    yandexButton: {
+        backgroundColor: '#FFFFFF',
+        borderWidth: 1,
+        borderColor: '#E6E8EB',
+    },
+    yandexButtonText: {
+        color: '#111111',
+        fontSize: 16,
+        fontWeight: '700',
+    },
     googleContainer: {
         marginTop: 30,
         width: '100%'
