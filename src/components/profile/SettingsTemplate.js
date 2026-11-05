@@ -37,4 +37,3 @@ export const SettingsTemplate = ({ user, setUser, setTemplate, success, setSucce
         </View>
     )
 }
-

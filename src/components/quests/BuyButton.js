@@ -4,6 +4,7 @@ import { View, TouchableOpacity, Text, ActivityIndicator } from 'react-native'
 import { mainStyle } from '../../styles/mainStyle'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
+import { BILLING_PRODUCTS } from '../../config/billing'
 import { RuStoreReactPay } from '../../libs/RuStoreReactPay'
 
 export const BuyButton = ({ questId, onSuccess }) => {
@@ -23,7 +24,7 @@ export const BuyButton = ({ questId, onSuccess }) => {
             }
 
             const purchaseResult = await RuStoreReactPay.purchase({
-                productId: 'quest_ticket',
+                productId: BILLING_PRODUCTS.rustore.quest,
                 preferredPurchaseType: 'ONE_STEP'
             })
 
@@ -52,7 +53,7 @@ export const BuyButton = ({ questId, onSuccess }) => {
                 : e?.message?.toLowerCase().includes('user cancel') || String(e).toLowerCase().includes('cancel')
             if (isUserCancel) return
 
-            alert('Проверьте подключение к интернету и попробуйте снова')
+            alert(e?.message || 'Проверь подключение к интернету и попробуй снова')
         } finally {
             setLoading(false)
         }

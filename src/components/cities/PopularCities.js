@@ -2,11 +2,10 @@ import { useState, useEffect, useContext } from 'react'
 
 import { mainStyle } from '../../styles/mainStyle'
 
-import { View } from 'react-native'
+import { View, Text } from 'react-native'
 import { PopularCity } from './PopularCity'
 
 import { Loader } from '../common/Loader'
-import { Error } from '../common/Error'
 import { ConnectionError } from '../common/ConnectionError'
 
 import { Http } from '../../scripts/http'

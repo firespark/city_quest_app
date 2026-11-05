@@ -4,13 +4,14 @@ import { Ionicons } from '@expo/vector-icons'
 import { gameStyle } from '../../styles/gameStyle'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
+import { BILLING_PRODUCTS } from '../../config/billing'
 import { RuStoreReactPay } from '../../libs/RuStoreReactPay'
 
 export const Hints = ({ hints, showHint, setModal, setGame }) => {
     const { token, questId } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
 
-    const productId = 'hints_pack_3'
+    const productId = BILLING_PRODUCTS.rustore.hints
 
     const buyHints = async () => {
         if (loading) return;
@@ -46,7 +47,7 @@ export const Hints = ({ hints, showHint, setModal, setGame }) => {
         } catch (e) {
             console.error('Ошибка покупки RuStore:', e);
             if (RuStoreReactPay.isRuStorePayError(e) && e.code === 'ProductPurchaseCancelled') return;
-            alert('Не удалось завершить покупку. Попробуйте ещё раз.');
+            alert(e?.message || 'Не удалось завершить покупку. Попробуй ещё раз.');
         } finally {
             setLoading(false);
         }

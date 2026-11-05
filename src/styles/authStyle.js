@@ -40,11 +40,23 @@ export const authStyle = StyleSheet.create({
         backgroundColor: '#F1F5F9',
     },
     socialButton: {
+        flexDirection: 'row',
         height: 56,
         alignItems: 'center',
         justifyContent: 'center',
         width: '100%',
         borderRadius: 28,
+    },
+    socialIcon: {
+        width: 24,
+        height: 24,
+        marginRight: 12,
+    },
+    // Белые поля входят в официальный PNG VK; сам знак получается около 24 px.
+    vkIcon: {
+        width: 32,
+        height: 32,
+        marginRight: 8,
     },
     vkButton: {
         backgroundColor: '#0077FF',

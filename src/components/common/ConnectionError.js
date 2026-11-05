@@ -1,7 +1,20 @@
+import { useEffect, useState } from 'react'
 import { View, Text, TouchableOpacity } from 'react-native'
 import { mainStyle } from '../../styles/mainStyle'
 
 export const ConnectionError = ({ onRetry }) => {
+    const [visible, setVisible] = useState(false)
+
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            setVisible(true)
+        }, 2000)
+
+        return () => clearTimeout(timer)
+    }, [])
+
+    if (!visible) return null
+
     return (
         <View style={[mainStyle.center, mainStyle.mt30, mainStyle.p20]}>
             <Text style={[mainStyle.titleMain, mainStyle.mb10]}>

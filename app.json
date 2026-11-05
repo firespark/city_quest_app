@@ -20,49 +20,19 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.gagara.quest",
       "blockedPermissions": [
         "android.permission.SYSTEM_ALERT_WINDOW",
         "android.permission.READ_EXTERNAL_STORAGE",
         "android.permission.WRITE_EXTERNAL_STORAGE"
-      ],
-      "plugins": [
-        [
-          "@react-native-google-signin/google-signin",
-          {
-            "iosUrlScheme": "com.googleusercontent.apps._some_id_here_"
-          }
-        ]
       ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "extra": {
-      "eas": {
-        "projectId": "ba2f4987-6d2f-4aaf-a91c-e216fa653e6d"
-      }
-    },
+    "extra": {},
     "plugins": [
       "expo-asset",
-      "expo-font",
-      [
-        "expo-build-properties",
-        {
-          "android": {
-            "kotlinVersion": "1.9.25",
-            "compileSdkVersion": 34
-          }
-        }
-      ],
-      "./SocialAuth.js",
-      [
-        "./RuStore.js",
-        {
-          "scheme": "gagaraquest",
-          "appId": "2063731494"
-        }
-      ]
+      "expo-font"
     ]
   }
 }

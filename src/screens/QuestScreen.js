@@ -68,7 +68,7 @@ export const QuestScreen = () => {
     }
 
     return (
-        <View style={mainStyle.flex}>
+        <View style={mainStyle.pageBackground}>
             <View style={[mainStyle.panelRow, headerStyle.panelHeader]}>
                 <Back />
                 <HeaderTitle title="Квест-Туры" />
@@ -76,7 +76,7 @@ export const QuestScreen = () => {
             </View>
 
             <ScrollView
-                style={mainStyle.flex}
+                style={mainStyle.pageBackground}
                 keyboardShouldPersistTaps="handled"
                 showsVerticalScrollIndicator={false}
             >

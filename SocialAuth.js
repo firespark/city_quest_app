@@ -4,6 +4,7 @@ const {
     withAppBuildGradle,
     withDangerousMod,
     withMainApplication,
+    withGradleProperties,
     withProjectBuildGradle,
 } = require('expo/config-plugins');
 
@@ -63,10 +64,7 @@ const addNativeDependenciesAndConfig = contents => {
         const buildConfig = `// SOCIAL_AUTH_ANDROID_CONFIG
 def socialAuthBuildValue = { String name ->
     def value = project.findProperty(name) ?: System.getenv(name)
-    if (value == null || value.toString().trim().isEmpty()) {
-        throw new GradleException("Missing Android build value: " + name)
-    }
-    return value.toString().trim()
+    return value == null ? "" : value.toString().trim()
 }
 
 def vkClientId = socialAuthBuildValue("VK_CLIENT_ID")
@@ -79,10 +77,11 @@ def yandexClientId = socialAuthBuildValue("YANDEX_CLIENT_ID")
         result = result.replace(
             /defaultConfig\s*\{/,
             `defaultConfig {
-        manifestPlaceholders["VKIDClientID"] = vkClientId
+        buildConfigField "boolean", "VK_LOGIN_ENABLED", (!vkClientId.isEmpty() && !vkClientSecret.isEmpty()).toString()
+        manifestPlaceholders["VKIDClientID"] = vkClientId.isEmpty() ? "0" : vkClientId
         manifestPlaceholders["VKIDClientSecret"] = vkClientSecret
         manifestPlaceholders["VKIDRedirectHost"] = "vk.ru"
-        manifestPlaceholders["VKIDRedirectScheme"] = "vk" + vkClientId
+        manifestPlaceholders["VKIDRedirectScheme"] = "vk" + (vkClientId.isEmpty() ? "0" : vkClientId)
         manifestPlaceholders["YANDEX_CLIENT_ID"] = yandexClientId`
         );
     }
@@ -110,21 +109,25 @@ const configureMainApplication = (contents, packageName) => {
         result = result.replace(/(package .*?\n)/, '$1\nimport com.vk.id.VKID\n');
     }
 
-    if (!result.includes('packages.add(SocialAuthPackage())')) {
+    if (!result.includes('packages.add(SocialAuthPackage())') && !result.includes('add(SocialAuthPackage())')) {
         result = result.replace(
             /val packages = PackageList\(this\)\.packages/,
             `val packages = PackageList(this).packages\n            packages.add(SocialAuthPackage())`
         );
     }
 
+    if (!result.includes('packages.add(SocialAuthPackage())') && !result.includes('add(SocialAuthPackage())')) {
+        result = result.replace(/PackageList\(this\)\.packages\.apply\s*\{/, 'PackageList(this).packages.apply {\n              add(SocialAuthPackage())');
+    }
+
     if (!result.includes('VKID.init(this)')) {
         result = result.replace(
             /super\.onCreate\(\)/,
-            `super.onCreate()\n    VKID.init(this)`
+            `super.onCreate()\n    if (BuildConfig.VK_LOGIN_ENABLED) VKID.init(this)`
         );
     }
 
-    for (const marker of [packageImport, 'import com.vk.id.VKID', 'packages.add(SocialAuthPackage())', 'VKID.init(this)']) {
+    for (const marker of [packageImport, 'import com.vk.id.VKID', 'SocialAuthPackage())', 'VKID.init(this)']) {
         if (!result.includes(marker)) throw new Error(`SocialAuth could not configure MainApplication: ${marker}`);
     }
     return result;
@@ -159,6 +162,19 @@ const withSocialAuth = config => {
     if (!packageName) {
         throw new Error('SocialAuth requires expo.android.package');
     }
+
+    config = withGradleProperties(config, modConfig => {
+        const values = {
+            VK_CLIENT_ID: process.env.EXPO_PUBLIC_VK_CLIENT_ID || '',
+            VK_CLIENT_SECRET: process.env.VK_CLIENT_SECRET || '',
+            YANDEX_CLIENT_ID: process.env.EXPO_PUBLIC_YANDEX_CLIENT_ID || '',
+        };
+        for (const [key, value] of Object.entries(values)) {
+            modConfig.modResults = modConfig.modResults.filter(item => item.type !== 'property' || item.key !== key);
+            modConfig.modResults.push({ type: 'property', key, value: value.trim() });
+        }
+        return modConfig;
+    });
 
     config = withProjectBuildGradle(config, modConfig => {
         modConfig.modResults.contents = addVkRepositories(modConfig.modResults.contents);

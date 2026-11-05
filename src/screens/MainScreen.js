@@ -15,13 +15,13 @@ export const MainScreen = () => {
     const { countryId, countries, getCountries } = useContext(MainContext) 
     
     return (
-        <View style={mainStyle.flex}>
+        <View style={mainStyle.pageBackground}>
             <View style={headerStyle.panelHeader}>
                 <Logo />
                 <Menu />
             </View>
             <ScrollView
-                style={mainStyle.flex}
+                style={mainStyle.pageBackground}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
                 showsVerticalScrollIndicator={false}

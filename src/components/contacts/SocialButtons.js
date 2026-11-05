@@ -25,22 +25,6 @@ export const SocialButtons = () => {
                 </TouchableOpacity>
 
                 <TouchableOpacity
-                    style={[contactsStyle.socialIconBtn, { backgroundColor: '#E1306C' }]}
-                    activeOpacity={0.7}
-                    onPress={() => openLink('https://instagram.com/elena_fireleit')}
-                >
-                    <FontAwesome5 name="instagram" size={24} color="#FFFFFF" />
-                </TouchableOpacity>
-
-                <TouchableOpacity
-                    style={[contactsStyle.socialIconBtn, { backgroundColor: '#1877F2' }]}
-                    activeOpacity={0.7}
-                    onPress={() => openLink('https://www.facebook.com/fireleit')}
-                >
-                    <FontAwesome5 name="facebook-f" size={22} color="#FFFFFF" />
-                </TouchableOpacity>
-
-                <TouchableOpacity
                     style={[contactsStyle.socialIconBtn, { backgroundColor: '#0077FF' }]}
                     activeOpacity={0.7}
                     onPress={() => openLink('https://vk.com/fireleit')}

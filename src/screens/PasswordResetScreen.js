@@ -53,7 +53,7 @@ export const PasswordResetScreen = () => {
             </View>
 
             <ScrollView
-                style={mainStyle.flex}
+                style={mainStyle.pageBackground}
                 contentContainerStyle={authStyle.authScrollContent}
                 keyboardShouldPersistTaps="handled"
             >

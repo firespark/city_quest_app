@@ -14,6 +14,7 @@ import { Code } from '../components/auth/Code'
 import { Password } from '../components/auth/Password'
 import { CreateProfile } from '../components/auth/CreateProfile'
 import { NewPassword } from '../components/auth/NewPassword'
+import { AuthGoogle } from '../components/auth/AuthGoogle'
 import { AuthVK } from '../components/auth/AuthVK'
 import { AuthYandex } from '../components/auth/AuthYandex'
 
@@ -58,20 +59,9 @@ export const AuthScreen = () => {
                             <Text style={authStyle.socialDividerText}>или</Text>
                             <View style={authStyle.socialLine} />
                         </View>
-                        <AuthVK
-                            token={token}
-                            setLoader={setLoader}
-                            setError={setError}
-                            changeScreen={changeScreen}
-                            screen={PROFILE_SCREEN}
-                        />
-                        <AuthYandex
-                            token={token}
-                            setLoader={setLoader}
-                            setError={setError}
-                            changeScreen={changeScreen}
-                            screen={PROFILE_SCREEN}
-                        />
+                        <AuthGoogle token={token} screen={PROFILE_SCREEN} changeScreen={changeScreen} setError={setError} setLoader={setLoader} />
+                        <AuthVK token={token} screen={PROFILE_SCREEN} changeScreen={changeScreen} setError={setError} setLoader={setLoader} />
+                        <AuthYandex token={token} screen={PROFILE_SCREEN} changeScreen={changeScreen} setError={setError} setLoader={setLoader} />
                     </View>
                 </View>
             )
@@ -89,7 +79,7 @@ export const AuthScreen = () => {
             </View>
 
             <ScrollView
-                style={mainStyle.flex}
+                style={mainStyle.pageBackground}
                 contentContainerStyle={authStyle.authScrollContent}
                 keyboardShouldPersistTaps="handled"
             >

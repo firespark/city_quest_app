@@ -1,8 +1,9 @@
-import { Pressable, Text } from 'react-native'
+import { Image, Pressable, Text } from 'react-native'
 
 import { SocialAuth } from '../../libs/SocialAuth'
 import { Http } from '../../scripts/http'
 import { authStyle } from '../../styles/authStyle'
+import { SOCIAL_AUTH } from '../../config/socialAuth'
 
 export const AuthVK = ({ token, setLoader, setError, changeScreen, screen }) => {
     const login = async () => {
@@ -13,7 +14,7 @@ export const AuthVK = ({ token, setLoader, setError, changeScreen, screen }) => 
             const { accessToken } = await SocialAuth.loginVk()
             const output = await Http.post(
                 `${process.env.EXPO_PUBLIC_API_URL}/auth/loginVk`,
-                { accessToken },
+                { accessToken, clientId: SOCIAL_AUTH.vk },
                 token
             )
 
@@ -32,7 +33,8 @@ export const AuthVK = ({ token, setLoader, setError, changeScreen, screen }) => 
     }
 
     return (
-        <Pressable style={[authStyle.socialButton, authStyle.vkButton]} onPress={login}>
+        <Pressable style={[authStyle.socialButton, authStyle.vkButton]} onPress={login} disabled={!SOCIAL_AUTH.vk} accessibilityState={{ disabled: !SOCIAL_AUTH.vk }}>
+            <Image source={require('../../../assets/img/vk.png')} style={[authStyle.socialIcon, authStyle.vkIcon]} resizeMode="contain" />
             <Text style={authStyle.vkButtonText}>Войти через VK</Text>
         </Pressable>
     )
