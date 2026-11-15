@@ -1,7 +1,9 @@
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useKeyboardScroll } from '../../../hooks/useKeyboardScroll'
 
 import { BackQuest } from '../BackQuest'
-import { ChangeGameFormat } from '../ChangeGameFormat'
+// import { ChangeGameFormat } from '../ChangeGameFormat'
 import { Skips } from '../Skips'
 import { Hints } from '../Hints'
 
@@ -13,8 +15,14 @@ import { PlayTemplate } from './PlayTemplate'
 
 import { mainStyle } from '../../../styles/mainStyle'
 import { headerStyle } from '../../../styles/headerStyle'
+import { optionEnabled } from '../../../scripts/questOptions'
 
-export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
+export const GameTemplate = ({ game, setGame, setModal, nextGame, keyboardEnabled = true }) => {
+    const insets = useSafeAreaInsets()
+    const keyboardScroll = useKeyboardScroll(keyboardEnabled)
+    // Older API responses without quest limits keep their existing controls.
+    const hintsEnabled = game.quest_hints_number == null || Number(game.quest_hints_number) > 0
+    const skipsEnabled = game.quest_skips_number == null || Number(game.quest_skips_number) > 0
 
     let template = game.format_id === 2 ? (
         <TourTemplate
@@ -43,7 +51,7 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
     }
 
     if (game.step == 0) {
-        template = <GameFormatTemplate setGame={setGame} />
+        template = <GameFormatTemplate game={game} setGame={setGame} />
     }
     
 
@@ -54,7 +62,7 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
     }*/
 
     return (
-        <View style={mainStyle.pageBackground}>
+        <KeyboardAvoidingView style={mainStyle.pageBackground} behavior="padding" keyboardVerticalOffset={insets.top} enabled={keyboardEnabled}>
 
             <View style={headerStyle.panelHeader}>
                 <BackQuest
@@ -62,24 +70,28 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
                 />
 
                 <View style={headerStyle.headerActions}>
+                    {/* Формат выбирается только перед началом прохождения.
                     {game.step > 0 && (
                         <ChangeGameFormat
                             formatId={game.format_id}
                             setModal={setModal}
                         />
                     )}
+                    */}
 
-                    {game.format_id == 1 && (
+                    {game.format_id == 1 && skipsEnabled && (
                         <Skips
                             skips={game.skips_number}
+                            canBuy={optionEnabled(game.skips_purchase_enabled)}
                             showSkip={game.show_skip}
                             setModal={setModal}
                             setGame={setGame}
                         />
                     )}
-                    {game.format_id == 1 && (
+                    {game.format_id == 1 && hintsEnabled && (
                         <Hints
                             hints={game.hints_number}
+                            canBuy={optionEnabled(game.hints_purchase_enabled)}
                             showHint={game.show_hint}
                             setModal={setModal}
                             setGame={setGame}
@@ -89,6 +101,7 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
             </View>
 
             <ScrollView
+                {...keyboardScroll}
                 style={mainStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
@@ -98,6 +111,6 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame }) => {
                     {template}
                 </View>
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
     )
 }

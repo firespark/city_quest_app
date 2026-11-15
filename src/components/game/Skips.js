@@ -5,13 +5,13 @@ import { gameStyle } from '../../styles/gameStyle'
 import { MainContext } from '../../context/mainContext'
 import { useGoogleBilling, ErrorCode } from '../../context/GoogleBillingContext'
 
-export const Skips = ({ skips, showSkip, setModal, setGame }) => {
+export const Skips = ({ canBuy = true, skips, showSkip, setModal, setGame }) => {
     const { token, questId } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
     const { buyProduct } = useGoogleBilling()
 
     const buySkips = async () => {
-        if (loading) return
+        if (loading || !canBuy) return
 
         setLoading(true)
 
@@ -49,9 +49,9 @@ export const Skips = ({ skips, showSkip, setModal, setGame }) => {
                     style={[gameStyle.pill, gameStyle.pillDisabled]}
                     activeOpacity={0.7}
                     onPress={() => {
-                        if (skips === 0) buySkips()
+                        if (skips === 0 && canBuy) buySkips()
                     }}
-                    disabled={loading}
+                    disabled={loading || (skips === 0 && !canBuy)}
                 >
                     {loading ? (
                         <ActivityIndicator size="small" color="#FFFFFF" style={{ paddingHorizontal: 10 }} />
@@ -59,7 +59,7 @@ export const Skips = ({ skips, showSkip, setModal, setGame }) => {
                         <>
                             <Image source={require('../../../assets/img/skip-disabled.png')} style={gameStyle.hintIcon} />
                             <Text style={gameStyle.textDisabled}>{skips}</Text>
-                            {skips === 0 && (
+                            {skips === 0 && canBuy && (
                                 <View style={gameStyle.pillPremiumSign}>
                                     <Ionicons name="diamond-outline" size={10} color="#FFFFFF" />
                                 </View>

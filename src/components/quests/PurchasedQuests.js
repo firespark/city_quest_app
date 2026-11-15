@@ -22,14 +22,13 @@ export const PurchasedQuests = () => {
         setLoader(true)
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/purchased`, token)
-            if (output.success == 1) {
+            if (output.success == 1 && Array.isArray(output.data) && output.data.every(quest => quest && typeof quest === 'object')) {
                 setData(output.data)
             } else {
-                setError(output.error || 'Ошибка загрузки')
+                setError(output.error || 'Не удалось загрузить данные')
             }
-        } catch (e) {
-            console.error('Error:', e)
-            setError('connection_error')
+        } catch {
+            setError('Не удалось загрузить данные')
         } finally {
             setLoader(false)
         }
@@ -37,33 +36,30 @@ export const PurchasedQuests = () => {
 
     useEffect(() => {
         fetchData()
-    }, [])
-
-    if (loader) return <Loader />
-    if (error === 'connection_error') {
-        return <ConnectionError onRetry={fetchData} />
-    }
+    }, [token])
     return (
         <View>
             <Text style={questsStyle.blockTitle}>Купленные туры</Text>
 
-            {error && (
+            {loader ? <Loader /> : error ? (
                 <View style={mainStyle.mb20}>
-                    <Error text={error} />
+                    {error === 'connection_error'
+                        ? <ConnectionError onRetry={fetchData} />
+                        : <Error text={error} onRetry={fetchData} />}
+                </View>
+            ) : (
+                <View>
+                    {data.length > 0 && data.map((item, index) => (
+                        <View key={index}>
+                            <PurchasedQuest quest={item} />
+                        </View>
+                    ))}
+
+                    {data.length === 0 && !error && (
+                        <Text style={questsStyle.emptyText}>Нет купленных туров</Text>
+                    )}
                 </View>
             )}
-
-            <View>
-                {data.length > 0 && data.map((item, index) => (
-                    <View key={index}>
-                        <PurchasedQuest quest={item} />
-                    </View>
-                ))}
-
-                {data.length === 0 && !error && (
-                    <Text style={questsStyle.emptyText}>Нет купленных туров</Text>
-                )}
-            </View>
         </View>
     )
 }

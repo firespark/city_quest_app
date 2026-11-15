@@ -1,3 +1,5 @@
+import { getAppGeneration } from './appRecovery'
+
 export class Http {
     static async get(url, token = '') {
         return await request(url, token, 'GET', {}, 3, 1000);
@@ -14,7 +16,7 @@ export class Http {
     }
 }
 
-async function request(url, token = '', method = 'GET', data = {}, retries = 3, delay = 1000) {
+async function request(url, token = '', method = 'GET', data = {}, retries = 3, delay = 1000, generation = getAppGeneration()) {
     let headers = { 
         'Content-Type': 'application/json',
         'Accept': 'application/json' 
@@ -36,19 +38,29 @@ async function request(url, token = '', method = 'GET', data = {}, retries = 3, 
     try {
         const response = await fetch(url, config);
         
-        if (!response.ok) {
-            throw new Error(`HTTP status: ${response.status}`);
+        let body
+        try { body = await response.json() } catch {
+            return { success: 0, status: response.status || 500, error: 'Не удалось загрузить данные' }
         }
-        
-        return await response.json();
+        if (!body || typeof body !== 'object' || Array.isArray(body)) {
+            return { success: 0, status: 500, error: 'Не удалось загрузить данные' }
+        }
+        if (response.ok && ![0, 1, '0', '1', true, false].includes(body.success)) {
+            return { success: 0, status: 500, error: 'Не удалось загрузить данные' }
+        }
+        const error = typeof body.error === 'string' && body.error.trim() ? body.error : 'Не удалось загрузить данные'
+        if (!response.ok) return { ...body, success: 0, status: response.status, error }
+        if (body.success == 0) return { ...body, error }
+        return body
 
     } catch (e) {
+        if (generation !== getAppGeneration()) return { success: 0, error: 'connection_error' }
 
         if (retries > 0) {
 
             await new Promise(resolve => setTimeout(resolve, delay));
 
-            return request(url, token, method, data, retries - 1, delay * 2);
+            return request(url, token, method, data, retries - 1, delay * 2, generation);
         }
         
         console.log(`Сетевая ошибка для ${url}:`, e);

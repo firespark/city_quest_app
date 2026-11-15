@@ -19,7 +19,9 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
 
     const content = []
 
-    for (let i = 1; i <= game.levels; i++) {
+    const steps = Array.isArray(game.step_numbers) ? game.step_numbers : Array.from({ length: game.levels }, (_, index) => index + 1)
+    const lastStep = steps[steps.length - 1]
+    for (const i of steps) {
         let st = gameStyle.progressMedalDisabled
         let textSt = gameStyle.progressTextDisabled
 
@@ -28,7 +30,7 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
             textSt = gameStyle.progressTextLight;
         }
 
-        if (i == game.levels) {
+        if (i == lastStep) {
             st = gameStyle.progressMedalFinish;
         }
 
@@ -37,7 +39,7 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
             textSt = gameStyle.progressTextLight;
         }
 
-        if (i == game.levels && i == game.step_total) {
+        if (i == lastStep && i == game.step_total) {
             st = gameStyle.progressMedalFinishDone;
         }
 
@@ -57,7 +59,7 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
                     }}
                 >
                     {
-                        (i == game.levels)
+                        (i == lastStep)
                             ?
                             <Image source={require('../../../../assets/img/finish.png')} style={gameStyle.progressFinishIcon} />
                             :
@@ -73,7 +75,7 @@ export const ModalProgress = ({ game, setGame, setModal }) => {
                     style={[gameStyle.progressMedal, st, isCurrent && gameStyle.progressMedalCurrent]}
                 >
                     {
-                        (i == game.levels)
+                        (i == lastStep)
                             ?
                             <Image source={require('../../../../assets/img/finish.png')} style={gameStyle.progressFinishIcon} />
                             :

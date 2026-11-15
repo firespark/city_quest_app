@@ -1,5 +1,5 @@
 
-import { useContext, useState } from 'react'
+import { useContext, useState, useRef } from 'react'
 import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native'
 
 import { mainStyle } from '../../styles/mainStyle'
@@ -8,6 +8,7 @@ import { gameStyle } from '../../styles/gameStyle'
 import { Loader } from '../common/Loader'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
+import { splitAnswerInput } from '../../scripts/answerInput'
 
 export const TaskAnswerForm = ({ game, setGame, setModal, answerNumber }) => {
 
@@ -16,13 +17,15 @@ export const TaskAnswerForm = ({ game, setGame, setModal, answerNumber }) => {
     const [inputResults, setInputResults] = useState({})
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
+    const inputRefs = useRef([])
 
     const inputCount = answerNumber === 1 ? game.inputs1 : game.inputs2
     const showHint = answerNumber === 1 ? game.sight_hint1 : game.sight_hint2
 
     const answersHandler = (key, value) => {
-        value = value.replace(/\s/g, '')
-        setAnswersState({ ...answersState, [key]: value })
+        const next = splitAnswerInput(value, key, Number(inputCount), answersState)
+        setAnswersState(next.answers)
+        if (next.focusIndex !== key) inputRefs.current[next.focusIndex]?.focus()
     }
 
     const checkAnswer = async () => {
@@ -92,6 +95,10 @@ export const TaskAnswerForm = ({ game, setGame, setModal, answerNumber }) => {
         inputs.push(
             <View key={i} style={gameStyle.inputWrapper}>
                 <TextInput
+                    ref={element => { inputRefs.current[i] = element }}
+                    returnKeyType={i < inputCount - 1 ? 'next' : 'done'}
+                    blurOnSubmit={i === inputCount - 1}
+                    onSubmitEditing={() => inputRefs.current[i + 1]?.focus()}
                     placeholder={inputCount == 1 ? 'Ответ' : `Слово ${i + 1}`}
                     style={[mainStyle.modernInput, style]}
                     placeholderTextColor={'#BDC3C7'}

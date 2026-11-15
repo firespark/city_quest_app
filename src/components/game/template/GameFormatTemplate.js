@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useContext, useState } from 'react'
 import { View, TouchableOpacity, Text } from 'react-native'
 
 import { mainStyle } from '../../../styles/mainStyle'
@@ -11,8 +11,9 @@ import { Error } from '../../common/Error'
 
 import { MainContext } from '../../../context/mainContext'
 import { Http } from '../../../scripts/http'
+import { optionEnabled } from '../../../scripts/questOptions'
 
-export const GameFormatTemplate = ({ setGame }) => {
+export const GameFormatTemplate = ({ game, setGame }) => {
 
     const { questId, token } = useContext(MainContext)
     const [selectedId, setSelectedId] = useState(1);
@@ -49,6 +50,7 @@ export const GameFormatTemplate = ({ setGame }) => {
             </View>
 
             <GameFormat
+                tourEnabled={optionEnabled(game?.tour_enabled)}
                 selectedId={selectedId}
                 setSelectedId={setSelectedId}
             />

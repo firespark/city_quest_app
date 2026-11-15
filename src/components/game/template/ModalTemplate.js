@@ -1,4 +1,6 @@
-import { View, ScrollView } from 'react-native'
+import { View, ScrollView, KeyboardAvoidingView } from 'react-native'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useKeyboardScroll } from '../../../hooks/useKeyboardScroll'
 
 import { mainStyle } from '../../../styles/mainStyle'
 import { gameStyle } from '../../../styles/gameStyle'
@@ -15,9 +17,11 @@ import { ModalHintAlert } from '../modal/ModalHintAlert'
 import { ModalSkipAlert } from '../modal/ModalSkipAlert'
 import { ModalBackAlert } from '../modal/ModalBackAlert'
 import { ModalProgress } from '../modal/ModalProgress'
-import { ModalChangeFormatAlert } from '../modal/ModalChangeFormatAlert'
+// import { ModalChangeFormatAlert } from '../modal/ModalChangeFormatAlert'
 
 export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
+    const insets = useSafeAreaInsets()
+    const keyboardScroll = useKeyboardScroll()
 
     const handleClose = () => {
         if (modal === 'image' && game.return_to_task) {
@@ -64,6 +68,7 @@ export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
         case 'skip':
             content = <ModalSkipAlert setGame={setGame} setModal={setModal} />
             break
+        /* Формат выбирается только перед началом прохождения.
         case 'changeFormat':
             content = 
                 <ModalChangeFormatAlert 
@@ -72,6 +77,7 @@ export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
                     setModal={setModal}
                 />
             break
+        */
         case 'back':
             content = <ModalBackAlert setModal={setModal} />
             break
@@ -87,12 +93,13 @@ export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
     }
 
     return (
-        <View style={mainStyle.pageBackground}>
+        <KeyboardAvoidingView style={mainStyle.pageBackground} behavior="padding" keyboardVerticalOffset={insets.top}>
             <View style={gameStyle.modalTemplateHeader}>
                 <ModalClose setModal={handleClose} />
             </View>
 
             <ScrollView
+                {...keyboardScroll}
                 style={mainStyle.flex}
                 keyboardShouldPersistTaps="handled"
                 keyboardDismissMode="interactive"
@@ -102,6 +109,6 @@ export const ModalTemplate = ({ game, modal, setModal, setGame, nextGame }) => {
                     {content}
                 </View>
             </ScrollView>
-        </View>
+        </KeyboardAvoidingView>
     )
 }

@@ -5,13 +5,13 @@ import { gameStyle } from '../../styles/gameStyle'
 import { MainContext } from '../../context/mainContext'
 import { useGoogleBilling, ErrorCode } from '../../context/GoogleBillingContext'
 
-export const Hints = ({ hints, showHint, setModal, setGame }) => {
+export const Hints = ({ canBuy = true, hints, showHint, setModal, setGame }) => {
     const { token, questId } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
     const { buyProduct } = useGoogleBilling()
 
     const buyHints = async () => {
-        if (loading) return
+        if (loading || !canBuy) return
 
         setLoading(true)
 
@@ -49,9 +49,9 @@ export const Hints = ({ hints, showHint, setModal, setGame }) => {
                     style={[gameStyle.pill, gameStyle.pillDisabled]}
                     activeOpacity={0.7}
                     onPress={() => {
-                        if (hints === 0) buyHints()
+                        if (hints === 0 && canBuy) buyHints()
                     }}
-                    disabled={loading}
+                    disabled={loading || (hints === 0 && !canBuy)}
                 >
                     {loading ? (
                         <ActivityIndicator size="small" color="#FFFFFF" style={{ paddingHorizontal: 10 }} />
@@ -59,7 +59,7 @@ export const Hints = ({ hints, showHint, setModal, setGame }) => {
                         <>
                             <Image source={require('../../../assets/img/hint-disabled.png')} style={gameStyle.hintIcon} />
                             <Text style={gameStyle.hintTextDisabled}>{hints}</Text>
-                            {hints === 0 && (
+                            {hints === 0 && canBuy && (
                                 <View style={gameStyle.pillPremiumSign}>
                                     <Ionicons name="diamond-outline" size={10} color="#FFFFFF" />
                                 </View>

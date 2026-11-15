@@ -6,6 +6,7 @@ import { gameStyle } from '../../styles/gameStyle'
 import { Sight } from './Sight'
 import { TaskSign } from './TaskSign'
 import { ResetButton } from '../quests/ResetButton'
+import { FinishButton } from './FinishButton'
 
 export const FinishQuest = ({ text, game, setModal, setResetModalVisible }) => {
     return (
@@ -33,6 +34,7 @@ export const FinishQuest = ({ text, game, setModal, setResetModalVisible }) => {
             </View>
 
             <View style={[mainStyle.divider, mainStyle.mt20]} />
+            <FinishButton game={game} />
 
             <View style={mainStyle.mb30}>
                 <ResetButton setModalVisible={setResetModalVisible} />

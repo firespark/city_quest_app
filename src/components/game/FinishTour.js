@@ -5,6 +5,7 @@ import { mainStyle } from '../../styles/mainStyle'
 import { gameStyle } from '../../styles/gameStyle'
 
 import { ResetButton } from '../quests/ResetButton'
+import { FinishButton } from './FinishButton'
 import { FormattedContent } from '../common/FormattedContent'
 
 export const FinishTour = ({ text, game, setResetModalVisible }) => {
@@ -60,6 +61,7 @@ export const FinishTour = ({ text, game, setResetModalVisible }) => {
             ) : null}
 
             <View style={mainStyle.mt20}>
+                <FinishButton game={game} />
                 <ResetButton setModalVisible={setResetModalVisible} />
             </View>
         </View>
