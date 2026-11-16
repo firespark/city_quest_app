@@ -12,9 +12,7 @@ const VK_ID_SDK_VERSION = '2.7.2';
 const YANDEX_LOGIN_SDK_VERSION = '3.1.3';
 
 const VK_MAVEN_REPOSITORIES = [
-    'https://artifactory-external.vkpartner.ru/artifactory/vkid-sdk-android/',
-    'https://artifactory-external.vkpartner.ru/artifactory/maven/',
-    'https://artifactory-external.vkpartner.ru/artifactory/vk-id-captcha/android/',
+    'https://nexus-external.vkteam.ru/repository/maven/',
 ];
 
 const RUSTORE_MAVEN_REPOSITORY =

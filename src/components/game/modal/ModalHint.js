@@ -15,12 +15,12 @@ export const ModalHint = ({ game, task }) => {
         <View style={mainStyle.container}>
             <Text style={mainStyle.titleMain}>Подсказка</Text>
             {
-                (hint.image)
+                (hint?.image)
                     ? <FullWidthImage style={gameStyle.gameImage} source={{ uri: hint.image + '?time=' + new Date().getTime() }} />
                     : null
             }
 
-            <Text selectable style={gameStyle.gameText}>{hint.text}</Text>
+            <Text selectable style={gameStyle.gameText}>{hint?.text}</Text>
         </View>
     )
 }

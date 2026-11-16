@@ -21,12 +21,11 @@ export const AuthGoogle = ({ token, changeScreen, screen, setError, setLoader })
                 if (output.success == 1) {
                     changeScreen(screen);
                 } else {
-                    setError(output.error || 'Ошибка входа через Google');
+                    setError(output.error);
                 }
             }
         } catch (e) {
-            console.error('Error:', e);
-            setError('Не удалось войти через Google');
+            setError(e?.message || String(e?.code ?? e));
         } finally {
             setLoader(false);
         }

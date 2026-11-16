@@ -6,15 +6,19 @@ import { gameStyle } from '../../styles/gameStyle'
 import { Sight } from './Sight'
 import { TaskSign } from './TaskSign'
 import { ResetButton } from '../quests/ResetButton'
+import { FinishButton } from './FinishButton'
 
 export const FinishQuest = ({ text, game, setModal, setResetModalVisible }) => {
     return (
         <View style={mainStyle.card}>
-            <View style={mainStyle.container}>
-                <Text style={[mainStyle.subtitle, mainStyle.textCenter]}>{text}</Text>
-            </View>
-
-            <View style={[mainStyle.divider, mainStyle.mb20]} />
+            {text ? (
+                <>
+                    <View style={mainStyle.container}>
+                        <Text style={[mainStyle.subtitle, mainStyle.textCenter]}>{text}</Text>
+                    </View>
+                    <View style={[mainStyle.divider, mainStyle.mb20]} />
+                </>
+            ) : null}
 
             <View style={mainStyle.center}>
                 <Text style={[mainStyle.preTitle, mainStyle.mb20]}>
@@ -33,6 +37,7 @@ export const FinishQuest = ({ text, game, setModal, setResetModalVisible }) => {
             </View>
 
             <View style={[mainStyle.divider, mainStyle.mt20]} />
+            <FinishButton game={game} />
 
             <View style={mainStyle.mb30}>
                 <ResetButton setModalVisible={setResetModalVisible} />

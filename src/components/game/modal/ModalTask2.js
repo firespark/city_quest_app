@@ -5,9 +5,28 @@ import { gameStyle } from '../../../styles/gameStyle'
 
 import { TaskTemplate } from '../TaskTemplate'
 import { Hint } from '../Hint'
+import { isArEnabled } from '../../../scripts/arMath'
+import { arStyle } from '../../../styles/arStyle'
 
 export const ModalTask2 = ({ game, setModal, setGame }) => {
     const task = game.task2
+
+    if (isArEnabled(game.ar)) {
+        const instruction = game.ar_point?.instruction?.trim() || 'Найди скрытую надпись у достопримечательности через камеру и введи её как ответ на второй вопрос.'
+        return (
+            <View style={mainStyle.mt5}>
+                <Text style={mainStyle.preTitle}>Задание выполнено</Text>
+                <Text style={mainStyle.titleMain}>Найди надпись</Text>
+                <View style={mainStyle.divider} />
+                <Text style={arStyle.text}>{instruction}</Text>
+                <View style={gameStyle.gameAnswerCard}>
+                    <View style={gameStyle.gameSuccessBadge}><Text style={gameStyle.gameSuccessIcon}>✓</Text></View>
+                    <Text style={gameStyle.gameAnswerLabel}>Ответ</Text>
+                    <Text selectable style={gameStyle.gameAnswerText}>{game.answer2}</Text>
+                </View>
+            </View>
+        )
+    }
 
     return (
         <View style={mainStyle.mt5}>

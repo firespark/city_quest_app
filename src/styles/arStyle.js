@@ -1,0 +1,26 @@
+import { StyleSheet } from 'react-native'
+
+export const arStyle = StyleSheet.create({
+    page: { flex: 1, backgroundColor: '#FFFFFF' },
+    header: { flexDirection: 'row', alignItems: 'center', paddingHorizontal: 20, paddingVertical: 10, gap: 12 },
+    title: { fontSize: 20, fontWeight: '700', color: '#2C3E50' },
+    status: { padding: 16, gap: 8 },
+    preview: { flex: 1, minHeight: 180, backgroundColor: '#17212B', overflow: 'hidden' },
+    camera: { ...StyleSheet.absoluteFillObject },
+    center: { flex: 1, alignItems: 'center', justifyContent: 'center', padding: 20, gap: 16 },
+    message: { color: '#FFFFFF', fontSize: 16, lineHeight: 24, textAlign: 'center' },
+    reticle: { position: 'absolute', left: '50%', top: '50%', width: 32, height: 32, marginLeft: -16, marginTop: -16, borderWidth: 2, borderRadius: 16, borderColor: '#FFFFFF' },
+    reticleActive: { borderColor: '#4CAF50', borderWidth: 3 },
+    object: { position: 'absolute', width: '80%', height: 120, alignItems: 'center', justifyContent: 'center' },
+    objectText: { width: '100%', height: '100%', color: '#FFE066', fontSize: 26, fontWeight: '700', textAlign: 'center', textAlignVertical: 'center', textShadowColor: '#000000', textShadowOffset: { width: 1, height: 2 }, textShadowRadius: 4 },
+    guidance: { position: 'absolute', bottom: 12, left: 12, right: 12, borderRadius: 12, padding: 10, backgroundColor: '#17212BE6' },
+    guidanceActive: { backgroundColor: '#216F2DE6' },
+    actions: { padding: 16, gap: 12 },
+    taskContent: { padding: 20, gap: 16, marginTop: 16 },
+    utilityButton: { alignSelf: 'center', maxWidth: '100%', minHeight: 44, justifyContent: 'center', paddingVertical: 10, paddingHorizontal: 16, borderWidth: 1, borderColor: '#17A2B8', borderRadius: 12, backgroundColor: '#F1F5F9' },
+    utilityButtonText: { color: '#17A2B8', fontSize: 16, fontWeight: '600', textAlign: 'center' },
+    text: { fontSize: 16, lineHeight: 24, color: '#2C3E50' },
+    hint: { fontSize: 14, lineHeight: 20, color: '#5A6A7A' },
+    error: { fontSize: 16, lineHeight: 24, color: '#E74C3C' },
+    buttonDisabled: { opacity: 0.4 },
+})

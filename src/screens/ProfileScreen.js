@@ -13,42 +13,44 @@ import { PurchasedQuests } from '../components/quests/PurchasedQuests'
 import { Footer } from '../components/common/Footer'
 import { Loader } from '../components/common/Loader'
 import { Error } from '../components/common/Error'
+import { ConnectionError } from '../components/common/ConnectionError'
 import { MainContext } from '../context/mainContext'
 import { Http } from '../scripts/http'
+
+const guestUser = { name: 'Путешественник', email: null, vk_id: null, yandex_id: null, notes: 0 }
+
 export const ProfileScreen = () => {
     const [loader, setLoader] = useState(true)
     const [loadError, setLoadError] = useState(null)
     const { token } = useContext(MainContext)
-    const [user, setUser] = useState({
-        'name': 'Путешественник',
-        'email': null,
-        'vk_id': null,
-        'yandex_id': null,
-        'notes': 0,
-    })
+    const [user, setUser] = useState(guestUser)
     const isRegistered = !!(user.email || user.vk_id || user.yandex_id)
     const fetchData = async () => {
+        setLoadError(null)
         if (!token) {
+            setUser(guestUser)
             setLoader(false)
             return
         }
-        setLoadError(null)
         setLoader(true)
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/users/get`, token)
-            if (output.success == 1) {
-                setUser(prev => ({
+            if (output.success == 1 && output.data && typeof output.data === 'object' && !Array.isArray(output.data)) {
+                setUser({
+                    ...guestUser,
                     ...output.data,
-                    name: (output.data.name && output.data.name.trim() !== "")
+                    name: (typeof output.data.name === 'string' && output.data.name.trim() !== '')
                         ? output.data.name
-                        : prev.name
-                }))
-            } else if (output.error === 'connection_error') {
-                setLoadError('connection_error')
+                        : guestUser.name
+                })
+            } else if (Number(output.status) === 401) {
+                // The API also returns 401 for the normal anonymous profile.
+                setUser(guestUser)
+            } else {
+                setLoadError(output.error || 'Не удалось загрузить данные')
             }
-        } catch (e) {
-            console.error('Error:', e)
-            setLoadError('connection_error')
+        } catch {
+            setLoadError('Не удалось загрузить данные')
         } finally {
             setLoader(false)
         }
@@ -56,9 +58,6 @@ export const ProfileScreen = () => {
     useEffect(() => {
         fetchData()
     }, [token])
-    if (loader) return <Loader />
-    if (loadError === 'connection_error') return <ConnectionError onRetry={fetchData} />
-    if (loadError) return <Error text={loadError} />
     return (
         <View style={mainStyle.pageBackground}>
             <View style={headerStyle.panelHeader}>
@@ -71,25 +70,39 @@ export const ProfileScreen = () => {
                 showsVerticalScrollIndicator={false}
             >
                 <View style={mainStyle.container}>
-                    <View style={[mainStyle.card, profileStyle.profileHeaderCard]}>
-                        <View style={profileStyle.profileNameRow}>
-                            <Text style={profileStyle.profileUserName} numberOfLines={1}>
-                                {user.name}
-                            </Text>
-                            {isRegistered && <Settings />}
-                        </View>
-                    </View>
-                    {!isRegistered && <ProfileRegister />}
-                    <View style={mainStyle.card}>
-                        <OpenQuests />
-                    </View>
-                    <View style={mainStyle.card}>
-                        <DoneQuests />
-                    </View>
-                    {isRegistered && (
-                        <View style={mainStyle.card}>
-                            <PurchasedQuests />
-                        </View>
+                    {loader ? <Loader /> : (
+                        <>
+                            {loadError ? (
+                                loadError === 'connection_error'
+                                    ? <ConnectionError onRetry={fetchData} />
+                                    : <Error text={loadError} onRetry={fetchData} />
+                            ) : (
+                                <View style={[mainStyle.card, profileStyle.profileHeaderCard]}>
+                                    <View style={profileStyle.profileNameRow}>
+                                        <Text style={profileStyle.profileUserName} numberOfLines={1}>
+                                            {user.name}
+                                        </Text>
+                                        {isRegistered && <Settings />}
+                                    </View>
+                                </View>
+                            )}
+                            {!isRegistered && <ProfileRegister />}
+                            {!loadError && (
+                                <>
+                                    <View style={mainStyle.card}>
+                                        <OpenQuests />
+                                    </View>
+                                    <View style={mainStyle.card}>
+                                        <DoneQuests />
+                                    </View>
+                                    {isRegistered && (
+                                        <View style={mainStyle.card}>
+                                            <PurchasedQuests />
+                                        </View>
+                                    )}
+                                </>
+                            )}
+                        </>
                     )}
                 </View>
             </ScrollView>
