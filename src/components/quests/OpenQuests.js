@@ -24,7 +24,7 @@ export const OpenQuests = () => {
         setLoader(true)
         try {
             const output = await Http.get(`${process.env.EXPO_PUBLIC_API_URL}/quests/opened`, token)
-            if (output.success == 1) {
+            if (output.success == 1 && Array.isArray(output.data) && output.data.every(quest => quest && typeof quest === 'object')) {
                 const grouped = output.data.reduce((acc, quest) => {
                     const country = quest.country_title || 'Другие';
                     if (!acc[country]) acc[country] = [];
@@ -33,11 +33,10 @@ export const OpenQuests = () => {
                 }, {});
                 setData(grouped);
             } else {
-                setError(output.error || 'Ошибка загрузки')
+                setError(output.error || 'Не удалось загрузить данные')
             }
-        } catch (e) {
-            console.error('Error:', e)
-            setError('connection_error')
+        } catch {
+            setError('Не удалось загрузить данные')
         } finally {
             setLoader(false)
         }
@@ -45,17 +44,16 @@ export const OpenQuests = () => {
 
     useEffect(() => {
         fetchData()
-    }, [])
-
-    if (loader) return <Loader />
-    if (error === 'connection_error') {
-        return <ConnectionError onRetry={fetchData} />
-    }
+    }, [token])
     return (
         <View>
             <Text style={questsStyle.blockTitle}>Открытые туры</Text>
 
-            {data && Object.keys(data).length > 0 ? (
+            {loader ? <Loader /> : error ? (
+                error === 'connection_error'
+                    ? <ConnectionError onRetry={fetchData} />
+                    : <Error text={error} onRetry={fetchData} />
+            ) : data && Object.keys(data).length > 0 ? (
                 Object.keys(data).map((countryName) => (
                     <View key={countryName} style={questsStyle.countryBlock}>
 
@@ -79,8 +77,6 @@ export const OpenQuests = () => {
             ) : (
                 <Text style={questsStyle.emptyText}>Нет открытых туров</Text>
             )}
-
-            {error && <Error text={error} />}
         </View>
     )
 }

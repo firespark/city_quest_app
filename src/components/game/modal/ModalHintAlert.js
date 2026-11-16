@@ -11,7 +11,7 @@ import { Http } from '../../../scripts/http'
 
 export const ModalHintAlert = ({ setModal, setGame }) => {
 
-    const { questId, token, scrollViewRef } = useContext(MainContext)
+    const { questId, token } = useContext(MainContext)
 
     const [loader, setLoader] = useState(false)
     const [error, setError] = useState(null)
@@ -25,11 +25,7 @@ export const ModalHintAlert = ({ setModal, setGame }) => {
 
             if (output.success == 1) {
                 setGame(output.data)
-                setModal(null);
-                
-                if (scrollViewRef) {
-                    scrollViewRef.current?.scrollToEnd({ animated: true });
-                }
+                setModal(Number(output.data.status) === 1 ? 'hint2' : 'hint1')
             } else {
                 setError(
                     output.error === 'connection_error' 
@@ -59,12 +55,7 @@ export const ModalHintAlert = ({ setModal, setGame }) => {
                 <TouchableOpacity
                     style={mainStyle.primaryButton}
                     activeOpacity={0.7}
-                    onPress={() => {
-                        getHint()
-
-                        if (scrollViewRef)
-                            scrollViewRef.current?.scrollToEnd({ animated: true })
-                    }}
+                    onPress={getHint}
                 >
                     <Text style={mainStyle.primaryButtonText}>Показать подсказку</Text>
                 </TouchableOpacity>

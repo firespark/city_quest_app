@@ -3,7 +3,7 @@ import { View, Text, TouchableOpacity } from 'react-native'
 import { mainStyle } from '../../styles/mainStyle'
 import { gameStyle } from '../../styles/gameStyle'
 
-export const GameFormat = ({ selectedId, setSelectedId }) => {
+export const GameFormat = ({ selectedId, setSelectedId, tourEnabled = true }) => {
     const formats = [
         {
             id: 1,
@@ -19,7 +19,7 @@ export const GameFormat = ({ selectedId, setSelectedId }) => {
 
     return (
         <View style={gameStyle.modeListContainer}>
-            {formats.map((format) => {
+            {formats.filter(format => format.id !== 2 || tourEnabled).map((format) => {
                 const isSelected = selectedId === format.id;
                 
                 return (

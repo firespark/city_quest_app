@@ -7,14 +7,14 @@ import { Http } from '../../scripts/http'
 import { BILLING_PRODUCTS } from '../../config/billing'
 import { RuStoreReactPay } from '../../libs/RuStoreReactPay'
 
-export const Skips = ({ skips, showSkip, setModal, setGame }) => {
+export const Skips = ({ canBuy = true, skips, showSkip, setModal, setGame }) => {
     const { token, questId } = useContext(MainContext)
     const [loading, setLoading] = useState(false)
 
     const productId = BILLING_PRODUCTS.rustore.skips
 
     const buySkips = async () => {
-        if (loading) return;
+        if (loading || !canBuy) return;
         setLoading(true);
         try {
             const check = await RuStoreReactPay.getPurchaseAvailability();
@@ -70,9 +70,9 @@ export const Skips = ({ skips, showSkip, setModal, setGame }) => {
                     style={[gameStyle.pill, gameStyle.pillDisabled]}
                     activeOpacity={0.7}
                     onPress={() => {
-                        if (skips === 0) buySkips()
+                        if (skips === 0 && canBuy) buySkips()
                     }}
-                    disabled={loading}
+                    disabled={loading || (skips === 0 && !canBuy)}
                 >
                     {loading ? (
                         <ActivityIndicator size="small" color="#FFFFFF" style={{ paddingHorizontal: 10 }} />
@@ -80,7 +80,7 @@ export const Skips = ({ skips, showSkip, setModal, setGame }) => {
                         <>
                             <Image source={require('../../../assets/img/skip-disabled.png')} style={gameStyle.hintIcon} />
                             <Text style={gameStyle.textDisabled}>{skips}</Text>
-                            {skips === 0 && (
+                            {skips === 0 && canBuy && (
                                 <View style={gameStyle.pillPremiumSign}>
                                     <Ionicons name="diamond-outline" size={10} color="#FFFFFF" />
                                 </View>

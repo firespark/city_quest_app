@@ -35,7 +35,7 @@ class SocialAuthModule(reactContext: ReactApplicationContext) :
             promise.reject("AUTH_INTERRUPTED", "Авторизация прервана. Повторите вход.")
             return
         }
-        val activity = currentActivity as? FragmentActivity
+        val activity = reactApplicationContext.currentActivity as? FragmentActivity
         if (activity == null) {
             promise.reject("AUTH_NO_ACTIVITY", "Экран приложения недоступен")
             return

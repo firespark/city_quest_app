@@ -7,14 +7,16 @@ export const ProgressBar = ({ game, setModal }) => {
 
     const content = []
 
-    for (let i = 1; i <= game.levels; i++) {
+    const steps = Array.isArray(game.step_numbers) ? game.step_numbers : Array.from({ length: game.levels }, (_, index) => index + 1)
+    const lastStep = steps[steps.length - 1]
+    for (const i of steps) {
         let st = gameStyle.progressDisabled
         if (i < game.step_total) st = gameStyle.progressDone
-        if (i == game.levels) st = gameStyle.progressFinish
+        if (i == lastStep) st = gameStyle.progressFinish
         if (i == game.step_total) st = gameStyle.progressInProgress
-        if (i == game.levels && i == game.step_total) st = gameStyle.progressFinishDone
+        if (i == lastStep && i == game.step_total) st = gameStyle.progressFinishDone
         if (i == game.step) st = gameStyle.progressCurrent
-        if (i == game.step && i == game.levels) st = [gameStyle.progressCurrent, gameStyle.progressFinishDone]
+        if (i == game.step && i == lastStep) st = [gameStyle.progressCurrent, gameStyle.progressFinishDone]
 
         content.push(<View key={i} style={[gameStyle.progressPoint, st]}></View>)
     }
