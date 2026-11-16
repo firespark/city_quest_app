@@ -195,9 +195,7 @@ export const ARPrototypeScreen = ({ point, onClose }) => (
             </TouchableOpacity>
             <Text style={arStyle.title}>Поиск надписи</Text>
         </View>
-        {!validPoint(point) ? (
-            <View style={arStyle.center}><Text style={arStyle.text}>Для этой достопримечательности пока не настроена AR-точка. Вернись к заданию.</Text></View>
-        ) : Platform.OS === 'android' ? <AndroidARSearch point={point} onClose={onClose} /> : (
+        {!validPoint(point) ? null : Platform.OS === 'android' ? <AndroidARSearch point={point} onClose={onClose} /> : (
             <View style={arStyle.center}><Text style={arStyle.text}>Поиск AR-надписей доступен в приложении для Android.</Text></View>
         )}
     </View>

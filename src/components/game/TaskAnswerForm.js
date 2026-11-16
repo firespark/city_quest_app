@@ -1,173 +1,48 @@
+import { useContext } from 'react'
+import { View, Image, Text, TouchableOpacity } from 'react-native'
 
-import { useContext, useState, useRef } from 'react'
-import { View, Image, Text, TextInput, TouchableOpacity } from 'react-native'
-
-import { mainStyle } from '../../styles/mainStyle'
 import { gameStyle } from '../../styles/gameStyle'
-
-import { Loader } from '../common/Loader'
 import { MainContext } from '../../context/mainContext'
 import { Http } from '../../scripts/http'
-import { splitAnswerInput } from '../../scripts/answerInput'
+import { AnswerForm } from './AnswerForm'
 
 export const TaskAnswerForm = ({ game, setGame, setModal, answerNumber }) => {
-
     const { questId, token, answersState, setAnswersState } = useContext(MainContext)
+    const firstQuestion = answerNumber === 1
+    const inputCount = Number(firstQuestion ? game.inputs1 : game.inputs2)
+    const showHint = firstQuestion ? game.sight_hint1 : game.sight_hint2
 
-    const [inputResults, setInputResults] = useState({})
-    const [loader, setLoader] = useState(false)
-    const [error, setError] = useState(null)
-    const inputRefs = useRef([])
+    const submitAnswers = () => Http.post(
+        `${process.env.EXPO_PUBLIC_API_URL}/games/checkAnswer/${questId}`,
+        { quest_answer: answersState, answer_number: answerNumber },
+        token
+    )
 
-    const inputCount = answerNumber === 1 ? game.inputs1 : game.inputs2
-    const showHint = answerNumber === 1 ? game.sight_hint1 : game.sight_hint2
-
-    const answersHandler = (key, value) => {
-        const next = splitAnswerInput(value, key, Number(inputCount), answersState)
-        setAnswersState(next.answers)
-        if (next.focusIndex !== key) inputRefs.current[next.focusIndex]?.focus()
-    }
-
-    const checkAnswer = async () => {
-        setError(null)
-
-        const allEmpty = Array.from(
-            { length: inputCount },
-            (_, i) => !String(answersState[i] ?? '').trim()
-        ).every(Boolean)
-
-        if (allEmpty) {
-            const results = {}
-
-            for (let i = 0; i < inputCount; i++) {
-                results[i] = 0
-            }
-
-            setInputResults(results)
-            return
-        }
-
-        setLoader(true)
-
-        try {
-            const postdata = {
-                quest_answer: answersState,
-                answer_number: answerNumber
-            }
-
-            const output = await Http.post(
-                `${process.env.EXPO_PUBLIC_API_URL}/games/checkAnswer/${questId}`,
-                postdata,
-                token
-            )
-
-            if (output.success == 1) {
-                setInputResults(output.data.inputResults || {})
-
-                if (!output.data.errors) {
-                    setGame(output.data)
-                    setAnswersState([])
-                    setModal(`answer${answerNumber}`)
-                }
-            } else {
-                setError(output.error || 'Произошла ошибка при проверке ответа')
-            }
-
-        } catch (e) {
-            console.error('Error:', e)
-            setError('Произошла ошибка при отправке')
-        } finally {
-            setLoader(false)
-        }
-    }
-
-    const inputs = []
-
-    for (let i = 0; i < inputCount; i++) {
-        let style = null
-
-        if (typeof inputResults[i] !== 'undefined') {
-            style = inputResults[i] == 1
-                ? mainStyle.inputCorrect
-                : mainStyle.inputError
-        }
-
-        inputs.push(
-            <View key={i} style={gameStyle.inputWrapper}>
-                <TextInput
-                    ref={element => { inputRefs.current[i] = element }}
-                    returnKeyType={i < inputCount - 1 ? 'next' : 'done'}
-                    blurOnSubmit={i === inputCount - 1}
-                    onSubmitEditing={() => inputRefs.current[i + 1]?.focus()}
-                    placeholder={inputCount == 1 ? 'Ответ' : `Слово ${i + 1}`}
-                    style={[mainStyle.modernInput, style]}
-                    placeholderTextColor={'#BDC3C7'}
-                    value={answersState[i] || ''}
-                    onChangeText={(value) => answersHandler(i, value)}
-                    autoCapitalize="none"
-                    importantForAutofill="no"
-                    autoComplete="off"
-                    textContentType="none"
-                    dataDetectorTypes="none"
-                    autoCorrect={false}
-                    spellCheck={false}
-                />
-            </View>
-        )
+    const onCorrect = data => {
+        setGame(data)
+        setAnswersState([])
+        setModal(`answer${answerNumber}`)
     }
 
     return (
         <>
             {showHint ? (
                 <View style={gameStyle.hintContainer}>
-                    <TouchableOpacity
-                        activeOpacity={0.7}
-                        onPress={() => setModal(`hint${answerNumber}`)}
-                    >
+                    <TouchableOpacity activeOpacity={0.7} onPress={() => setModal(`hint${answerNumber}`)}>
                         <View style={gameStyle.hintPill}>
-                            <Image
-                                source={require('../../../assets/img/hint.png')}
-                                style={gameStyle.hintIcon}
-                            />
-                            <Text style={gameStyle.hintTextActive}>
-                                Подсказка
-                            </Text>
+                            <Image source={require('../../../assets/img/hint.png')} style={gameStyle.hintIcon} />
+                            <Text style={gameStyle.hintTextActive}>Подсказка</Text>
                         </View>
                     </TouchableOpacity>
                 </View>
             ) : null}
-
-            {loader ? (
-                <View style={mainStyle.mt30}>
-                    <Loader />
-                </View>
-            ) : (
-                <>
-                    <View style={mainStyle.mt15}>
-                        {inputs}
-                    </View>
-
-                    <View style={mainStyle.mt15}>
-                        <TouchableOpacity
-                            style={mainStyle.primaryButton}
-                            activeOpacity={0.7}
-                            onPress={checkAnswer}
-                        >
-                            <Text style={mainStyle.buttonText}>
-                                Ответ
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                </>
-            )}
-
-            {error ? (
-                <View style={mainStyle.errorContainer}>
-                    <Text style={mainStyle.errorText}>
-                        {error}
-                    </Text>
-                </View>
-            ) : null}
+            <AnswerForm
+                inputCount={inputCount}
+                answers={answersState}
+                onChangeAnswers={setAnswersState}
+                submitAnswers={submitAnswers}
+                onCorrect={onCorrect}
+            />
         </>
     )
 }

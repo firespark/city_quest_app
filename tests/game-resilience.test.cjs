@@ -12,7 +12,7 @@ const load = (file, mocks = {}, globals = {}) => {
 }
 const jsx = (type, props, key) => ({ type, props, key })
 const runtime = { jsx, jsxs: jsx, Fragment: 'Fragment' }
-const styles = { mainStyle: {}, gameStyle: {} }
+const styles = { mainStyle: { textDisabled: { color: 'muted' } }, gameStyle: {} }
 const elements = (tree, predicate) => {
     if (!tree || typeof tree !== 'object') return []
     if (Array.isArray(tree)) return tree.flatMap(node => elements(node, predicate))
@@ -259,7 +259,7 @@ test('local errors only restart on explicit user action, while validation messag
     assert.equal(nodesOfType(ErrorMessage({ text: 'Неверный ответ' }), 'Button').length, 0)
 })
 
-const { splitAnswerInput } = load('src/scripts/answerInput.js')
+const { getAnswerValues, splitAnswerInput } = load('src/scripts/answerInput.js')
 test('spaces and pasted phrases advance and distribute words without joining them', () => {
     assert.deepEqual(splitAnswerInput('кот ', 0, 2, {}), { answers: { 0: 'кот' }, focusIndex: 1 })
     assert.deepEqual(splitAnswerInput('кот дом', 0, 3, {}), { answers: { 0: 'кот', 1: 'дом' }, focusIndex: 1 })
@@ -268,21 +268,21 @@ test('spaces and pasted phrases advance and distribute words without joining the
     assert.equal(splitAnswerInput(' ', 0, 2, {}).focusIndex, 0)
     assert.deepEqual(splitAnswerInput('  кот\nдом', 0, 2, {}), { answers: { 0: 'кот', 1: 'дом' }, focusIndex: 1 })
     assert.deepEqual(splitAnswerInput('а б', 0, 1, {}), { answers: { 0: 'аб' }, focusIndex: 0 })
+    assert.deepEqual(splitAnswerInput('а б', 0, 1, {}, true), { answers: { 0: 'а б' }, focusIndex: 0 })
 })
 
 test('answer form actually focuses the next native input after a space', () => {
     let answers = {}, focus = 0
     const ref = { current: [] }
-    const { TaskAnswerForm } = load('src/components/game/TaskAnswerForm.js', {
-        react: { useContext: () => ({ answersState: answers, setAnswersState: value => { answers = value } }),
-            useState: initial => [initial, () => {}], useRef: () => ref },
+    const { AnswerForm } = load('src/components/game/AnswerForm.js', {
+        react: { useState: initial => [initial, () => {}], useRef: () => ref },
         'react/jsx-runtime': runtime,
         'react-native': { View: 'View', Text: 'Text', TextInput: 'Input', TouchableOpacity: 'Button', Image: 'Image' },
         '../../styles/mainStyle': styles, '../../styles/gameStyle': styles,
-        '../common/Loader': { Loader: 'Loader' }, '../../context/mainContext': { MainContext: {} },
-        '../../scripts/http': { Http: {} }, '../../scripts/answerInput': { splitAnswerInput },
+        '../common/Loader': { Loader: 'Loader' },
+        '../../scripts/answerInput': { getAnswerValues, splitAnswerInput },
     })
-    const tree = TaskAnswerForm({ game: { inputs2: 2 }, answerNumber: 2 })
+    const tree = AnswerForm({ inputCount: 2, answers, onChangeAnswers: value => { answers = value } })
     const inputs = elements(tree, node => node.type === 'Input')
     inputs[1].props.ref({ focus: () => { focus++ } })
     inputs[0].props.onChangeText('кот ')
@@ -386,15 +386,14 @@ test('a failed hint request keeps the confirmation open without changing the gam
 test('the used hint button can still reopen the same hint without a new request', () => {
     for (const answerNumber of [1, 2]) {
         let modal
-        const { splitAnswerInput } = load('src/scripts/answerInput.js')
         const { TaskAnswerForm } = load('src/components/game/TaskAnswerForm.js', {
-            react: { useContext: () => ({ answersState: {}, setAnswersState: () => {} }), useState: initial => [initial, () => {}], useRef: () => ({ current: [] }) },
+            react: { useContext: () => ({ answersState: {}, setAnswersState: () => {} }) },
             'react/jsx-runtime': runtime,
             'react-native': { View: 'View', Text: 'Text', TextInput: 'Input', TouchableOpacity: 'Button', Image: 'Image' },
-            '../../styles/mainStyle': styles, '../../styles/gameStyle': styles,
-            '../common/Loader': { Loader: 'Loader' }, '../../context/mainContext': { MainContext: {} },
+            '../../styles/gameStyle': styles,
+            '../../context/mainContext': { MainContext: {} },
             '../../scripts/http': { Http: { post: () => { throw new Error('Reopening must not consume another hint') } } },
-            '../../scripts/answerInput': { splitAnswerInput }, '../../../assets/img/hint.png': 1,
+            './AnswerForm': { AnswerForm: 'AnswerForm' }, '../../../assets/img/hint.png': 1,
         })
         const tree = TaskAnswerForm({ game: { inputs1: 1, inputs2: 1, ['sight_hint' + answerNumber]: { text: ['Подсказка'] } },
             answerNumber, setModal: value => { modal = value } })

@@ -650,6 +650,11 @@ test('only AR quests replace question two; answer form and its callbacks are unc
     const setModal = value => { modal = value }
     const tree = Task2({ game, setGame, setModal })
     assert.ok(containsText(tree, 'Найди надпись'))
+    assert.ok(containsText(tree, 'Подойди к достопримечательности и найди скрытую надпись через камеру. Это ответ на второй вопрос - запомни его и введи ниже.'))
+    const customInstruction = 'Посмотри на надпись через камеру рядом с башней.'
+    const custom = Task2({ game: { ...game, ar_point: { ...point, instruction: customInstruction } }, setGame, setModal })
+    assert.ok(containsText(custom, customInstruction))
+    assert.equal(containsText(custom, 'Подойди к достопримечательности и найди скрытую надпись через камеру. Это ответ на второй вопрос - запомни его и введи ниже.'), false)
     assert.equal(containsText(tree, point.text), false)
     assert.equal(containsText(tree, 'original question'), false)
     assert.equal(findElement(tree, node => node.type === 'TaskTemplate'), null)
@@ -865,6 +870,139 @@ test('format selection exists only at the start; active quests and tours have no
     }
     const finished = GameTemplate({ ...callbacks, game: { step: 2, step_total: 2, format_id: 1, finish: true } })
     assert.ok(findElement(finished, node => node.type === 'Finish'))
+})
+
+test('the last sight stays visible until the next request returns the finish question', () => {
+    const setGame = () => {}
+    const nextGame = () => {}
+    const finish_question = { text: 'Загадка', answers: ['фонарь', 'кот дом'], inputs: 2 }
+    for (const format_id of [1, 2]) {
+        const game = { step: 2, step_total: 2, format_id, status: 2, finish: false }
+        const last = GameTemplate({ setGame, nextGame, game })
+        assert.equal(findElement(last, node => node.type === 'Finish'), null)
+        const sight = findElement(last, node => node.type === (format_id === 1 ? 'Play' : 'Tour'))
+        assert.equal(sight.props.nextGame, nextGame)
+        const pending = GameTemplate({ setGame, game: { ...game, finish_question } })
+        const finish = findElement(pending, node => node.type === 'Finish')
+        assert.equal(finish.props.setGame, setGame)
+        assert.equal(finish.props.game.finish_question, finish_question)
+        assert.equal(findElement(pending, node => node.type === 'Hints' || node.type === 'Skips'), null)
+    }
+})
+
+test('completion after the final question shows the result and actions without repeating the sight', () => {
+    const { FinishTemplate } = load('src/components/game/template/FinishTemplate.js', {
+        react: { useContext: () => ({}), useState: initial => [initial, () => {}] },
+        'react/jsx-runtime': jsxRuntime,
+        'react-native': { View: 'View', Text: 'Text' },
+        '../../../context/mainContext': { MainContext: {} },
+        '../../../context/types': { QUEST_SCREEN: 'quest' },
+        '../../../styles/mainStyle': styles,
+        '../../../styles/gameStyle': styles,
+        '../ProgressBar': { ProgressBar: 'ProgressBar' },
+        '../GameTitle': { GameTitle: 'GameTitle' },
+        '../FinishQuest': { FinishQuest: 'FinishQuest' },
+        '../FinishTour': { FinishTour: 'FinishTour' },
+        '../FinishQuestion': { FinishQuestion: 'FinishQuestion' },
+        '../FinishButton': { FinishButton: 'FinishButton' },
+        '../../quests/ResetModal': { ResetModal: 'ResetModal' },
+        '../../quests/ResetButton': { ResetButton: 'ResetButton' },
+        '../../quests/Quests': { Quests: 'Quests' },
+    })
+    const game = { finish: true, sight_title: 'Последняя точка', quest_city: 'Город' }
+    const content = 'Квест пройден!'
+    for (const formatId of [1, 2]) {
+        const ordinary = FinishTemplate({ game, content, formatId })
+        assert.ok(findElement(ordinary, node => node.type === (formatId === 2 ? 'FinishTour' : 'FinishQuest')))
+
+        const final = FinishTemplate({ game: { ...game, finish_answer_display: 'кот дом' }, content, formatId })
+        assert.equal(findElement(final, node => node.type === 'FinishQuest' || node.type === 'FinishTour'), null)
+        assert.ok(containsText(final, 'КОТ ДОМ'))
+        assert.ok(containsText(final, content))
+        assert.ok(findElement(final, node => node.type === 'FinishButton'))
+        assert.ok(findElement(final, node => node.type === 'ResetButton'))
+    }
+})
+
+test('finish question shows the route answers in uppercase and uses the shared answer form', () => {
+    const { FinishQuestion } = load('src/components/game/FinishQuestion.js', {
+        react: { useContext: () => ({}), useState: initial => [initial, () => {}] },
+        'react/jsx-runtime': jsxRuntime,
+        'react-native': { View: 'View', Text: 'Text' },
+        '../../styles/mainStyle': styles,
+        '../../context/mainContext': { MainContext: {} },
+        '../../scripts/http': { Http: {} },
+        './AnswerForm': { AnswerForm: 'AnswerForm' },
+    })
+    const question = { text: 'Загадка', answers: ['фонарь', 'кот дом'], inputs: 2 }
+    const setGame = () => {}
+    const tree = FinishQuestion({ question, setGame })
+    assert.ok(findElement(tree, node => node.type === 'Text' && node.props.children === 'ФОНАРЬ, КОТ ДОМ'))
+    assert.equal(findElement(tree, node => node.type === 'AnswerForm').props.inputCount, question.inputs)
+})
+
+test('finish question sends one answer per field and completes only on success', async () => {
+    const states = []
+    const inputRefs = { current: [] }
+    let answersState = {}
+    let cursor = 0
+    let updated
+    const completed = { finish: true, finish_question: null }
+    const { FinishQuestion } = load('src/components/game/FinishQuestion.js', {
+        react: {
+            useContext: () => ({ questId: 1, token: 'test-token' }),
+            useState: () => [answersState, value => { answersState = value }],
+        },
+        'react/jsx-runtime': jsxRuntime,
+        'react-native': { View: 'View', Text: 'Text', Keyboard: { dismiss() {} } },
+        '../../styles/mainStyle': styles,
+        '../../context/mainContext': { MainContext: {} },
+        './AnswerForm': { AnswerForm: 'AnswerForm' },
+        '../../scripts/http': { Http: { post: async (url, body, token) => {
+            assert.ok(url.endsWith('/games/checkFinishAnswer/1'))
+            assert.equal(token, 'test-token')
+            assert.equal(body.quest_answer.length, 2)
+            assert.equal(body.quest_answer[0], 'кот')
+            return { success: 1, data: body.quest_answer[1] === 'дом' ? completed : { errors: 1, inputResults: [1, 0] } }
+        } } },
+    })
+    const { AnswerForm } = load('src/components/game/AnswerForm.js', {
+        react: {
+            useRef: () => inputRefs,
+            useState: initial => {
+                const index = cursor++
+                if (!Object.hasOwn(states, index)) states[index] = initial
+                return [states[index], value => { states[index] = value }]
+            },
+        },
+        'react/jsx-runtime': jsxRuntime,
+        'react-native': { View: 'View', Text: 'Text', TextInput: 'Input', TouchableOpacity: 'Button' },
+        '../common/Loader': { Loader: 'Loader' },
+        '../../styles/mainStyle': { mainStyle: { textDisabled: { color: 'muted' }, inputError: 'incorrect', inputCorrect: 'correct' } },
+        '../../styles/gameStyle': styles,
+        '../../scripts/answerInput': load('src/scripts/answerInput.js'),
+    })
+    const render = () => {
+        cursor = 0
+        const tree = FinishQuestion({
+            question: { inputs: 2, text: 'Загадка', answers: [] },
+            setGame: value => { updated = value },
+        })
+        return AnswerForm(findElement(tree, node => node.type === 'AnswerForm').props)
+    }
+    const input = (tree, number) => findElement(tree, node => node.type === 'Input' && node.props.placeholder === `Слово ${number}`).props
+    const button = tree => findElement(tree, node => node.type === 'Button').props
+    input(render(), 1).onChangeText('кот неверно')
+    await button(render()).onPress()
+    const retry = render()
+    assert.equal(updated, undefined)
+    assert.equal(input(retry, 1).style[1], 'correct')
+    assert.equal(input(retry, 2).style[1], 'incorrect')
+    assert.equal(input(retry, 2).value, 'неверно')
+    assert.equal(input(retry, 1).placeholderTextColor, 'muted')
+    input(retry, 2).onChangeText('дом')
+    await button(render()).onPress()
+    assert.equal(updated, completed)
 })
 
 test('initial format selection still starts an excursion', async () => {

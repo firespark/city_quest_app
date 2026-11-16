@@ -40,11 +40,12 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame, keyboardEnable
         />
     )
 
-    if (game.finish && game.step == game.step_total) {
+    if ((game.finish || game.finish_question) && game.step == game.step_total) {
         template = <FinishTemplate
             title={game.quest_title}
             content={game.finish_content}
             game={game}
+            setGame={setGame}
             setModal={setModal}
             formatId={game.format_id}
         />
@@ -79,7 +80,7 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame, keyboardEnable
                     )}
                     */}
 
-                    {game.format_id == 1 && skipsEnabled && (
+                    {game.format_id == 1 && !game.finish_question && skipsEnabled && (
                         <Skips
                             skips={game.skips_number}
                             canBuy={optionEnabled(game.skips_purchase_enabled)}
@@ -88,7 +89,7 @@ export const GameTemplate = ({ game, setGame, setModal, nextGame, keyboardEnable
                             setGame={setGame}
                         />
                     )}
-                    {game.format_id == 1 && hintsEnabled && (
+                    {game.format_id == 1 && !game.finish_question && hintsEnabled && (
                         <Hints
                             hints={game.hints_number}
                             canBuy={optionEnabled(game.hints_purchase_enabled)}

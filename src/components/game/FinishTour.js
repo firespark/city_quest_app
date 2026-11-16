@@ -14,9 +14,11 @@ export const FinishTour = ({ text, game, setResetModalVisible }) => {
     return (
         <View style={gameStyle.playTemplateContainer}>
             
-            <View style={[mainStyle.card, mainStyle.container, mainStyle.mb15]}>
-                <Text style={[mainStyle.subtitle, mainStyle.textCenter]}>{text}</Text>
-            </View>
+            {text ? (
+                <View style={[mainStyle.card, mainStyle.container, mainStyle.mb15]}>
+                    <Text style={[mainStyle.subtitle, mainStyle.textCenter]}>{text}</Text>
+                </View>
+            ) : null}
 
             <View style={mainStyle.card}>
                 {game.sight_image ? (
